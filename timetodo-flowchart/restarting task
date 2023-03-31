@@ -1,19 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2023-03-31T08:33:35.174Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="Dsw1pZrL_Oi03dWrdXYu" version="21.1.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-31T09:37:30.172Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="6L3uKnC9Is92ljkrO3rL" version="21.1.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="979" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
+    <mxGraphModel dx="894" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="JE-WqOHVtJc0Lc676SRl-0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;strokeWidth=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JE-WqOHVtJc0Lc676SRl-6" target="JE-WqOHVtJc0Lc676SRl-2" edge="1">
+        <mxCell id="JE-WqOHVtJc0Lc676SRl-0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;strokeWidth=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JE-WqOHVtJc0Lc676SRl-6" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="450" y="110" as="sourcePoint" />
+            <mxPoint x="450" y="200" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="w9pZfkmHBuGD8QXioCo--1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JE-WqOHVtJc0Lc676SRl-2" target="w9pZfkmHBuGD8QXioCo--0" edge="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="JE-WqOHVtJc0Lc676SRl-2" value="task 선택" style="whiteSpace=wrap;html=1;fontSize=15;shadow=0;strokeWidth=1;spacing=6;spacingTop=-4;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="390" y="200" width="120" height="60" as="geometry" />
+        <mxCell id="w9pZfkmHBuGD8QXioCo--1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" target="w9pZfkmHBuGD8QXioCo--0" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="260" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="JE-WqOHVtJc0Lc676SRl-6" value="로그인" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="400" y="70" width="100" height="60" as="geometry" />
@@ -26,7 +26,7 @@
         <mxCell id="JE-WqOHVtJc0Lc676SRl-13" value="task 재개" style="shape=manualInput;whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="410" y="480" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="JE-WqOHVtJc0Lc676SRl-14" value="task 진행중 상태" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="JE-WqOHVtJc0Lc676SRl-14" value="task는 ing 상태" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="385" y="630" width="130" height="60" as="geometry" />
         </mxCell>
         <mxCell id="JE-WqOHVtJc0Lc676SRl-15" value="Task 재시작" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=30;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
@@ -44,11 +44,14 @@
         <mxCell id="w9pZfkmHBuGD8QXioCo--3" value="task를 재시작할 수 없음" style="whiteSpace=wrap;html=1;fontSize=15;shadow=0;strokeWidth=1;spacing=6;spacingTop=-4;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="80" y="340" width="170" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="45hL5d2NHlRfCAT4vfUv-2" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;fontSize=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="45hL5d2NHlRfCAT4vfUv-2" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="550" y="320" width="50" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="45hL5d2NHlRfCAT4vfUv-3" value="task 상태&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;font-size: 15px;&quot;&gt;- ing&lt;/b&gt; : task 진행중 = 일시정지 / 완료 가능 상태&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;- stand by&lt;/b&gt;&amp;nbsp;: task 대기 = 시작 가능 상태&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b style=&quot;font-size: 15px;&quot;&gt;- pause&lt;/b&gt; : task 일시정지 = 재개 가능 상태" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="45hL5d2NHlRfCAT4vfUv-3" value="task 상태&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;font-size: 15px;&quot;&gt;- ing&lt;/b&gt; : task 진행중 = 일시정지 / 완료 가능 상태&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;- stand by&lt;/b&gt;&amp;nbsp;: task 대기 = 시작 가능 상태&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b style=&quot;font-size: 15px;&quot;&gt;- pause&lt;/b&gt; : task 일시정지 = 재개 가능 상태" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="580" y="320" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="RMYrcM76waN2CXiWMpZf-0" value="task 선택" style="html=1;strokeWidth=1;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="400" y="200" width="100" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
