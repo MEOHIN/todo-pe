@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-31T10:15:49.572Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="9PCYydlBTc3ooMYAdcKB" version="21.1.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-31T10:19:38.052Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="HMoEkijvNmQnzqf_e3fO" version="21.1.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="894" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
       <root>
@@ -15,10 +15,10 @@
         <mxCell id="CRwnW1zka4EmC0mP-UUN-3" value="task 상세" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="400" y="100" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="CRwnW1zka4EmC0mP-UUN-7" target="jYTOOSuf8l-r6d2D7Fwx-1">
+        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="CRwnW1zka4EmC0mP-UUN-7" target="jYTOOSuf8l-r6d2D7Fwx-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="CRwnW1zka4EmC0mP-UUN-7" value="&lt;br style=&quot;font-size: 15px;&quot;&gt;- 예상되는 처리 시간 수정&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;div style=&quot;font-size: 15px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 15px;&quot;&gt;- 시작 시각 수정&lt;/span&gt;&lt;/div&gt;- 완료 시각 수정&lt;br style=&quot;font-size: 15px;&quot;&gt;- 일시정지 시각 수정" style="html=1;strokeWidth=1;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=15;align=left;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="CRwnW1zka4EmC0mP-UUN-7" value="&lt;br style=&quot;font-size: 15px;&quot;&gt;- 예상되는 처리 시간 입력&lt;br style=&quot;font-size: 15px;&quot;&gt;&lt;div style=&quot;font-size: 15px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 15px;&quot;&gt;- 시작 시각 입력&lt;/span&gt;&lt;/div&gt;- 완료 시각 입력&lt;br style=&quot;font-size: 15px;&quot;&gt;- 일시정지 시각 입력" style="html=1;strokeWidth=1;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=15;align=left;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="360" y="380" width="180" height="110" as="geometry" />
         </mxCell>
         <mxCell id="CRwnW1zka4EmC0mP-UUN-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" target="CRwnW1zka4EmC0mP-UUN-7" edge="1">
@@ -32,14 +32,26 @@
         <mxCell id="jYTOOSuf8l-r6d2D7Fwx-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="jYTOOSuf8l-r6d2D7Fwx-1" target="CRwnW1zka4EmC0mP-UUN-3">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="450" y="720" />
-              <mxPoint x="600" y="720" />
+              <mxPoint x="450" y="880" />
+              <mxPoint x="600" y="880" />
               <mxPoint x="600" y="130" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="jYTOOSuf8l-r6d2D7Fwx-1" value="Task 이력 수정 완료" style="whiteSpace=wrap;html=1;fontSize=15;align=center;strokeWidth=1;rounded=1;arcSize=11;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="380" y="595" width="140" height="60" as="geometry" />
+          <mxGeometry x="380" y="760" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-6" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="jYTOOSuf8l-r6d2D7Fwx-4" target="jYTOOSuf8l-r6d2D7Fwx-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-9" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="jYTOOSuf8l-r6d2D7Fwx-4" target="jYTOOSuf8l-r6d2D7Fwx-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-4" value="변경된 내용이 있는가?" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;align=center;strokeWidth=1;rounded=1;arcSize=11;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="360" y="585" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="jYTOOSuf8l-r6d2D7Fwx-8" value="Task 이력 변동 없음" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;rounded=1;arcSize=11;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="110" y="595" width="140" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
