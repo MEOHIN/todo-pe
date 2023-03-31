@@ -1,19 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2023-03-24T08:18:10.181Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="-mUbteKlIPSEvgvEUI1Z" version="21.1.0" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-31T10:09:36.495Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="CU-YKFJ8sgv-SAuBiAqk" version="21.1.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2074" dy="1116" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
+    <mxGraphModel dx="894" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-0" value="&lt;span style=&quot;font-size: 30px;&quot;&gt;Task 상세&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=30;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-0" value="&lt;span style=&quot;font-size: 30px;&quot;&gt;Task 상세&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=30;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="45" y="50" width="160" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-1" target="2kBZ0qQFyJ1j215kt8x_-4">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-1" target="2kBZ0qQFyJ1j215kt8x_-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-1" value="홈" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-1" value="홈" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="390" y="100" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-7" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-4" target="2kBZ0qQFyJ1j215kt8x_-6">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-7" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-4" target="2kBZ0qQFyJ1j215kt8x_-6" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="300" y="270" />
@@ -21,36 +21,36 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-9" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-4" target="2kBZ0qQFyJ1j215kt8x_-8">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-9" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-4" target="2kBZ0qQFyJ1j215kt8x_-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-4" value="검색 키둬드 입력 여부" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-4" value="검색 키워드 입력 여부" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="350" y="230" width="180" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-6" target="2kBZ0qQFyJ1j215kt8x_-10">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-6" target="2kBZ0qQFyJ1j215kt8x_-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-6" value="키워드를 포함하는 task 목록" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-6" value="키워드를 포함하는 task 목록" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="210" y="330" width="140" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-8" target="2kBZ0qQFyJ1j215kt8x_-10">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-8" target="2kBZ0qQFyJ1j215kt8x_-10" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="680" y="480" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-8" value="전체 Task 목록" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-8" value="전체 Task 목록" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="540" y="330" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-10" target="2kBZ0qQFyJ1j215kt8x_-16">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="2kBZ0qQFyJ1j215kt8x_-10" target="2kBZ0qQFyJ1j215kt8x_-16" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-10" value="Task 선택" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-10" value="Task 선택" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="380" y="530" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-16" value="Task 상세" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-16" value="Task 상세" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="390" y="670" width="100" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="2kBZ0qQFyJ1j215kt8x_-18" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Task 상세 내용&lt;br&gt;&lt;/b&gt;- task 이름&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;font style=&quot;border-color: var(--border-color); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;- task 이력&lt;br style=&quot;border-color: var(--border-color); font-size: 15px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- 예상되는 task 처리 시간&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- 시작 시각&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;- 완료 시각&lt;br&gt;&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;fontSize=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="2kBZ0qQFyJ1j215kt8x_-18" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b&gt;Task 상세 내용&lt;br&gt;&lt;/b&gt;- task 이름&lt;/span&gt;&lt;br style=&quot;border-color: var(--border-color); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;font style=&quot;border-color: var(--border-color); color: rgb(0, 0, 0); font-family: Helvetica; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;- task 이력&lt;br style=&quot;border-color: var(--border-color); font-size: 15px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;    &lt;/span&gt;- 예상되는 task 처리 시간&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;    &lt;/span&gt;- 시작 시각&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;    &lt;/span&gt;- 완료 시각&lt;br&gt;&lt;/font&gt;" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="575" y="640" width="50" height="120" as="geometry" />
         </mxCell>
       </root>
