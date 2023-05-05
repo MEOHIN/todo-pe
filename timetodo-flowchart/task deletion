@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net" modified="2023-03-31T10:22:33.947Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="UqfE0h_pdvrOmqaF3xQS" version="21.1.2" type="github">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="894" dy="1138" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="rZwKF5fBSjo_3MO4VW1K-0" value="&lt;span style=&quot;font-size: 30px;&quot;&gt;Task 삭제&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=30;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="45" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rZwKF5fBSjo_3MO4VW1K-4" target="Ci2mUCnx8gEPR7SGyDPW-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rZwKF5fBSjo_3MO4VW1K-4" value="task 상세" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="200" y="100" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rZwKF5fBSjo_3MO4VW1K-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="rZwKF5fBSjo_3MO4VW1K-8" target="rZwKF5fBSjo_3MO4VW1K-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rZwKF5fBSjo_3MO4VW1K-8" value="Task 삭제" style="html=1;strokeWidth=1;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=15;align=center;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="195" y="400" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rZwKF5fBSjo_3MO4VW1K-15" value="홈" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="190" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-6" value="NO" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Ci2mUCnx8gEPR7SGyDPW-2" target="rZwKF5fBSjo_3MO4VW1K-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-8" value="YES" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=15;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="Ci2mUCnx8gEPR7SGyDPW-2" target="Ci2mUCnx8gEPR7SGyDPW-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-2" value="task 이력이 1개 이상인가?" style="rhombus;whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="80" y="230" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-7" value="Task를 삭제할 수 없음" style="whiteSpace=wrap;html=1;fontSize=15;strokeWidth=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="520" y="240" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-10" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;이력이 없는 경우만 삭제&lt;br&gt;모든 이력을 삭제한 후에 Task 삭제 가능&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="730" y="245" width="290" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ci2mUCnx8gEPR7SGyDPW-11" value="" style="strokeWidth=1;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="695" y="220" width="50" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
