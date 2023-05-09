@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
+@Entity // Hibernate에게 이 클래스에서 테이블을 만들도록 지시
 public class User {
 
     @Id
