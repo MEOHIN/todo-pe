@@ -10,6 +10,6 @@ public class MainController {
     @RequestMapping("/timetodo")
     @ResponseBody
     public String index() {
-        return "안녀하세요 TimeTODO에 오신것을 환영합니다.";
+        return "안녕하세요 TimeTODO에 오신것을 환영합니다.";
     }
 }
