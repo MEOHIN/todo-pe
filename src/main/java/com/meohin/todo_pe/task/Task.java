@@ -1,5 +1,6 @@
 package com.meohin.todo_pe.task;
 
+import com.meohin.todo_pe.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,4 +28,7 @@ public class Task {
     private LocalDateTime createdAt;
 
     private LocalDateTime modifiedAt;
+
+    @ManyToOne
+    private User user;
 }
