@@ -22,7 +22,6 @@ public class Task {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(unique = true)
     private Long estimatedAt;
 
     private LocalDateTime createdAt;

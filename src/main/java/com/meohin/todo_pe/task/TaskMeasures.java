@@ -12,13 +12,10 @@ public class TaskMeasures {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private LocalDateTime startTime;
 
-    @Column(unique = true)
     private LocalDateTime completeTime;
 
-    @Column(unique = true)
     private Duration elapsedTime;
 
     @ManyToOne
