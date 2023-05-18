@@ -1,5 +1,6 @@
-package com.meohin.todo_pe.task;
+package com.meohin.todo_pe.measure;
 
+import com.meohin.todo_pe.task.Task;
 import jakarta.persistence.*;
 
 import java.time.Duration;
