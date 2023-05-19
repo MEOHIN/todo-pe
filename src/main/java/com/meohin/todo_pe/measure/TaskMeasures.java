@@ -24,5 +24,6 @@ public class TaskMeasures {
     private Duration elapsedTime;
 
     @ManyToOne
+    @JoinColumn(unique = false)
     private Task task;
 }
