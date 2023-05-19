@@ -2,10 +2,14 @@ package com.meohin.todo_pe.measure;
 
 import com.meohin.todo_pe.task.Task;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 public class TaskMeasures {
 
