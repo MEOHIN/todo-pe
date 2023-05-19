@@ -1,6 +1,7 @@
 package com.meohin.todo_pe.measure;
 
 import com.meohin.todo_pe.task.Task;
+import com.meohin.todo_pe.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,7 @@ public class TaskMeasures {
     @ManyToOne
     @JoinColumn(unique = false)
     private Task task;
+
+    @ManyToOne
+    private User user;
 }
