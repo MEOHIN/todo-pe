@@ -1,5 +1,7 @@
 package com.meohin.todo_pe;
 
+import com.meohin.todo_pe.measure.TaskMeasures;
+import com.meohin.todo_pe.measure.TaskMeasuresRepository;
 import com.meohin.todo_pe.task.Task;
 import com.meohin.todo_pe.task.TaskRepository;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,9 @@ class TodoPeApplicationTests {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TaskMeasuresRepository taskMeasuresRepository;
 
     @Test
     void testJPA() {
@@ -39,5 +44,32 @@ class TodoPeApplicationTests {
         t1.setEstimatedAt(Duration.ofHours(10).plusMinutes(30).toMillis());
         t3.setCreatedAt(LocalDateTime.of(2023, 5, 4, 21, 5, 0));
         this.taskRepository.save(t3);
+
+
+        TaskMeasures tm1 = new TaskMeasures();   // TaskMeasures 엔티티 객체 생성
+        tm1.setStartTime(LocalDateTime.of(2023, 5, 2, 8, 0, 0));
+        tm1.setCompleteTime(LocalDateTime.of(2023, 5, 8, 9, 0, 0));
+        tm1.setElapsedTime(Duration.ofHours(9).ofMinutes(10));
+        tm1.setTask(t2);
+        this.taskMeasuresRepository.save(tm1);
+
+        TaskMeasures tm2 = new TaskMeasures();
+        tm2.setStartTime(LocalDateTime.of(2023, 5, 3, 8, 20, 0));
+        tm2.setElapsedTime(Duration.ofHours(7).ofMinutes(25));
+        tm2.setTask(t1);
+        this.taskMeasuresRepository.save(tm2);
+
+        TaskMeasures tm3 = new TaskMeasures();
+        tm3.setStartTime(LocalDateTime.of(2023, 5, 9, 8, 30, 0));
+        tm3.setCompleteTime(LocalDateTime.of(2023, 5, 22, 9, 10, 0));
+        tm3.setElapsedTime(Duration.ofHours(10).ofMinutes(5));
+        tm3.setTask(t2);
+        this.taskMeasuresRepository.save(tm3);
+
+        TaskMeasures tm4 = new TaskMeasures();
+        tm4.setStartTime(LocalDateTime.of(2023, 5, 5, 7, 0, 0));
+        tm4.setElapsedTime(Duration.ofHours(3).ofMinutes(45));
+        tm4.setTask(t3);
+        this.taskMeasuresRepository.save(tm4);
     }
 }
