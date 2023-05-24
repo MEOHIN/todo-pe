@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TaskController {
 
+    private final TaskRepository taskRepository;    // TaskRepository를 사용하여 작업 목록을 조회할 수 있도록 한다.
+
     @RequestMapping("/task/list")
     public String list() {
         return "task_list";
