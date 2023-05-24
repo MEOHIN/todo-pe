@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Hello Template</h2>
+    <table> <!--테이블의 헤더 부분을 정의한다.-->
+        <thead> <!--테이블의 헤더 부분을 정의한다; 각 열(column)의 제목이 포함된다.-->
+            <tr>
+                <th>제목</th>
+                <th>목표 시간</th>
+                <th>상세 내용</th>
+            </tr>
+        </thead>    <!--테이블의 본문 부분을 정의한다; 실제 데이터가 행(row)의 형태로 표시된다.-->
+        <tbody>
+            <!--task 목록을 순회하면서 각 task에 대한 행을 생성한다.-->
+            <tr th:each="task: ${taskList}">    <!--컨트롤러에서 모델에 추가된 task 목록을 참조한다.--->
+                <td th:text="${task.subject}"></td> <!--task의 제목을 해당 행의 셀(cell)에 출력한다.-->
+                <td th:text="${task.estimatedAt}"></td> <!--task의 목표 시간을 해당 행의 셀(cell)에 출력한다.-->
+                <td th:text="${task.description}"></td> <!--task의 상세 내용을 해당 행의 셀(cell)에 출력한다.-->
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
