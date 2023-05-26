@@ -3,6 +3,7 @@ package com.meohin.todo_pe.task;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class TaskController {
         List<TaskDTO> taskDTOList = taskService.getTaskList();    // 모든 작업(Task)을 조회한다.
         model.addAttribute("taskList", taskDTOList);   // 조회된 작업 목록을 Model 객체에 추가한다.
         return "task_list";
+    }
+
+    @RequestMapping(value = "/task/detail/{id}")
+    public String detail(@PathVariable("id") Integer id, Model model) {
+        return "task_detail";
     }
 }
