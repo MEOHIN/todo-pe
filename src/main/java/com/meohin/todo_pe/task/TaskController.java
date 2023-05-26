@@ -24,7 +24,7 @@ public class TaskController {
     @RequestMapping(value = "/task/detail/{taskId}")
     public String detail(@PathVariable("taskId") Integer taskId, Model model) {
         TaskDTO taskDTO = taskService.getTaskById(taskId);
-        model.addAttribute("taskId", taskDTO);
+        model.addAttribute("task", taskDTO);
         return "task_detail";
     }
 }
