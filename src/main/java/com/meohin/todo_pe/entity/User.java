@@ -1,4 +1,4 @@
-package com.meohin.todo_pe.user;
+package com.meohin.todo_pe.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

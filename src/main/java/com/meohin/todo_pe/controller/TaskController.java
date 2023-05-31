@@ -1,5 +1,7 @@
-package com.meohin.todo_pe.task;
+package com.meohin.todo_pe.controller;
 
+import com.meohin.todo_pe.dao.TaskDTO;
+import com.meohin.todo_pe.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,4 +44,5 @@ public class TaskController {
         model.addAttribute("task", taskDTO);
         return "task_detail";
     }
+
 }

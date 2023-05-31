@@ -1,9 +1,9 @@
 package com.meohin.todo_pe;
 
-import com.meohin.todo_pe.measure.TaskMeasures;
-import com.meohin.todo_pe.measure.TaskMeasuresRepository;
-import com.meohin.todo_pe.task.Task;
-import com.meohin.todo_pe.task.TaskRepository;
+import com.meohin.todo_pe.entity.TaskMeasures;
+import com.meohin.todo_pe.repository.TaskMeasuresRepository;
+import com.meohin.todo_pe.entity.Task;
+import com.meohin.todo_pe.repository.TaskRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

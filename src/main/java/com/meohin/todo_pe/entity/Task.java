@@ -1,7 +1,5 @@
-package com.meohin.todo_pe.task;
+package com.meohin.todo_pe.entity;
 
-import com.meohin.todo_pe.measure.TaskMeasures;
-import com.meohin.todo_pe.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

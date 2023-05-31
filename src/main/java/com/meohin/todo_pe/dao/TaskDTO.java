@@ -1,4 +1,4 @@
-package com.meohin.todo_pe.task;
+package com.meohin.todo_pe.dao;
 
 import lombok.Getter;
 import lombok.Setter;
