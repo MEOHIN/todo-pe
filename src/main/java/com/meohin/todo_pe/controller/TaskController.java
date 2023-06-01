@@ -26,7 +26,7 @@ public class TaskController {
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.
      * @param model     Model 객체
-     * @return  Task 목록 템플릿
+     * @return  Task 목록
      */
     @RequestMapping("/list")
     public String list(Model model) {
@@ -39,7 +39,7 @@ public class TaskController {
      * 작업 상세 정보를 조회한다.
      * @param taskId    Task ID
      * @param model     Model 객체
-     * @return  Task 상세 템플릿
+     * @return  Task 상세
      */
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
