@@ -39,7 +39,7 @@ public class TaskController {
      * @return  Task 상세 템플릿
      */
     @RequestMapping(value = "/detail/{taskId}")
-    public String detail(@PathVariable("taskId") Integer taskId, Model model) {
+    public String detail(@PathVariable("taskId") Long taskId, Model model) {
         TaskDTO taskDTO = taskService.getTaskById(taskId);
         model.addAttribute("task", taskDTO);
         return "task_detail";

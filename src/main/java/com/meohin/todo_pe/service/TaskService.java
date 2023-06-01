@@ -20,7 +20,7 @@ public class TaskService {
         return taskList.stream().map(this::convertToDTO).collect(Collectors.toList());  // 변환된 TaskDTO 객체들은 리스트로 수집되어 반환
     }
 
-    public TaskDTO getTaskById(Integer taskId) {    // taskId를 받는다.
+    public TaskDTO getTaskById(Long taskId) {    // taskId를 받는다.
         Task task = taskRepository.findById(taskId).orElse(null);   // taskRepository를 사용하여 해당 taskID에 해당하는 Task를 조회
         if (task != null) {
             return convertToDTO(task);  // Task가 존재하면 convertToDTO()메서드를 사용해서 Tak를 TaskDTO로 변환 후 반환
@@ -38,3 +38,4 @@ public class TaskService {
         return taskDTO;
     }
 }
+
