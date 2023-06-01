@@ -48,4 +48,14 @@ public class TaskController {
         return "task_detail";
     }
 
+    /**
+     * 클라이언트로부터 받은 Task ID를 사용하여 TaskService의 시작 작업을 호출한다.
+     * @param taskId Task ID
+     * @return task 목록
+     */
+    @RequestMapping("/start/{taskId}")
+    public String startTask(@PathVariable("taskId") Long taskId) {
+        taskService.startTask(taskId);
+        return "redirect:/task/list";
+    }
 }
