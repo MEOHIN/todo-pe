@@ -13,12 +13,15 @@ import java.util.List;
 /**
  * Task 컨틀롤러 클래스다.
  */
-@RequiredArgsConstructor    // TaskController 객체가 생성될 때 TaskRepository가 주입되도록 한다.
+// TaskController 객체가 생성될 때 TaskRepository가 주입되도록 한다.
+@RequiredArgsConstructor
 @Controller
-@RequestMapping("/task")    // 프리픽스 지정
+// 프리픽스를 지정한다.
+@RequestMapping("/task")
 public class TaskController {
 
-    private final TaskService taskService;    // TaskRepository를 사용하여 작업 목록을 조회할 수 있도록 한다.
+    // TaskRepository를 사용하여 작업 목록을 조회할 수 있도록 한다.
+    private final TaskService taskService;
 
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.

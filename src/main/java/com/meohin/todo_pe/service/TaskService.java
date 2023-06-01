@@ -15,22 +15,41 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
+    /**
+     * 모든 Task를 조회하고 변환된 Task DTO 객체들을 리스트로 반환한다.
+     * @return Task DTO 리스트
+     */
     public List<TaskDTO> getTaskList() {
-        List<Task> taskList = taskRepository.findAll(); // 모든 작업(Task)을 조회
-        return taskList.stream().map(this::convertToDTO).collect(Collectors.toList());  // 변환된 TaskDTO 객체들은 리스트로 수집되어 반환
+        // 모든 Task를 조회한다.
+        List<Task> taskList = taskRepository.findAll();
+        // 변환된 TaskDTO 객체들은 리스트로 수집되어 반환한다.
+        return taskList.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public TaskDTO getTaskById(Long taskId) {    // taskId를 받는다.
-        Task task = taskRepository.findById(taskId).orElse(null);   // taskRepository를 사용하여 해당 taskID에 해당하는 Task를 조회
+    /**
+     * Task를 Task DTO로 변환후 반환한다.
+     * @param taskId Task ID
+     * @return Task DTO
+     */
+    public TaskDTO getTaskById(Long taskId) {
+        // taskRepository를 사용하여 해당 taskID에 해당하는 Task를 조회한다.
+        Task task = taskRepository.findById(taskId).orElse(null);
         if (task != null) {
-            return convertToDTO(task);  // Task가 존재하면 convertToDTO()메서드를 사용해서 Tak를 TaskDTO로 변환 후 반환
+            // Task가 존재하면 convertToDTO()메서드를 사용해서 Task를 TaskDTO로 변환 후 반환한다.
+            return convertToDTO(task);
         }
-        return null;    // Task가 존재하지 않는 경우(taskRepository.findById(taskId)가 null을 반환하는 경우)에는 null을 반환
+        // Task가 존재하지 않는 경우(taskRepository.findById(taskId)가 null을 반환하는 경우)에는 null을 반환한다.
+        return null;
     }
 
-    private TaskDTO convertToDTO(Task task) {   // Task 엔티티를 TaskDTO로 변환
+    /**
+     * Task 엔티티를 TaskDTO로 변환한다.
+     * @param task Task
+     * @return Task DTO
+     */
+    private TaskDTO convertToDTO(Task task) {
         TaskDTO taskDTO = new TaskDTO();
-        // Task 엔티티의 필드 값을 TaskDTO 객체에 설정하여 변환
+        // Task 엔티티의 필드 값을 TaskDTO 객체에 설정하여 변환한다.
         taskDTO.setId(task.getId());
         taskDTO.setSubject(task.getSubject());
         taskDTO.setDescription(task.getDescription());
