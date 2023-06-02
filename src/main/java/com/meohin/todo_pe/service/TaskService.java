@@ -7,6 +7,7 @@ import com.meohin.todo_pe.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,23 @@ public class TaskService {
 
             taskMeasuresService.addTaskMeasures(taskMeasures);
         }
+    }
+
+    /**
+     * 입력받은 Task 데이터를 저장한다.
+     * @param subject       Task 제목
+     * @param description   Task 내용
+     * @param estimatedAt   Task 예상 시간
+     */
+    public void createTask(String subject, String description, Long estimatedAt) {
+        Task task = new Task();
+
+        task.setCreatedAt(LocalDateTime.now());
+        task.setSubject(subject);
+        task.setDescription(description);
+        task.setEstimatedAt(estimatedAt);
+
+        taskRepository.save(task);
     }
 
     /**
