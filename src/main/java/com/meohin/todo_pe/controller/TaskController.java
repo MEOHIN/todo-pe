@@ -63,7 +63,8 @@ public class TaskController {
      * @return Task 목록
      */
     @PostMapping("/create")
-    public String createTask(@RequestParam String subject, @RequestParam String description) {
+    public String createTask(@RequestParam String subject, @RequestParam String description, @RequestParam Long estimatedAt) {
+        this.taskService.createTask(subject, description, estimatedAt);
         return "redirect:/task/list";
     }
 
