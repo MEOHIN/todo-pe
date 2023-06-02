@@ -15,12 +15,11 @@
         </thead>
         <tbody>
             <tr th:each="task: ${taskList}">
-                <td th:text="${task.subject}"></td>
+                <td>
+                    <a th:href="@{|/task/detail/${task.id}|}" th:text="${task.subject}"></a>
+                </td>
                 <td th:text="${task.estimatedAt}"></td>
                 <td th:text="${task.description}"></td>
-                <td>
-                    <a th:href="@{|/task/detail/${task.id}|}">상세 보기</a>
-                </td>
                 <td>
                     <a th:href="@{|/task/start/${task.id}|}">start</a>
                 </td>
