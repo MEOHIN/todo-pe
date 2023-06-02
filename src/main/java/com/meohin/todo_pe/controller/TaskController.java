@@ -63,8 +63,19 @@ public class TaskController {
      * @return Task 목록
      */
     @PostMapping("/create")
-    public String createTask(@RequestParam String subject, @RequestParam String description, @RequestParam Long estimatedAt) {
-        this.taskService.createTask(subject, description, estimatedAt);
+    public String createTask(@RequestParam String subject, @RequestParam String description, @RequestParam String estimatedAt) {
+
+        // 예상시간 파싱
+        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
+        int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+        long minutes = Long.parseLong(estimatedAt.substring(3, 5));
+        for(int i=0; i<hour; i++) {
+            minutes += 60;
+        }
+
+        // 태스크 추가 서비스 호출
+        this.taskService.createTask(subject, description, minutes);
+
         return "redirect:/task/list";
     }
 
