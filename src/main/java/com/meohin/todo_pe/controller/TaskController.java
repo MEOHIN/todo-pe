@@ -57,6 +57,17 @@ public class TaskController {
     }
 
     /**
+     * POST 방식으로 요청한 /task/create URL을 처리한다.
+     * @param subject       Task 제목
+     * @param description   Task 내용
+     * @return Task 목록
+     */
+    @PostMapping("/create")
+    public String createTask(@RequestParam String subject, @RequestParam String description) {
+        return "redirect:/task/list";
+    }
+
+    /**
      * 클라이언트로부터 받은 Task ID를 사용하여 TaskService의 시작 작업을 호출한다.
      * @param taskId Task ID
      * @return task 목록
