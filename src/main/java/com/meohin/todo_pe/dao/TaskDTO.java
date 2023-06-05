@@ -9,5 +9,5 @@ public class TaskDTO {
     private Long id;
     private String subject;
     private String description;
-    private Long estimatedAt;
+    private Integer estimatedAt;
 }

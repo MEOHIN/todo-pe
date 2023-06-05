@@ -66,7 +66,7 @@ public class TaskService {
      * @param description   Task 내용
      * @param estimatedAt   Task 예상 시간
      */
-    public void createTask(String subject, String description, Long estimatedAt) {
+    public void createTask(String subject, String description, Integer estimatedAt) {
         Task task = new Task();
 
         task.setCreatedAt(LocalDateTime.now());

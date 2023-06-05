@@ -68,7 +68,7 @@ public class TaskController {
         // 예상시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
         int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-        long minutes = Long.parseLong(estimatedAt.substring(3, 5));
+        int minutes = Integer.parseInt(estimatedAt.substring(3, 5));
         for(int i=0; i<hour; i++) {
             minutes += 60;
         }
