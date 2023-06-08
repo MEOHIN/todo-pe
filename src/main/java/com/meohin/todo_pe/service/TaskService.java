@@ -2,7 +2,6 @@ package com.meohin.todo_pe.service;
 
 import com.meohin.todo_pe.dao.TaskDTO;
 import com.meohin.todo_pe.entity.Task;
-import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,21 +42,6 @@ public class TaskService {
         }
         // Task가 존재하지 않는 경우(taskRepository.findById(taskId)가 null을 반환하는 경우)에는 null을 반환한다.
         return null;
-    }
-
-    /**
-     * Task ID 받아와서 해당 Task를 조회하고 TaskMeasures 객체를 생성하고 task_measures 테이블에 추가한다.
-     * @param taskId Task ID
-     */
-    public void startTask(Long taskId) {
-        Task task = taskRepository.findById(taskId).orElse(null);
-        if (task != null) {
-            TaskMeasures taskMeasures = new TaskMeasures();
-            // TaskMeasures에 필요한 정보 설정
-            taskMeasures.setTask(task);
-
-            taskMeasuresService.addTaskMeasures(taskMeasures);
-        }
     }
 
     /**
