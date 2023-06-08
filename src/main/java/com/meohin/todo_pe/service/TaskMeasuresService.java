@@ -34,4 +34,14 @@ public class TaskMeasuresService {
         // 추가 후 결과 전달
         taskMeasuresRepository.save(taskMeasures);
     }
+
+    public boolean addTaskMeasures(TaskMeasures taskMeasures) {
+        try {
+            taskMeasuresRepository.save(taskMeasures);
+            return true;
+        } catch(Exception e1) {
+            System.out.println("TaskMeasuresService:L18");
+            return false;
+        }
+    }
 }
