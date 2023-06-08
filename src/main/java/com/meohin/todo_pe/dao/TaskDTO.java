@@ -1,5 +1,6 @@
 package com.meohin.todo_pe.dao;
 
+import com.meohin.todo_pe.TaskStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +15,5 @@ public class TaskDTO {
     private Integer estimatedAt;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private TaskStatus taskStatus;
 }

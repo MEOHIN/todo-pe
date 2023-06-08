@@ -1,6 +1,5 @@
 package com.meohin.todo_pe.entity;
 
-import com.meohin.todo_pe.TaskStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,25 +20,6 @@ public class TaskMeasures {
     private LocalDateTime completeTime;
 
     private Integer elapsedTime;
-
-    private TaskStatus status;
-
-    public void start() {
-        if (status == TaskStatus.STANDBY || status == TaskStatus.PAUSE) {
-            status = TaskStatus.ING;
-        }
-    }
-
-    public void stop() {
-        if (status == TaskStatus.ING) {
-            status = TaskStatus.PAUSE;
-        }
-    }
-
-    public void reset() {
-        elapsedTime = 0;
-        status = TaskStatus.STANDBY;
-    }
 
     @ManyToOne
     @JoinColumn(unique = false)
