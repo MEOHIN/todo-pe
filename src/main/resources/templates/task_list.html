@@ -21,8 +21,14 @@
                 <td th:text="${task.estimatedAt}"></td>
                 <td th:text="${task.description}"></td>
                 <td>
-                    <form th:action="@{|/task/start/${task.id}|}" method="post">
+                    <form th:if="${task.status == 'STANDBY'}" th:action="@{|/task/start/${task.id}|}" method="post">
                         <input type="submit" value="시작">
+                    </form>
+                    <form th:if="${task.status == 'ING'}" th:action="@{|/task/pause/${task.id}|}" method="post">
+                        <input type="submit" value="일시정지">
+                    </form>
+                    <form th:if="${task.status == 'ING'}" th:action="@{|/task/complete/${task.id}|}" method="post">
+                        <input type="submit" value="완료">
                     </form>
                 </td>
             </tr>
