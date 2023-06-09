@@ -29,6 +29,8 @@ public class Task {
 
     private LocalDateTime modifiedAt;
 
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'STANDBY'")
     private TaskStatus status;
 
     @OneToMany(mappedBy = "task")
