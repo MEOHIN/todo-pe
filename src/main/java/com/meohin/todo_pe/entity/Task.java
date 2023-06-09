@@ -4,6 +4,7 @@ import com.meohin.todo_pe.TaskStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Task {
     private LocalDateTime modifiedAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'STANDBY'")
+    @ColumnDefault("'STANDBY'")
     private TaskStatus status;
 
     @OneToMany(mappedBy = "task")
