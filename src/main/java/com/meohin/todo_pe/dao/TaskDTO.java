@@ -15,5 +15,5 @@ public class TaskDTO {
     private Integer estimatedAt;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private TaskStatus taskStatus;
+    private TaskStatus status;
 }
