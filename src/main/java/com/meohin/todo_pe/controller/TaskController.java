@@ -1,6 +1,6 @@
 package com.meohin.todo_pe.controller;
 
-import com.meohin.todo_pe.dao.TaskDTO;
+import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -29,8 +29,8 @@ public class TaskController {
      */
     @RequestMapping("/list")
     public String list(Model model) {
-        List<TaskDTO> taskDTOList = taskService.getTaskList();
-        model.addAttribute("taskList", taskDTOList);
+        List<Task> taskList = taskService.getTaskList();
+        model.addAttribute("taskList", taskList);
         return "task_list";
     }
 
@@ -42,8 +42,8 @@ public class TaskController {
      */
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
-        TaskDTO taskDTO = taskService.getTaskById(taskId);
-        model.addAttribute("task", taskDTO);
+        Task task = taskService.getTaskById(taskId);
+        model.addAttribute("task", task);
         return "task_detail";
     }
 
