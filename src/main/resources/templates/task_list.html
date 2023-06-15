@@ -20,7 +20,7 @@
                 </td>
                 <td th:text="${task.estimatedAt}"></td>
                 <td th:text="${task.description}"></td>
-                <td th:switch="${task.status}">
+                <td th:switch="${#strings.toString(task.status)}">
                     <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="post">
                         <input type="submit" value="시작">
                     </form>
