@@ -1,6 +1,9 @@
 package com.meohin.todo_pe.controller;
 
+import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.Task;
+import com.meohin.todo_pe.entity.TaskMeasures;
+import com.meohin.todo_pe.service.TaskMeasuresService;
 import com.meohin.todo_pe.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,7 @@ public class TaskController {
 
     // TaskRepository를 사용하여 작업 목록을 조회할 수 있도록 한다.
     private final TaskService taskService;
+    private final TaskMeasuresService taskMeasuresService;
 
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.
@@ -80,13 +84,22 @@ public class TaskController {
     }
 
     // "/start/task id" URL Post 매핑
+    @PostMapping("/start/{taskId}")
     // 리턴 타입: String; 템플릿
     // 파라미터:
     //      모델 객체(뷰로 데이터 전달),
     //      경로 변수(task id) 매핑,
     //      요청 매개변수 매핑: TaskStatus, taskMeasures
-    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색한다.
-    // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성한다
-    //      : taskMeasures 서비스에 task 이력을 추가하는 메서드를 생성한다
-    // 반환: task 목록으로 리다이렉트
+    public String startTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam TaskStatus ING, @RequestParam TaskMeasures taskMeasures) {
+
+        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+        Task task = this.taskService.getTaskById(taskId);
+
+        // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
+        //      : taskMeasures 서비스에 task 이력을 추가하는 메서드를 생성
+        this.taskMeasuresService.addTaskMeasures(task, taskMeasures);
+
+        // 반환: task 목록으로 리다이렉트
+        return "redirect:/task/list";
+    }
 }
