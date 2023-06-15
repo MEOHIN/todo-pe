@@ -1,4 +1,4 @@
-package com.meohin.todo_pe;
+package com.meohin.todo_pe.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
