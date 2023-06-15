@@ -78,4 +78,15 @@ public class TaskController {
 
         return "redirect:/task/list";
     }
+
+    // "/start/task id" URL Post 매핑
+    // 리턴 타입: String; 템플릿
+    // 파라미터:
+    //      모델 객체(뷰로 데이터 전달),
+    //      경로 변수(task id) 매핑,
+    //      요청 매개변수 매핑: TaskStatus, taskMeasures
+    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색한다.
+    // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성한다
+    //      : taskMeasures 서비스에 task 이력을 추가하는 메서드를 생성한다
+    // 반환: task 목록으로 리다이렉트
 }
