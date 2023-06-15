@@ -95,6 +95,9 @@ public class TaskController {
         // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
 
+        // task 서비스의 메서드를 호출하고 task 상태를 standby에서 ing로 변환
+        this.taskService.convertTaskStatus(task);
+
         // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
         //      : taskMeasures 서비스에 task 이력을 추가하는 메서드를 생성
         this.taskMeasuresService.addTaskMeasures(task, taskMeasures);
