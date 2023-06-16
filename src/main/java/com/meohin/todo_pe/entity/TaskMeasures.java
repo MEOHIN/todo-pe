@@ -17,6 +17,10 @@ public class TaskMeasures {
 
     private LocalDateTime startTime;
 
+    private LocalDateTime pauseTime;
+
+    private LocalDateTime continueTime;
+
     private LocalDateTime completeTime;
 
     private Integer elapsedTime;
