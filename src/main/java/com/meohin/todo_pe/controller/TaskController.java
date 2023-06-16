@@ -149,4 +149,18 @@ public class TaskController {
         // 반환: task 목록으로 리다이렉트
         return "redirect:/task/list";
     }
+
+    // "/complete/task id" URL Post 매핑
+    // 리턴 타입: String; 템플릿
+    // 파라미터:
+    //      모델 객체(뷰로 데이터 전달),
+    //      경로 변수(task id) 매핑,
+    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+    // task 서비스의 메서드를 호출하고 task 상태를 ING에서 STANDBY로 변환
+    // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
+    //          : taskMeasures의 completeTime을 저장
+    //          : totalElapsedTime 저장
+    //            : elapsedPausedTime가 있으면 elapsedPausedTime과 elapsedCompletedTime의 합을 저장
+    //            : elapsedPausedTime가 없으면 totalElapsedTime에 startTime부터 completeTime까지 걸린 시간을 저장
+    // 반환: task 목록으로 리다이렉트
 }
