@@ -130,13 +130,23 @@ public class TaskController {
     }
 
     // "/continue/task id" URL Post 매핑
+    @PostMapping("/continue/{taskId}")
     // 리턴 타입: String; 템플릿
     // 파라미터:
     //      모델 객체(뷰로 데이터 전달),
     //      경로 변수(task id) 매핑,
-    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
-    // task 서비스의 메서드를 호출하고 task 상태를 pause에서 ing로 변환
-    // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-    //          : taskMeasures의 continueTime을 저장
-    // 반환: task 목록으로 리다이렉트
+    public String continueTask(Model model, @PathVariable("taskId") Long taskId) {
+        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+        Task task = this.taskService.getTaskById(taskId);
+
+        // task 서비스의 메서드를 호출하고 task 상태를 pause에서 ing로 변환
+        this.taskMeasuresService.convertTaskStatus();
+
+        // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
+        //          : taskMeasures의 continueTime을 저장
+        this.taskMeasuresService.saveTime();
+
+        // 반환: task 목록으로 리다이렉트
+        return "redirect:/task/list";
+    }
 }
