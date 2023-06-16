@@ -107,15 +107,27 @@ public class TaskController {
     }
 
     // "/pause/task id" URL Post 매핑
+    @PostMapping("/pause/{taskId}")
     // 리턴 타입: String; 템플릿
     // 파라미터:
     //      모델 객체(뷰로 데이터 전달),
     //      경로 변수(task id) 매핑
-    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
-    // task 서비스의 메서드를 호출하고 task 상태를 ing에서 pause로 변환
-    // 측정 시간 변수를 생성하고 taskMeasures의 elapsedTime을 할당
-    //      :taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-    //          : taskMeasures의 elapsedTime 저장
-    //          : taskMeaaures의 startTime reset
-    // 반환: task 목록으로 리다이렉트
+    public String pauseTask(Model model, @PathVariable("taskId") Long taskId) {
+        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+        Task task = this.taskService.getTaskById(taskId);
+
+        // task 서비스의 메서드를 호출하고 task 상태를 ing에서 pause로 변환
+        this.taskService.convertTaskStatus();
+
+        // 측정 시간 변수를 생성하고 taskMeasures의 elapsedTime을 할당
+        //      :taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
+        //          : taskMeasures의 elapsedTime 저장
+        //          : taskMeaaures의 startTime reset
+        this.taskMeasuresService.saveTime();
+
+        // 반환: task 목록으로 리다이렉트
+        return "redirect:/task/list";
+    }
+
+
 }
