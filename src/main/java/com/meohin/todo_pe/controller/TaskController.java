@@ -121,8 +121,8 @@ public class TaskController {
 
         // 측정 시간 변수를 생성하고 taskMeasures의 elapsedTime을 할당
         //      :taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-        //          : taskMeasures의 elapsedTime 저장
-        //          : taskMeaaures의 startTime reset
+        //          : taskMeasures의 pauseTime을 저장
+        //          : taskMeasures의 elapsedPausedTime을 저장
         this.taskMeasuresService.saveTime();
 
         // 반환: task 목록으로 리다이렉트
