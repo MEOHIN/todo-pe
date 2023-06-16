@@ -23,7 +23,11 @@ public class TaskMeasures {
 
     private LocalDateTime completeTime;
 
-    private Integer elapsedTime;
+    private Integer elapsedPausedTime;
+
+    private Integer elapsedCompletedTime;
+
+    private Integer totalElapsedTime;
 
     @ManyToOne
     @JoinColumn(unique = false)
