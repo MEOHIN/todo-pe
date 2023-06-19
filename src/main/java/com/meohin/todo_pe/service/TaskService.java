@@ -1,5 +1,6 @@
 package com.meohin.todo_pe.service;
 
+import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,14 +53,20 @@ public class TaskService {
 
     // 리턴 타입: void
     // 파라미터: task 객체, 설정하려는 status
-    // Task 객체 생성
-    //      조건문
-    //          설정하려는 status가 ing 면
-    //              ing 로 세팅
-    //          설정하려는 status가 standby 면
-    //              standby로 세팅
-    //          설정하려는 status가 pause 면
-    //              pause 로 세팅
-    //      세팅 저장
+    public void convertTaskStatus(Task task, TaskStatus setStatus) {
+        //      조건문
+        if (setStatus == TaskStatus.ING) {
+            // ing 면 ing 로 세팅
+            task.setStatus(TaskStatus.ING);
+        } else if (setStatus == TaskStatus.STANDBY) {
+            // standby 면 standby로 세팅
+            task.setStatus(TaskStatus.STANDBY);
+        } else if (setStatus == TaskStatus.PAUSE) {
+            // pause 면 pause 로 세팅
+            task.setStatus(TaskStatus.PAUSE);
+        }
+        // 세팅 저장
+        taskRepository.save(task);
+    }
 }
 
