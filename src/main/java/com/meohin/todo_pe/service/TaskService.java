@@ -50,5 +50,14 @@ public class TaskService {
 
         taskRepository.save(task);
     }
+
+    // 리턴 타입: void
+    // 파라미터: status
+    // Task 객체 생성
+    //      조건문
+    //          ing 면 ing 로 세팅
+    //          standby 면 standby로 세팅
+    //          pause 면 pause 로 세팅
+    //      세팅 저장
 }
 
