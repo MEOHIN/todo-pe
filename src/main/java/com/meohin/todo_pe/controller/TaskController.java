@@ -28,8 +28,8 @@ public class TaskController {
 
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.
-     * @param model     Model 객체
-     * @return  Task 목록
+     * @param model Model 객체
+     * @return Task 목록
      */
     @RequestMapping("/list")
     public String list(Model model) {
@@ -40,9 +40,9 @@ public class TaskController {
 
     /**
      * 작업 상세 정보를 조회한다.
-     * @param taskId    Task ID
-     * @param model     Model 객체
-     * @return  Task 상세
+     * @param taskId Task ID
+     * @param model  Model 객체
+     * @return Task 상세
      */
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
@@ -62,8 +62,8 @@ public class TaskController {
 
     /**
      * POST 방식으로 요청한 /task/create URL을 처리한다.
-     * @param subject       Task 제목
-     * @param description   Task 내용
+     * @param subject     Task 제목
+     * @param description Task 내용
      * @return Task 목록
      */
     @PostMapping("/create")
@@ -83,94 +83,43 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
-    // "/start/task id" URL Post 매핑
+    /**
+     * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
+     *
+     * @param model  모델 객체
+     * @param taskId Task id
+     * @return Task 목록 페이지 리다이렉트
+     */
     @PostMapping("/start/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      모델 객체(뷰로 데이터 전달),
-    //      경로 변수(task id) 매핑,
-    //      요청 매개변수 매핑: TaskStatus, taskMeasures
-    public String startTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam TaskStatus ING, @RequestParam TaskMeasures taskMeasures) {
+    public String startTask(Model model, @PathVariable("taskId") Long taskId) {
 
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-
-        // task 서비스의 메서드를 호출하고 task 상태를 standby에서 ing로 변환
-        this.taskService.convertTaskStatus(task);
-
-        // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-        //      : taskMeasures 서비스에 task 이력을 추가하는 메서드를 생성
-        this.taskMeasuresService.addTaskMeasures(task, taskMeasures);
-
-        // 반환: task 목록으로 리다이렉트
+        this.taskService.convertTaskStatus();
+        this.taskMeasuresService.addTaskMeasures(task);
         return "redirect:/task/list";
     }
 
-    // "/pause/task id" URL Post 매핑
     @PostMapping("/pause/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      모델 객체(뷰로 데이터 전달),
-    //      경로 변수(task id) 매핑
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId) {
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-
-        // task 서비스의 메서드를 호출하고 task 상태를 ing에서 pause로 변환
         this.taskService.convertTaskStatus();
-
-        // 측정 시간 변수를 생성하고 taskMeasures의 elapsedTime을 할당
-        //      :taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-        //          : taskMeasures의 pauseTime을 저장
-        //          : taskMeasures의 elapsedPausedTime을 저장
         this.taskMeasuresService.saveTime();
-
-        // 반환: task 목록으로 리다이렉트
         return "redirect:/task/list";
     }
 
-    // "/continue/task id" URL Post 매핑
     @PostMapping("/continue/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      모델 객체(뷰로 데이터 전달),
-    //      경로 변수(task id) 매핑,
     public String continueTask(Model model, @PathVariable("taskId") Long taskId) {
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-
-        // task 서비스의 메서드를 호출하고 task 상태를 pause에서 ing로 변환
         this.taskService.convertTaskStatus();
-
-        // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-        //          : taskMeasures의 continueTime을 저장
         this.taskMeasuresService.saveTime();
-
-        // 반환: task 목록으로 리다이렉트
         return "redirect:/task/list";
     }
 
-    // "/complete/task id" URL Post 매핑
     @PostMapping("/complete/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      모델 객체(뷰로 데이터 전달),
-    //      경로 변수(task id) 매핑,
     public String completeTask(Model model, @PathVariable("taskId") Long taskId) {
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-
-        // task 서비스의 메서드를 호출하고 task 상태를 ING에서 STANDBY로 변환
         this.taskService.convertTaskStatus();
-
-        // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
-        //          : taskMeasures의 completeTime을 저장
-        //          : totalElapsedTime 저장
-        //            : elapsedPausedTime가 있으면 elapsedPausedTime과 elapsedCompletedTime의 합을 저장
-        //            : elapsedPausedTime가 없으면 totalElapsedTime에 startTime부터 completeTime까지 걸린 시간을 저장
         this.taskMeasuresService.saveTime();
-
-        // 반환: task 목록으로 리다이렉트
         return "redirect:/task/list";
     }
 }
