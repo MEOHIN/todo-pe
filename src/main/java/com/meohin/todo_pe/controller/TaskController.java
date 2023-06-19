@@ -94,7 +94,7 @@ public class TaskController {
 
         Task task = this.taskService.getTaskById(taskId);
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
-        this.taskService.convertTaskStatus(TaskStatus.ING);
+        this.taskService.convertTaskStatus(task, TaskStatus.ING);
         this.taskMeasuresService.addTaskMeasures(task);
         return "redirect:/task/list";
     }
@@ -103,7 +103,7 @@ public class TaskController {
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
-        this.taskService.convertTaskStatus(TaskStatus.PAUSE);
+        this.taskService.convertTaskStatus(task, TaskStatus.PAUSE);
         this.taskMeasuresService.saveTime();
         return "redirect:/task/list";
     }
@@ -112,7 +112,7 @@ public class TaskController {
     public String continueTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
-        this.taskService.convertTaskStatus(TaskStatus.ING);
+        this.taskService.convertTaskStatus(task, TaskStatus.ING);
         this.taskMeasuresService.saveTime();
         return "redirect:/task/list";
     }
@@ -121,7 +121,7 @@ public class TaskController {
     public String completeTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
-        this.taskService.convertTaskStatus(TaskStatus.STANDBY);
+        this.taskService.convertTaskStatus(task, TaskStatus.STANDBY);
         this.taskMeasuresService.saveTime();
         return "redirect:/task/list";
     }
