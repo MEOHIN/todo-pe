@@ -140,7 +140,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
 
         // task 서비스의 메서드를 호출하고 task 상태를 pause에서 ing로 변환
-        this.taskMeasuresService.convertTaskStatus();
+        this.taskService.convertTaskStatus();
 
         // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
         //          : taskMeasures의 continueTime을 저장
@@ -161,7 +161,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
 
         // task 서비스의 메서드를 호출하고 task 상태를 ING에서 STANDBY로 변환
-        this.taskMeasuresService.convertTaskStatus();
+        this.taskService.convertTaskStatus();
 
         // taskMeasures 서비스의 메서드를 호출하고 taskMeasures 객체를 생성
         //          : taskMeasures의 completeTime을 저장
