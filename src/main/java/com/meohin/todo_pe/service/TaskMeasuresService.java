@@ -14,17 +14,16 @@ public class TaskMeasuresService {
 
     private final TaskMeasuresRepository taskMeasuresRepository;
 
-    // 리턴 타입: void
-    // 파라미터: task 객체
+    /**
+     * Task 이력을 저장한다.
+     * @param task Task
+     */
     public void addTaskMeasures(Task task) {
-        // TaskMeasures 객체를 생성
         TaskMeasures taskMeasures = new TaskMeasures();
 
-        // task 이력 설정
         taskMeasures.setTask(task);
         taskMeasures.setStartTime(LocalDateTime.now());
 
-        // task 이력 저장
         taskMeasuresRepository.save(taskMeasures);
     }
 
