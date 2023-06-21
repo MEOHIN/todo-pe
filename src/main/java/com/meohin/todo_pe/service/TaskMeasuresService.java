@@ -38,9 +38,7 @@ public class TaskMeasuresService {
 
     // saveTime 메서드
     // 리턴 타입: void
-    // 파라미터: Task, 설정하려는 시각
-    // Task TaskMeasures 객체를 생성
-    //  : taskMeasures 서비스를 사용해서 task id에 해당하면서 completeTime이 null인 TaskMeaures 객체 검색
+    // 파라미터: TaskMeasures, 설정하려는 시각 상태
     // 조건문
     //  설정하려는 시각이 pause 시각이면
     //      pauseTime 설정
