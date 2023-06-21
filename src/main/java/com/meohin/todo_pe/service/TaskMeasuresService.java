@@ -54,8 +54,6 @@ public class TaskMeasuresService {
         //  설정하려는 시각이 complete 시각면 completeTime 설정
         else if (timeStatusToSet == TaskStatus.STANDBY) {
             taskMeasures.setCompleteTime(LocalDateTime.now());
-            //      조건에 따라 totalElapsedTime 설정하는 메서드 호출
-            calculateTime(taskMeasures);
         }
 
         // 설정 저장
