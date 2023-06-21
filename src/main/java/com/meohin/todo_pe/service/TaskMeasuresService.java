@@ -7,6 +7,7 @@ import com.meohin.todo_pe.repository.TaskMeasuresRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -64,13 +65,44 @@ public class TaskMeasuresService {
     // 시간을 계산하는 메서드
     // 리턴 타입: void
     // 파라미터: TaskMeasures
-    // elapsedPausedTime 설정
-    //  : startTime 과 pauseTime 사이의 시간 간격을 계산
-    // elapsedCompletedTime 설정
-    //  : continueTime 과 completeTime 사이의 시간 간격을 계산
-    // totalElapsedTime 설정
-    // 조건문
-    //  continueTime 이 없으면 startTime 과 completeTime 사이의 시간 간격을 계산
-    //  continueTime 이 있으면 elapsedPausedTime 과 elapsedCompletedTime 의 합을 계산
-    // 설정 저장
+    public void calculateTime(TaskMeasures taskMeasures, TaskStatus taskStatus) {
+        // 일시정지 버튼일 때
+        if (taskStatus == TaskStatus.PAUSE) {
+            // elapsedPausedTime 설정
+            //  : startTime 과 pauseTime 사이의 시간 간격을 계산
+            if (taskMeasures.getContinueTime() == null) {
+                Duration elapsedPausedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getPauseTime());
+                int elapsedPausedTime = (int) elapsedPausedDuration.toSeconds();
+                taskMeasures.setElapsedPausedTime(elapsedPausedTime);
+            } else {
+                Duration elapsedPausedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getPauseTime());
+                int elapsedPausedTimeFromContinue = (int) elapsedPausedDuration.toSeconds();
+                taskMeasures.setElapsedPausedTime(taskMeasures.getElapsedPausedTime() + elapsedPausedTimeFromContinue);
+            }
+        }
+
+        // 완료 버튼일 때
+        else if (taskStatus == TaskStatus.STANDBY) {
+            // elapsedCompletedTime 설정
+            //  : continueTime 과 completeTime 사이의 시간 간격을 계산
+            Duration elapsedCompletedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getCompleteTime());
+            int elapsedCompletedTime = (int) elapsedCompletedDuration.toSeconds();
+            taskMeasures.setElapsedCompletedTime(elapsedCompletedTime);
+
+            // totalElapsedTime 설정
+            // 조건문
+            //  continueTime 이 없으면 startTime 과 completeTime 사이의 시간 간격을 계산
+            if (taskMeasures.getContinueTime() == null) {
+                Duration totalElapsedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getCompleteTime());
+                int totalElapsedTime = (int) totalElapsedDuration.toSeconds();
+                taskMeasures.setTotalElapsedTime(totalElapsedTime);
+            }
+            //  continueTime 이 있으면 elapsedPausedTime 과 elapsedCompletedTime 의 합을 계산
+            else {
+                taskMeasures.setTotalElapsedTime(taskMeasures.getElapsedPausedTime() + elapsedCompletedTime);
+            }
+        }
+        // 설정 저장
+        taskMeasuresRepository.save(taskMeasures);
+    }
 }
