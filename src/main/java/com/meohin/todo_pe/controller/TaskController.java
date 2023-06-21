@@ -2,6 +2,7 @@ package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.Task;
+import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.service.TaskMeasuresService;
 import com.meohin.todo_pe.service.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -102,6 +103,7 @@ public class TaskController {
     @PostMapping("/pause/{taskId}")
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.PAUSE);
         this.taskMeasuresService.saveTime();
@@ -111,6 +113,7 @@ public class TaskController {
     @PostMapping("/continue/{taskId}")
     public String continueTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
         this.taskMeasuresService.saveTime();
@@ -120,6 +123,7 @@ public class TaskController {
     @PostMapping("/complete/{taskId}")
     public String completeTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.STANDBY);
         this.taskMeasuresService.saveTime();
