@@ -106,7 +106,8 @@ public class TaskController {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.PAUSE);
-        this.taskMeasuresService.saveTime();
+        this.taskMeasuresService.saveTime(taskMeasures, TaskStatus.PAUSE);
+        this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.PAUSE);
         return "redirect:/task/list";
     }
 
@@ -116,7 +117,7 @@ public class TaskController {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
-        this.taskMeasuresService.saveTime();
+        this.taskMeasuresService.saveTime(taskMeasures, TaskStatus.ING);
         return "redirect:/task/list";
     }
 
@@ -126,7 +127,8 @@ public class TaskController {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.STANDBY);
-        this.taskMeasuresService.saveTime();
+        this.taskMeasuresService.saveTime(taskMeasures, TaskStatus.STANDBY);
+        this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.STANDBY);
         return "redirect:/task/list";
     }
 }
