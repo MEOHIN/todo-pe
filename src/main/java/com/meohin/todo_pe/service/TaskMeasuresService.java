@@ -38,25 +38,22 @@ public class TaskMeasuresService {
         taskMeasuresRepository.save(taskMeasures);
     }
 
-    // saveTime 메서드
-    // 리턴 타입: void
-    // 파라미터: TaskMeasures, 설정하려는 시각 상태
+    /**
+     * Task의 상태 전환 시각을 저장한다.
+     * @param taskMeasures      TaskMeasures
+     * @param timeStatusToSet   저장하려는 시각의 Task 상태
+     */
     public void saveTime(TaskMeasures taskMeasures, TaskStatus timeStatusToSet) {
-        // 조건문
-        //  설정하려는 시각이 pause 시각이면 pauseTime 설정
+
         if (timeStatusToSet == TaskStatus.PAUSE) {
             taskMeasures.setPauseTime(LocalDateTime.now());
         }
-        //  설정하려는 시각이 continue 시각이면 continueTime 설정
         else if (timeStatusToSet == TaskStatus.ING) {
             taskMeasures.setContinueTime(LocalDateTime.now());
         }
-        //  설정하려는 시각이 complete 시각면 completeTime 설정
         else if (timeStatusToSet == TaskStatus.STANDBY) {
             taskMeasures.setCompleteTime(LocalDateTime.now());
         }
-
-        // 설정 저장
         taskMeasuresRepository.save(taskMeasures);
     }
 
