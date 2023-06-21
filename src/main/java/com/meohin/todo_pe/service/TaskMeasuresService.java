@@ -61,5 +61,16 @@ public class TaskMeasuresService {
         taskMeasuresRepository.save(taskMeasures);
     }
 
-    // 조건에 따라 totalElapsedTime 을 계사하는 메서드 구현
+    // 시간을 계산하는 메서드
+    // 리턴 타입: void
+    // 파라미터: TaskMeasures
+    // elapsedPausedTime 설정
+    //  : startTime 과 pauseTime 사이의 시간 간격을 계산
+    // elapsedCompletedTime 설정
+    //  : continueTime 과 completeTime 사이의 시간 간격을 계산
+    // totalElapsedTime 설정
+    // 조건문
+    //  continueTime 이 없으면 startTime 과 completeTime 사이의 시간 간격을 계산
+    //  continueTime 이 있으면 elapsedPausedTime 과 elapsedCompletedTime 의 합을 계산
+    // 설정 저장
 }
