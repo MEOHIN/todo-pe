@@ -40,22 +40,12 @@ public class TaskMeasuresService {
     // 리턴 타입: void
     // 파라미터: TaskMeasures, 설정하려는 시각 상태
     // 조건문
-    //  설정하려는 시각이 pause 시각이면
-    //      pauseTime 설정
-    //      elapsedPausedTime 설정
-    //  설정하려는 시각이 continue 시각이면
-    //      continueTime 설정
-    //  설정하려는 시각이 complete 시각면
-    //      조건문
-    //          continueTime 이 있으면
-    //              completeTime 설정
-    //              elapsedCompletedTime 설정
-    //                  : continueTime부터 completeTime까지
-    //              totalElapsedTime 설정
-    //                  : elapsedPausedTime + elapsedCompletedTime
-    //          continueTime이 없으면
-    //              completeTime 설정
-    //              totalElapsedTime 설정
-    //                  : startTime부터 completeTime까지
-    //  세팅 저장
+    //  설정하려는 시각이 pause 시각이면 pauseTime 설정
+    //  설정하려는 시각이 continue 시각이면 continueTime 설정
+    //  설정하려는 시각이 complete 시각면 completeTime 설정
+    //      조건에 따라 totalElapsedTime 설정하는 메서드 호출
+    // 설정 저장
+
+
+    // 조건에 따라 totalElapsedTime 을 계사하는 메서드 구현
 }
