@@ -1,5 +1,6 @@
 package com.meohin.todo_pe.service;
 
+import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.repository.TaskMeasuresRepository;
@@ -39,13 +40,26 @@ public class TaskMeasuresService {
     // saveTime 메서드
     // 리턴 타입: void
     // 파라미터: TaskMeasures, 설정하려는 시각 상태
-    // 조건문
-    //  설정하려는 시각이 pause 시각이면 pauseTime 설정
-    //  설정하려는 시각이 continue 시각이면 continueTime 설정
-    //  설정하려는 시각이 complete 시각면 completeTime 설정
-    //      조건에 따라 totalElapsedTime 설정하는 메서드 호출
-    // 설정 저장
+    public void saveTime(TaskMeasures taskMeasures, TaskStatus timeStatusToSet) {
+        // 조건문
+        //  설정하려는 시각이 pause 시각이면 pauseTime 설정
+        if (timeStatusToSet == TaskStatus.PAUSE) {
+            taskMeasures.setPauseTime(LocalDateTime.now());
+        }
+        //  설정하려는 시각이 continue 시각이면 continueTime 설정
+        else if (timeStatusToSet == TaskStatus.ING) {
+            taskMeasures.setContinueTime(LocalDateTime.now());
+        }
+        //  설정하려는 시각이 complete 시각면 completeTime 설정
+        else if (timeStatusToSet == TaskStatus.STANDBY) {
+            taskMeasures.setCompleteTime(LocalDateTime.now());
+            //      조건에 따라 totalElapsedTime 설정하는 메서드 호출
+            calculateTime(taskMeasures);
+        }
 
+        // 설정 저장
+        taskMeasuresRepository.save(taskMeasures);
+    }
 
     // 조건에 따라 totalElapsedTime 을 계사하는 메서드 구현
 }
