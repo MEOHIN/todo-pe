@@ -22,7 +22,7 @@ public class TaskMeasuresService {
      * @return  조회한 TaskMeasures
      */
     public TaskMeasures getTaskMeasuresByCompleteTimeNull(Long taskId) {
-        return taskMeasuresRepository.findByTaskIdAndCompleteTimeNull(taskId, null);
+        return taskMeasuresRepository.findByTaskIdAndCompleteTimeNull(taskId);
     }
 
     /**
