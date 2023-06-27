@@ -75,16 +75,16 @@ public class TaskMeasuresService {
             }
         }
         else if (taskStatus == TaskStatus.STANDBY) {
-            Duration elapsedCompletedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getCompleteTime());
-            int elapsedCompletedTime = (int) elapsedCompletedDuration.toSeconds();
-            taskMeasures.setElapsedCompletedTime(elapsedCompletedTime);
-
             if (taskMeasures.getContinueTime() == null) {
                 Duration totalElapsedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getCompleteTime());
                 int totalElapsedTime = (int) totalElapsedDuration.toSeconds();
                 taskMeasures.setTotalElapsedTime(totalElapsedTime);
             }
             else {
+                Duration elapsedCompletedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getCompleteTime());
+                int elapsedCompletedTime = (int) elapsedCompletedDuration.toSeconds();
+                taskMeasures.setElapsedCompletedTime(elapsedCompletedTime);
+
                 taskMeasures.setTotalElapsedTime(taskMeasures.getElapsedPausedTime() + elapsedCompletedTime);
             }
         }
