@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/task")
 public class TaskController {
 
-    // TaskRepository를 사용하여 작업 목록을 조회할 수 있도록 한다.
+    // TaskRepository를 사용하여 Task 목록을 조회할 수 있도록 한다.
     private final TaskService taskService;
     private final TaskMeasuresService taskMeasuresService;
 
@@ -39,7 +39,7 @@ public class TaskController {
     }
 
     /**
-     * 작업 상세 정보를 조회한다.
+     * Task 상세 정보를 조회한다.
      * @param taskId Task ID
      * @param model  Model 객체
      * @return Task 상세
