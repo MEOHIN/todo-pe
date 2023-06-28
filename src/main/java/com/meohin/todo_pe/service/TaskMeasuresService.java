@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +24,15 @@ public class TaskMeasuresService {
      */
     public TaskMeasures getTaskMeasuresByCompleteTimeNull(Long taskId) {
         return taskMeasuresRepository.findByTaskIdAndCompleteTimeNull(taskId);
+    }
+
+    /**
+     * Task ID로 데이터를 조회
+     * @param taskId
+     * @return
+     */
+    public List<TaskMeasures> getTaskMeasureList(Long taskId) {
+        return taskMeasuresRepository.findByTaskId(taskId);
     }
 
     /**
