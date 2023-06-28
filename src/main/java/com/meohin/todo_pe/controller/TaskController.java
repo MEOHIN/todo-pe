@@ -47,6 +47,8 @@ public class TaskController {
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
         Task task = taskService.getTaskById(taskId);
+        // TaskMeasures 리스트를 조회한다.
+        List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
         model.addAttribute("task", task);
         return "task_detail";
     }
