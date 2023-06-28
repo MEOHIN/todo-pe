@@ -5,7 +5,13 @@
 <div layout:fragment="content" class="rootContainer">
     <div class="mainContainer">
     <!-- 상단바: 뒤로가기 버튼, Task 제목, Task 제목 수정하기 버튼 -->
-
+    <header>
+        <button onclick="history.back()" >뒤로</button>
+        <span th:text="${task.subject}"></span>
+        <form th:action="@{/task/modify}" method="get">
+            <input type="submit" value="제목 수정">
+        </form>
+    </header>
 
     <!-- 통계 영역: 그래프 -->
 
