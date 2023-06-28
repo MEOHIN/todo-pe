@@ -17,7 +17,7 @@ public class TaskMeasuresService {
     private final TaskMeasuresRepository taskMeasuresRepository;
 
     /**
-     * 작업 ID 및 완료 시간으로 데이터를 조히
+     * Task ID 및 완료 시간으로 데이터를 조히
      * @param taskId  Task
      * @return  조회한 TaskMeasures
      */
