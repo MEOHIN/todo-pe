@@ -8,9 +8,8 @@
     <header>
         <button onclick="history.back()" >뒤로</button>
         <span th:text="${task.subject}"></span>
-        <form th:action="@{/task/modify}" method="get">
-            <input type="submit" value="제목 수정">
-        </form>
+        <!-- GET 방식으로 제목을 불러오고, POST 방식으로 제목을 수정 -->
+        <a th:href="@{|/task/modify/${task.id}|}" th:text="'수정'"></a>
     </header>
 
     <!-- 통계 영역: 그래프 -->
