@@ -17,6 +17,22 @@
 
 
     <!-- 태스크 이력: taskMeasures 목록 -->
+    <table>
+        <thead>
+            <tr>
+                <th>시작 시각</th>
+                <th>총 소요 시간</th>
+                <th>예상 처리 시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="taskMeasure: ${taskMeasureList}">
+                <td th:text="${taskMeasure.startTime}"></td>
+                <td th:text="${taskMeasure.totalElapsedTime}"></td>
+                <td th:text="${task.estimatedAt}"></td>
+            </tr>
+        </tbody>
+    </table>
     </div>
 </div>
 </html>
