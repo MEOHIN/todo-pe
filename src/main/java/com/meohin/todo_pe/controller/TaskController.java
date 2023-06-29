@@ -57,7 +57,7 @@ public class TaskController {
 
     /**
      * tast_form 템플릿을 렌더링하여 출력한다.
-     * @return Task 입력
+     * @return Task 입력 폼
      */
     @GetMapping("/create")
     public String createTask() {
