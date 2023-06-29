@@ -51,7 +51,7 @@ public class TaskController {
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
         model.addAttribute("task", task);
         // 모델 객체에 taskMeasuresList를 추가한다.
-        model.addAttribute("taskMeasuresList", taskMeasureList);
+        model.addAttribute("taskMeasureList", taskMeasureList);
         return "task_detail";
     }
 
