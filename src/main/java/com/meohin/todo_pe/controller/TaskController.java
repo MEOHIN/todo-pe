@@ -87,6 +87,15 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
+    // task/modify/{taskId}와 매핑된 GET 방식의 수정 메서드
+    // 리턴 타입: String; 템플릿
+    // 파라미터:
+    //      모델 객체
+    //      경로 변수(task id) 매핑
+    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+    // 모델 속성에 task.subject를 전달
+    // 반환: task subject modify 폼
+
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
      * @param taskId Task id
