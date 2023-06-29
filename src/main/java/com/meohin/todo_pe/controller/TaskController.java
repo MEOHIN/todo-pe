@@ -89,13 +89,11 @@ public class TaskController {
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
-     *
-     * @param model  모델 객체
      * @param taskId Task id
      * @return Task 목록 페이지 리다이렉트
      */
     @PostMapping("/start/{taskId}")
-    public String startTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String startTask(@PathVariable("taskId") Long taskId) {
 
         Task task = this.taskService.getTaskById(taskId);
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
@@ -105,7 +103,7 @@ public class TaskController {
     }
 
     @PostMapping("/pause/{taskId}")
-    public String pauseTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String pauseTask(@PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
@@ -116,7 +114,7 @@ public class TaskController {
     }
 
     @PostMapping("/continue/{taskId}")
-    public String continueTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String continueTask( @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
@@ -126,7 +124,7 @@ public class TaskController {
     }
 
     @PostMapping("/complete/{taskId}")
-    public String completeTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String completeTask(@PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
