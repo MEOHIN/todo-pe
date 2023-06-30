@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -108,12 +109,13 @@ public class TaskController {
      * @return  Task 목록
      */
     @PostMapping("modify/{taskId}")
-    public String modifyTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
+    public String modifyTask(Model model, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
         Task task = this.taskService.getTaskById(taskId);
         this.taskService.modifySubject(task, subject);
         model.addAttribute(task);
-        return "redirect:/task/list";
-
+        // 리다이렉트에 데이터를 전달한다.
+        redirectAttributes.addFlashAttribute(taskId);
+        return "redirect:/task/detail/{taskId}";
     }
 
     /**
