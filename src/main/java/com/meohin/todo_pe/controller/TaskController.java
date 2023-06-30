@@ -87,36 +87,31 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
-    // task/modify/{taskId}와 매핑된 GET 방식의 수정 페이지로 연결하는 메서드
+    /**
+     * Task 제목을 수정하는 페이지로 이동한다.
+     * @param model     모델 객체
+     * @param taskId    Task ID
+     * @return  Task 제목 수정 템플릿
+     */
     @GetMapping("/modify/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      모델 객체
-    //      경로 변수(task id) 매핑
     public String modifyTask(Model model, @PathVariable("taskId") Long taskId) {
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-        // 모델 속성에 task.subject를 전달
         model.addAttribute("task", task);
-        // 반환: task subject modify 폼
         return "subject_modify_form";
     }
 
-    // task/modify/{taskId}와 매핑된 POST 방식의 수정하는 메서드
+    /**
+     * Task 제목을 수정한다.
+     * @param model     모델 객체
+     * @param taskId    Task ID
+     * @param subject   입력받은 수정된 Task 제목
+     * @return  Task 목록
+     */
     @PostMapping("modify/{taskId}")
-    // 리턴 타입: String; 템플릿
-    // 파라미터:
-    //      경로 변수(task id) 매핑
     public String modifyTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
-        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
         Task task = this.taskService.getTaskById(taskId);
-        // task 서비스의 메서드를 호출하고 task 제목을 수정
-        //      : subject를 입력받은 값으로 설정한다.
-        //      : modifiedAt 값을 설정하다.
         this.taskService.modifySubject(task, subject);
-        // 모델 객체 속성에 task 추가
         model.addAttribute(task);
-        // 반환: Task 목록 redirect
         return "redirect:/task/list";
 
     }
