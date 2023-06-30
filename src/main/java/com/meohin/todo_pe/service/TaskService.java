@@ -50,11 +50,17 @@ public class TaskService {
 
         taskRepository.save(task);
     }
+
     // 리턴 타입: void
     // 파라미터: task 객체, 수정하려는 제목
-    // Task 제목 설정
-    // Task 수정 시각 설정
-    // 세팅 저장
+    public void modifySubject(Task task, String subject) {
+        // Task 제목 설정
+        task.setSubject(subject);
+        // Task 수정 시각 설정
+        task.setModifiedAt(LocalDateTime.now());
+        // 세팅 저장
+        taskRepository.save(task);
+    }
 
     /**
      * 입력받은 Status로 작업 상태를 변환한다.
