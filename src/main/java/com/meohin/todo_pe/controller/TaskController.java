@@ -103,14 +103,23 @@ public class TaskController {
     }
 
     // task/modify/{taskId}와 매핑된 POST 방식의 수정하는 메서드
+    @PostMapping("modify/{taskId}")
     // 리턴 타입: String; 템플릿
     // 파라미터:
     //      경로 변수(task id) 매핑
-    // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
-    // task 서비스의 메서드를 호출하고 task 제목을 수정
-    //      : subject를 입력받은 값으로 설정한다.
-    //      : modifiedAt 값을 설정하다.
-    // 반환: Task 목록 redirect
+    public String modifyTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
+        // task 서비스를 사용해서 task id에 해당하는 Task 객체를 검색
+        Task task = this.taskService.getTaskById(taskId);
+        // task 서비스의 메서드를 호출하고 task 제목을 수정
+        //      : subject를 입력받은 값으로 설정한다.
+        //      : modifiedAt 값을 설정하다.
+        this.taskService.modifySubject(task, subject);
+        // 모델 객체 속성에 task 추가
+        model.addAttribute(task);
+        // 반환: Task 목록 redirect
+        return "redirect:/task/list";
+
+    }
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
