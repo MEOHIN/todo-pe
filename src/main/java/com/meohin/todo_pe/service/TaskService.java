@@ -51,14 +51,14 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    // 리턴 타입: void
-    // 파라미터: task 객체, 수정하려는 제목
+    /**
+     * Task의 제목을 수정한다.
+     * @param task      Task
+     * @param subject   수정하려는 Task 제목
+     */
     public void modifySubject(Task task, String subject) {
-        // Task 제목 설정
         task.setSubject(subject);
-        // Task 수정 시각 설정
         task.setModifiedAt(LocalDateTime.now());
-        // 세팅 저장
         taskRepository.save(task);
     }
 
