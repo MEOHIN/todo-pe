@@ -133,10 +133,14 @@ public class TaskController {
      * @param taskMeasuresId    TaskMeasures ID
      * @return  TaskMeasures 수정 폼 템플릿
      */
-    @GetMapping("/measures/modify/{taskMeasuresId}")
-    public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
+    @GetMapping("/{taskId}/modifyMeasures/{taskMeasuresId}")
+    public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
+                                     @PathVariable("taskId") Long taskId,
+                                     @PathVariable("taskMeasuresId") Long taskMeasuresId) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        Task task = this.taskService.getTaskById(taskId);
         model.addAttribute(taskMeasures);
+        redirectAttributes.addFlashAttribute("task", task);
         return "measures_modify_form";
     }
 
