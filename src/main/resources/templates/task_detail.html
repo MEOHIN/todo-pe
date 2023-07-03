@@ -27,7 +27,7 @@
         <tbody>
             <tr th:each="taskMeasure: ${taskMeasureList}">
                 <td>
-                    <a th:href="@{|/task/measures/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
+                    <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
                 </td>
                 <td th:text="${taskMeasure.totalElapsedTime}"></td>
                 <td th:text="${task.estimatedAt}"></td>

@@ -135,7 +135,7 @@ public class TaskController {
      * @param taskMeasuresId    TaskMeasures ID
      * @return  TaskMeasures 수정 폼 템플릿
      */
-    @GetMapping("/modify/{taskMeasuresId}")
+    @GetMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         model.addAttribute(taskMeasures);
