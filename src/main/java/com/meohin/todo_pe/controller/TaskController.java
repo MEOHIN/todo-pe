@@ -47,16 +47,7 @@ public class TaskController {
      */
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
-        Task task = (Task) model.getAttribute("taskParam");
-
-        if(task == null) {
-            task = taskService.getTaskById(taskId); // null
-            System.out.println("call from db");
-        } else {
-            System.out.println("call from param - from redirect");
-        }
-
-        System.out.println(task == null);
+        Task task = taskService.getTaskById(taskId);
 
         // TaskMeasures 리스트를 조회한다.
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
@@ -123,10 +114,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
         this.taskService.modifySubject(task, subject);
         model.addAttribute(task);
-        // 리다이렉트에 데이터를 전달한다.
         redirectAttributes.addFlashAttribute(taskId);
-        // 객체를 리다이렉로 전달하는 방법
-        redirectAttributes.addFlashAttribute("taskParam", task);
         return "redirect:/task/detail/{taskId}";
     }
 
