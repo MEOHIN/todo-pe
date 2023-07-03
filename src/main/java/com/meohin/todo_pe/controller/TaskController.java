@@ -122,7 +122,6 @@ public class TaskController {
     public String modifyTask(Model model, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
         Task task = this.taskService.getTaskById(taskId);
         this.taskService.modifySubject(task, subject);
-        model.addAttribute(task);
         redirectAttributes.addFlashAttribute(taskId);
 
         // 리다이렉트 시에 데이터를 전달할 세션에 task 객체를 저장
