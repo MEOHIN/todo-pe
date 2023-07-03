@@ -18,6 +18,15 @@ public class TaskMeasuresService {
     private final TaskMeasuresRepository taskMeasuresRepository;
 
     /**
+     * 해당 taskMeasures ID에 해당하는 TaskMeasures 객체를 조회하고 반환한다.
+     * @param taskMeasuresId    taskMeasures ID
+     * @return  taskMeasures 객체
+     */
+    public TaskMeasures getTaskMeasuresById(Long taskMeasuresId) {
+        return taskMeasuresRepository.findById(taskMeasuresId).orElse(null);
+    }
+
+    /**
      * Task ID 및 완료 시간으로 데이터를 조히
      * @param taskId  Task
      * @return  조회한 TaskMeasures
