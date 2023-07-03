@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -145,6 +146,7 @@ public class TaskController {
     }
 
     // "/task/measures/modify/{taskMeasuresId}"와 매핑된 POST 요청을 처리하는 수정 메서드
+    @PostMapping("/measures/modify/{taskMeasuresId}")
     // 리턴 타입: String
     // 파라미터:
     //      모델 객체
@@ -152,13 +154,28 @@ public class TaskController {
     //      경로 변수(taskMeasures ID)
     //      요청 매개변수
     //          : 예상 처리 시간, 시작 시각, 완료 시각
-    // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
-    // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
-    //      : 예상 시간, 시작 시각, 완료 시각을 설정
-    //      : 설정 저장
-    // Task 상세페이지로 리다이렉트 시에 전달할 taskID를 세션에 저장
-    // Task 상세페이지로 리다이렉트 시에 전달한 task 객체를 세션에 저장
-    // 반환: Task 상세페이지로 리다이렉트
+    public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
+                                     @PathVariable("taskMeasuresId") Long taskMeasuresId,
+                                     @RequestParam Integer estimatedAt,
+                                     @RequestParam LocalDateTime startTime,
+                                     @RequestParam LocalDateTime completeTime) {
+        // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+
+        // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
+        //      : 예상 시간, 시작 시각, 완료 시각을 설정
+        //      : 설정 저장
+        this.taskMeasuresService.modifyTime(taskMeasuresId, estimatedAt, startTime, completeTime);
+
+        // Task 상세페이지로 리다이렉트 시에 전달할 taskID를 세션에 저장
+        Task task = (Task) model.getAttribute("task");
+        Long taskId = task.getId();
+        redirectAttributes.addFlashAttribute(taskId);
+        // Task 상세페이지로 리다이렉트 시에 전달한 task 객체를 세션에 저장
+        redirectAttributes.addFlashAttribute("editedTask", task);
+        // 반환: Task 상세페이지로 리다이렉트
+        return "redirect:/task/detail/{taskId}";
+    }
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
