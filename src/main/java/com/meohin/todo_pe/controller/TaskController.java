@@ -140,6 +140,22 @@ public class TaskController {
         return "measures_modify_form";
     }
 
+    // "/task/measures/modify/{taskMeasuresId}"와 매핑된 POST 요청을 처리하는 수정 메서드
+    // 리턴 타입: String
+    // 파라미터:
+    //      모델 객체
+    //      RedirectAttributes 객체
+    //      경로 변수(taskMeasures ID)
+    //      요청 매개변수
+    //          : 예상 처리 시간, 시작 시각, 완료 시각
+    // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
+    // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
+    //      : 예상 시간, 시작 시각, 완료 시각을 설정
+    //      : 설정 저장
+    // Task 상세페이지로 리다이렉트 시에 전달할 taskID를 세션에 저장
+    // Task 상세페이지로 리다이렉트 시에 전달한 task 객체를 세션에 저장
+    // 반환: Task 상세페이지로 리다이렉트
+
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
      * @param taskId Task id
