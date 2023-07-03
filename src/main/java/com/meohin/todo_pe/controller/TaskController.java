@@ -129,20 +129,16 @@ public class TaskController {
         return "redirect:/task/detail/{taskId}";
     }
 
-    // "/task/measures/${taskMeasure.id}"와 매핑된 GET 요청을 처리하는 수정 메서드
+    /**
+     * Task 이력을 수정하는 페이지로 이동한다.
+     * @param model             모델 객체
+     * @param taskMeasuresId    TaskMeasures ID
+     * @return  TaskMeasures 수정 폼 템플릿
+     */
     @GetMapping("/modify/{taskMeasuresId}")
-    // 리턴 타입: String
-    // 파라미터:
-    //      모델 객체
-    //      경로 변수(taskMeasures ID)
     public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
-        // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
-
-        // 모델 속성에 taskMeasures 객체를 추가
         model.addAttribute(taskMeasures);
-
-        // 반환: measures_modify_form
         return "measures_modify_form";
     }
 
