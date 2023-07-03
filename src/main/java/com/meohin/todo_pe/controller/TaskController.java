@@ -130,13 +130,21 @@ public class TaskController {
     }
 
     // "/task/measures/${taskMeasure.id}"와 매핑된 GET 요청을 처리하는 수정 메서드
+    @GetMapping("/modify/{taskMeasuresId}")
     // 리턴 타입: String
     // 파라미터:
     //      모델 객체
     //      경로 변수(taskMeasures ID)
-    // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
-    // 모델 속성에 taskMeasures 객체를 추가
-    // 반환: measures_modify_form
+    public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
+        // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+
+        // 모델 속성에 taskMeasures 객체를 추가
+        model.addAttribute(taskMeasures);
+
+        // 반환: measures_modify_form
+        return "measures_modify_form";
+    }
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
