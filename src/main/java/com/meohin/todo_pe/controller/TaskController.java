@@ -123,8 +123,6 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
         this.taskService.modifySubject(task, subject);
         redirectAttributes.addFlashAttribute(taskId);
-
-        // 리다이렉트 시에 데이터를 전달할 세션에 task 객체를 저장
         redirectAttributes.addFlashAttribute("editedTask", task);
         return "redirect:/task/detail/{taskId}";
     }
