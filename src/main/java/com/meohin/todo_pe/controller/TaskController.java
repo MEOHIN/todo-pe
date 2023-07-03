@@ -47,7 +47,16 @@ public class TaskController {
      */
     @RequestMapping(value = "/detail/{taskId}")
     public String detail(@PathVariable("taskId") Long taskId, Model model) {
-        Task task = taskService.getTaskById(taskId);
+        // (이전에 세션에 저장된 객체가 있는 경우: 리다이렉트로 상세페이지에 온 경우)
+        // 세션에 저장된 Object 타입의 task 객체를 가져와서
+        // Task 타입으로 변환하여 Task 타입의 변수인 task에 할당
+        Task task = (Task) model.getAttribute("editedTask");
+
+        // (이전에 세션에 저장된 객체가 없는 경우: 다이렉트로 상세페이지에 온 경우)
+        if(task == null) {
+            // taskId에 해당하는 Task를 가져와서 task에 할당
+            task = taskService.getTaskById(taskId);
+        }
 
         // TaskMeasures 리스트를 조회한다.
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
