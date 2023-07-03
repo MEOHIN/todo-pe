@@ -108,7 +108,7 @@ public class TaskController {
     public String modifyTask(Model model, @PathVariable("taskId") Long taskId) {
         Task task = this.taskService.getTaskById(taskId);
         model.addAttribute("task", task);
-        return "subject_modify_form";
+        return "task_modify_form";
     }
 
     /**
