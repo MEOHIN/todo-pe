@@ -5,7 +5,7 @@
 <div layout:fragment="content" class="rootContainer">
   <div class="mainContainer">
     <h1>Task 이력 수정</h1>
-    <form th:action="@{|/measure/modify/${taskMeasures.id}|}" method="post">
+    <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
       <div>
         <label for="estimatedAt">예상 시간</label>
         <input type="text" name="estimatedAt" id="estimatedAt">

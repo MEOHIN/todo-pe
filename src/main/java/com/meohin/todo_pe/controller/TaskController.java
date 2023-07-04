@@ -134,7 +134,7 @@ public class TaskController {
      * @param taskMeasuresId    TaskMeasures ID
      * @return  TaskMeasures 수정 폼 템플릿
      */
-    @GetMapping("/{taskId}/modifyMeasures/{taskMeasuresId}")
+    @GetMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
                                      @PathVariable("taskId") Long taskId,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId) {
