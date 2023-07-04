@@ -162,14 +162,16 @@ public class TaskController {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
 
+        // 세션에 저장됐던 task 객체를 가져온다.
+        Task task = (Task) model.getAttribute("task");
+        Long taskId = task.getId();
+
         // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
         //      : 예상 시간, 시작 시각, 완료 시각을 설정
         //      : 설정 저장
-        this.taskMeasuresService.modifyTime(taskMeasuresId, estimatedAt, startTime, completeTime);
+        this.taskMeasuresService.modifyTime(taskMeasures, task, estimatedAt, startTime, completeTime);
 
         // Task 상세페이지로 리다이렉트 시에 전달할 taskID를 세션에 저장
-        Task task = (Task) model.getAttribute("task");
-        Long taskId = task.getId();
         redirectAttributes.addFlashAttribute(taskId);
         // Task 상세페이지로 리다이렉트 시에 전달한 task 객체를 세션에 저장
         redirectAttributes.addFlashAttribute("editedTask", task);
