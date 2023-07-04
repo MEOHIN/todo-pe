@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -167,8 +168,10 @@ public class TaskController {
             minutes += 60;
         }
 
-        LocalDateTime startDate = LocalDateTime.parse(""+startTime);
-        LocalDateTime completeDate = LocalDateTime.parse(""+completeTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime completeDate = LocalDateTime.parse(completeTime, formatter);
 
 
         // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
