@@ -136,8 +136,7 @@ public class TaskController {
      * @return  TaskMeasures 수정 폼 템플릿
      */
     @GetMapping("/measures/modify/{taskMeasuresId}")
-    public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
-                                     @PathVariable("taskMeasuresId") Long taskMeasuresId) {
+    public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         model.addAttribute(taskMeasures);
         return "measures_modify_form";
@@ -152,8 +151,7 @@ public class TaskController {
     //      경로 변수(taskMeasures ID)
     //      요청 매개변수
     //          : 예상 처리 시간, 시작 시각, 완료 시각
-    public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
-                                     @PathVariable("taskMeasuresId") Long taskMeasuresId,
+    public String modifyTaskMeasures(@PathVariable("taskMeasuresId") Long taskMeasuresId,
                                      @RequestParam String estimatedAt,
                                      @RequestParam String startTime,
                                      @RequestParam String completeTime) {
