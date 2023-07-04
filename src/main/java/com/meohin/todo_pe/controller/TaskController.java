@@ -153,16 +153,28 @@ public class TaskController {
     //          : 예상 처리 시간, 시작 시각, 완료 시각
     public String modifyTaskMeasures(Model model, RedirectAttributes redirectAttributes,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
-                                     @RequestParam Integer estimatedAt,
-                                     @RequestParam LocalDateTime startTime,
-                                     @RequestParam LocalDateTime completeTime) {
+                                     @RequestParam String estimatedAt,
+                                     @RequestParam String startTime,
+                                     @RequestParam String completeTime) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+
+        // 예상 처리 시간 파싱
+        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
+        int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+        int minutes = Integer.parseInt(estimatedAt.substring(3, 5));
+        for(int i=0; i<hour; i++) {
+            minutes += 60;
+        }
+
+        LocalDateTime startDate = LocalDateTime.parse(""+startTime);
+        LocalDateTime completeDate = LocalDateTime.parse(""+completeTime);
+
 
         // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
         //      : 예상 시간, 시작 시각, 완료 시각을 설정
         //      : 설정 저장
-        this.taskMeasuresService.modifyTime(taskMeasures, task, estimatedAt, startTime, completeTime);
+        this.taskMeasuresService.modifyTime(taskMeasures, minutes, startDate, completeDate);
 
         // 반환: Task 상세페이지로 리다이렉트
         return "redirect:/task/list";
