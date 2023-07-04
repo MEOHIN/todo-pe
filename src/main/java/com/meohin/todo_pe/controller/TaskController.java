@@ -142,15 +142,15 @@ public class TaskController {
         return "measures_modify_form";
     }
 
-    // "/task/measures/modify/{taskMeasuresId}"와 매핑된 POST 요청을 처리하는 수정 메서드
+    /**
+     * Task 이력을 수정한다.
+     * @param taskMeasuresId    TaskMeasures ID
+     * @param estimatedAt       수정할 예상 처리 시간
+     * @param startTime         수정할 시작 시각
+     * @param completeTime      수정할 완료 시각
+     * @return  Task 목록 페이지
+     */
     @PostMapping("/measures/modify/{taskMeasuresId}")
-    // 리턴 타입: String
-    // 파라미터:
-    //      모델 객체
-    //      RedirectAttributes 객체
-    //      경로 변수(taskMeasures ID)
-    //      요청 매개변수
-    //          : 예상 처리 시간, 시작 시각, 완료 시각
     public String modifyTaskMeasures(@PathVariable("taskMeasuresId") Long taskMeasuresId,
                                      @RequestParam String estimatedAt,
                                      @RequestParam String startTime,
@@ -172,13 +172,8 @@ public class TaskController {
         LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
         LocalDateTime completeDate = LocalDateTime.parse(completeTime, formatter);
 
-
-        // TaskMeasures 서비스의 이력을 수정하는 메서드를 호출
-        //      : 예상 시간, 시작 시각, 완료 시각을 설정
-        //      : 설정 저장
         this.taskMeasuresService.modifyTime(taskMeasures, minutes, startDate, completeDate);
 
-        // 반환: Task 상세페이지로 리다이렉트
         return "redirect:/task/list";
     }
 
