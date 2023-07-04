@@ -166,8 +166,9 @@ public class TaskController {
             minutes += 60;
         }
 
+        // 포맷 패턴 정의
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
+        // 시작 시각과 완료 시각 파싱
         LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
         LocalDateTime completeDate = LocalDateTime.parse(completeTime, formatter);
 
