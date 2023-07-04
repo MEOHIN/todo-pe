@@ -4,6 +4,7 @@ import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.repository.TaskMeasuresRepository;
+import com.meohin.todo_pe.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class TaskMeasuresService {
 
     private final TaskMeasuresRepository taskMeasuresRepository;
+    private final TaskRepository taskRepository;
 
     /**
      * 해당 taskMeasures ID에 해당하는 TaskMeasures 객체를 조회하고 반환한다.
@@ -120,8 +122,13 @@ public class TaskMeasuresService {
      */
     public void modifyTime(TaskMeasures taskMeasures, Task task, Integer estimatedAt, LocalDateTime startTime, LocalDateTime completeTime) {
         // Task 예상 처리 시각 설정
+        task.setEstimatedAt(estimatedAt);
         // Task 시작 시각 설정
+        taskMeasures.setStartTime(startTime);
         // Task 완료 시각 설정
+        taskMeasures.setCompleteTime(completeTime);
         // 세팅 저장
+        taskRepository.save(task);
+        taskMeasuresRepository.save(taskMeasures);
     }
 }
