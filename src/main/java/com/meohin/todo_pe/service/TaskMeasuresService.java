@@ -37,8 +37,8 @@ public class TaskMeasuresService {
 
     /**
      * Task ID로 데이터를 조회
-     * @param taskId
-     * @return
+     * @param taskId    Task ID
+     * @return  TaskMeasures List
      */
     public List<TaskMeasures> getTaskMeasureList(Long taskId) {
         return taskMeasuresRepository.findByTaskId(taskId);
