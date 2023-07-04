@@ -115,13 +115,13 @@ public class TaskMeasuresService {
     /**
      * 예상 처리 시간, 시작 시각, 완료 시각을 수정한다.
      * @param taskMeasures  TaskMeasures 객체
-     * @param task          Task 객체
      * @param estimatedAt   수정할 예상 처리 시간
      * @param startTime     수정할 시작 시각
      * @param completeTime  수정할 완료 시각
      */
-    public void modifyTime(TaskMeasures taskMeasures, Task task, Integer estimatedAt, LocalDateTime startTime, LocalDateTime completeTime) {
+    public void modifyTime(TaskMeasures taskMeasures, Integer estimatedAt, LocalDateTime startTime, LocalDateTime completeTime) {
         // Task 예상 처리 시각 설정
+        Task task = taskMeasures.getTask();
         task.setEstimatedAt(estimatedAt);
         // Task 시작 시각 설정
         taskMeasures.setStartTime(startTime);
