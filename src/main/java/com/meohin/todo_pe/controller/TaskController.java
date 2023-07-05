@@ -158,19 +158,35 @@ public class TaskController {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
 
+        int minutes;
         // 예상 처리 시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-        int minutes = Integer.parseInt(estimatedAt.substring(3, 5));
-        for(int i=0; i<hour; i++) {
-            minutes += 60;
+        if (estimatedAt.length() != 0) {
+            int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+            minutes = Integer.parseInt(estimatedAt.substring(3, 5));
+            for (int i = 0; i < hour; i++) {
+                minutes += 60;
+            }
+        } else {
+            minutes = taskMeasures.getTask().getEstimatedAt();
         }
 
         // 포맷 패턴 정의
+        LocalDateTime startDate;
+        LocalDateTime completeDate;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         // 시작 시각과 완료 시각 파싱
-        LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
-        LocalDateTime completeDate = LocalDateTime.parse(completeTime, formatter);
+        if (startTime.length() != 0) {
+            startDate = LocalDateTime.parse(startTime, formatter);
+        } else {
+            startDate = taskMeasures.getStartTime();
+        }
+
+        if (completeTime.length() != 0) {
+            completeDate = LocalDateTime.parse(completeTime, formatter);
+        } else {
+            completeDate = taskMeasures.getCompleteTime();
+        }
 
         this.taskMeasuresService.modifyTime(taskMeasures, minutes, startDate, completeDate);
         this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.STANDBY);
