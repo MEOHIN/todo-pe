@@ -173,6 +173,7 @@ public class TaskController {
         LocalDateTime completeDate = LocalDateTime.parse(completeTime, formatter);
 
         this.taskMeasuresService.modifyTime(taskMeasures, minutes, startDate, completeDate);
+        this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.STANDBY);
 
         return "redirect:/task/list";
     }
