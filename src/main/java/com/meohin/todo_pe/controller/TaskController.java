@@ -218,7 +218,9 @@ public class TaskController {
         }
 
         this.taskMeasuresService.modifyTime(taskMeasures, expectedTime, startDate, completeDate);
-        this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.STANDBY);
+
+        // Task 상태에 따라 Task 처리 시간을 계산
+        this.taskMeasuresService.calculateTime(taskMeasures, status);
 
         return "redirect:/task/list";
     }
