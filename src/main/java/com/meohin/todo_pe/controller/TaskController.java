@@ -180,7 +180,8 @@ public class TaskController {
                     expectedTime += 60;
                 }
             } else {
-                // Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다. 메세지 출력
+                // 메세지 출력 "Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다."
+                throw new RuntimeException("Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다.");
             }
         }
 
@@ -191,10 +192,12 @@ public class TaskController {
                 if (inputStartTime.compareTo(existingPauseTime) < 0) {
                     startDate = inputStartTime;
                 } else {
-                    // 수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다. 메세지 출력
+                    // 메세지 출력 "수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다."
+                    throw new RuntimeException("수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다.");
                 }
             } else {
-                // Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할수 있습니다. 메세지 출력
+                // 메세지 출력 "Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할수 있습니다."
+                throw new RuntimeException("Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할 수 있습니다.");
             }
         }
 
@@ -205,10 +208,12 @@ public class TaskController {
                 if (inputCompleteTime.compareTo(existingContinueTime) > 0) {
                     completeDate = inputCompleteTime;
                 } else {
-                    // 수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다. 메세지 출력
+                    // 메세지 출력 "수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다."
+                    throw new RuntimeException("수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다.");
                 }
             } else {
-                // Task를 완료해야만 완료 시각을 수정할 수 있습니다. 메세지 출력
+                // 메세지 출력 "Task를 완료해야만 완료 시각을 수정할 수 있습니다."
+                throw new RuntimeException("Task를 완료해야만 완료 시각을 수정할 수 있습니다.");
             }
         }
 
