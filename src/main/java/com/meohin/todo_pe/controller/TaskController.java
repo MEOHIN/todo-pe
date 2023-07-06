@@ -157,38 +157,62 @@ public class TaskController {
                                      @RequestParam String completeTime) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        TaskStatus status = taskMeasures.getTask().getStatus();
+        LocalDateTime existingCompleteTime = taskMeasures.getCompleteTime();
+        LocalDateTime existingContinueTime = taskMeasures.getContinueTime();
+        LocalDateTime existingPauseTime = taskMeasures.getPauseTime();
 
-        int minutes;
+        // 시간 초기화
+        int expectedTime = taskMeasures.getTask().getEstimatedAt();
+        LocalDateTime startDate = taskMeasures.getStartTime();
+        LocalDateTime completeDate = taskMeasures.getCompleteTime();
+
+        // 포맷 패턴 정의
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         // 예상 처리 시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
         if (estimatedAt.length() != 0) {
-            int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-            minutes = Integer.parseInt(estimatedAt.substring(3, 5));
-            for (int i = 0; i < hour; i++) {
-                minutes += 60;
+            if (status == TaskStatus.STANDBY && existingCompleteTime == null) {
+                int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+                expectedTime = Integer.parseInt(estimatedAt.substring(3, 5));
+                for (int i = 0; i < hour; i++) {
+                    expectedTime += 60;
+                }
+            } else {
+                // Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다. 메세지 출력
             }
-        } else {
-            minutes = taskMeasures.getTask().getEstimatedAt();
         }
 
-        // 포맷 패턴 정의
-        LocalDateTime startDate;
-        LocalDateTime completeDate;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        // 시작 시각과 완료 시각 파싱
+        // 시작 시각 파싱
         if (startTime.length() != 0) {
-            startDate = LocalDateTime.parse(startTime, formatter);
-        } else {
-            startDate = taskMeasures.getStartTime();
+            if (status == TaskStatus.PAUSE && existingContinueTime == null) {
+                LocalDateTime inputStartTime = LocalDateTime.parse(startTime, formatter);
+                if (inputStartTime.compareTo(existingPauseTime) < 0) {
+                    startDate = inputStartTime;
+                } else {
+                    // 수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다. 메세지 출력
+                }
+            } else {
+                // Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할수 있습니다. 메세지 출력
+            }
         }
 
+        // 완료 시각 파싱
         if (completeTime.length() != 0) {
-            completeDate = LocalDateTime.parse(completeTime, formatter);
-        } else {
-            completeDate = taskMeasures.getCompleteTime();
+            if (status == TaskStatus.STANDBY && existingCompleteTime != null) {
+                LocalDateTime inputCompleteTime = LocalDateTime.parse(completeTime, formatter);
+                if (inputCompleteTime.compareTo(existingContinueTime) > 0) {
+                    completeDate = inputCompleteTime;
+                } else {
+                    // 수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다. 메세지 출력
+                }
+            } else {
+                // Task를 완료해야만 완료 시각을 수정할 수 있습니다. 메세지 출력
+            }
         }
 
-        this.taskMeasuresService.modifyTime(taskMeasures, minutes, startDate, completeDate);
+        this.taskMeasuresService.modifyTime(taskMeasures, expectedTime, startDate, completeDate);
         this.taskMeasuresService.calculateTime(taskMeasures, TaskStatus.STANDBY);
 
         return "redirect:/task/list";
