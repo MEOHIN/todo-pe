@@ -232,7 +232,7 @@ public class TaskController {
      * @return  task 목록 템플릿
      */
     @GetMapping("/search")
-    public String searchTask(Model model) {
+    public String searchTask(Model model, @RequestParam String keyword) {
         List<Task> tasks = this.taskService.getTaskByKeyword(keyword);
         model.addAttribute(tasks);
         return "task_list";
