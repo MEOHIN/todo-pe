@@ -225,6 +225,16 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
+    // GET 요청을 처리
+    // "/task/search/{keyword}"와 매핑
+    // 리턴타입: String(Task 목록 템플릿)
+    // 파라미터:
+    //      모델 객체
+    //      경로 변수(keyword)
+    // Task 서비스를 사용해서 제목에 keyword를 포함하는 Task를 검색
+    // 모델 속성에 task list 추가
+    // 반환: task 목록 템플릿
+
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
      * @param taskId Task id
