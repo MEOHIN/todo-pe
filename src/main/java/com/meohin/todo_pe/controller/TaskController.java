@@ -233,8 +233,8 @@ public class TaskController {
      */
     @GetMapping("/search")
     public String searchTask(Model model, @RequestParam String keyword) {
-        List<Task> tasks = this.taskService.getTaskByKeyword(keyword);
-        model.addAttribute(tasks);
+        List<Task> taskList = this.taskService.getTaskByKeyword(keyword);
+        model.addAttribute("taskList", taskList);
         return "task_list";
     }
 
