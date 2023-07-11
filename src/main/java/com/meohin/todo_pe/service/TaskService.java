@@ -35,7 +35,7 @@ public class TaskService {
     }
 
     public List<Task> getTaskByKeyword(String subject) {
-        return taskRepository.findTasksBySubjectLike(subject);
+        return taskRepository.findTasksBySubjectContains(subject);
     }
 
     /**
