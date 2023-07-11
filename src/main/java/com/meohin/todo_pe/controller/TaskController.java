@@ -231,8 +231,8 @@ public class TaskController {
      * @param keyword   입력받은 검색 키워드
      * @return  task 목록 템플릿
      */
-    @GetMapping("/search/{keyword}")
-    public String searchTask(Model model, @PathVariable("keyword") String keyword) {
+    @GetMapping("/search")
+    public String searchTask(Model model) {
         List<Task> tasks = this.taskService.getTaskByKeyword(keyword);
         model.addAttribute(tasks);
         return "task_list";
