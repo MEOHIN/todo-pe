@@ -225,19 +225,16 @@ public class TaskController {
         return "redirect:/task/list";
     }
 
-    // GET 요청을 처리
-    // "/task/search/{keyword}"와 매핑
+    /**
+     * 검색 키워드가 포함된 Task를 검색한다.
+     * @param model     모델 객체
+     * @param keyword   입력받은 검색 키워드
+     * @return  task 목록 템플릿
+     */
     @GetMapping("/search/{keyword}")
-    // 리턴타입: String(Task 목록 템플릿)
-    // 파라미터:
-    //      모델 객체
-    //      경로 변수(keyword)
     public String searchTask(Model model, @PathVariable("keyword") String keyword) {
-        // Task 서비스를 사용해서 제목에 keyword를 포함하는 Task를 검색
         List<Task> tasks = this.taskService.getTaskByKeyword(keyword);
-        // 모델 속성에 task list 추가
         model.addAttribute(tasks);
-        // 반환: task 목록 템플릿
         return "task_list";
     }
 
