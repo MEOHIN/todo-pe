@@ -34,6 +34,10 @@ public class TaskService {
         return taskRepository.findById(taskId).orElse(null);
     }
 
+    public List<Task> getTaskByKeyword(String subject) {
+        return taskRepository.findTasksBySubjectLike(subject);
+    }
+
     /**
      * 입력받은 Task 데이터를 저장한다.
      * @param subject       Task 제목
