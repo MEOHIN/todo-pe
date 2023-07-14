@@ -15,6 +15,8 @@ public class TaskMeasures {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Integer estimatedAt;
+
     private LocalDateTime startTime;
 
     private LocalDateTime pauseTime;
