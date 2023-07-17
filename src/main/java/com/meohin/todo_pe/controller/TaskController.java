@@ -230,8 +230,8 @@ public class TaskController {
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
-     * @param taskId Task id
-     * @RequestParam String estimatedAt,
+     * @param taskId        Task id
+     * @param estimatedAt   예상 처리 시간
      * @return Task 목록 페이지 리다이렉트
      */
     @PostMapping("/start/{taskId}")
