@@ -50,10 +50,11 @@ public class TaskMeasuresService {
      * Task 이력을 저장한다.
      * @param task Task
      */
-    public void addTaskMeasures(Task task) {
+    public void addTaskMeasures(Task task, Integer estimatedAt) {
         TaskMeasures taskMeasures = new TaskMeasures();
 
         taskMeasures.setTask(task);
+        taskMeasures.setEstimatedAt(estimatedAt);
         taskMeasures.setStartTime(LocalDateTime.now());
 
         taskMeasuresRepository.save(taskMeasures);
