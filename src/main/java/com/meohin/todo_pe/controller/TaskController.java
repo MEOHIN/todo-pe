@@ -237,18 +237,24 @@ public class TaskController {
     @PostMapping("/start/{taskId}")
     public String startTask(@PathVariable("taskId") Long taskId, @RequestParam String estimatedAt) {
 
+        Task task = this.taskService.getTaskById(taskId);
+
+        // 시간 초기화
+        int expectedTime = task.getEstimatedAt();
+
         // 예상시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-        int minutes = Integer.parseInt(estimatedAt.substring(3, 5));
-        for(int i=0; i<hour; i++) {
-            minutes += 60;
+        if (estimatedAt.length() != 0) {
+            int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+            expectedTime = Integer.parseInt(estimatedAt.substring(3, 5));
+            for (int i = 0; i < hour; i++) {
+                expectedTime += 60;
+            }
         }
 
-        Task task = this.taskService.getTaskById(taskId);
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
-        this.taskMeasuresService.addTaskMeasures(task, minutes);
+        this.taskMeasuresService.addTaskMeasures(task, expectedTime);
         return "redirect:/task/list";
     }
 
