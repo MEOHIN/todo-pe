@@ -145,14 +145,12 @@ public class TaskController {
     /**
      * Task 이력을 수정한다.
      * @param taskMeasuresId    TaskMeasures ID
-     * @param estimatedAt       수정할 예상 처리 시간
      * @param startTime         수정할 시작 시각
      * @param completeTime      수정할 완료 시각
      * @return  Task 목록 페이지
      */
     @PostMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(@PathVariable("taskMeasuresId") Long taskMeasuresId,
-                                     @RequestParam String estimatedAt,
                                      @RequestParam String startTime,
                                      @RequestParam String completeTime) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
@@ -169,21 +167,6 @@ public class TaskController {
 
         // 포맷 패턴 정의
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-        // 예상 처리 시간 파싱
-        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        if (estimatedAt.length() != 0) {
-            if (status == TaskStatus.STANDBY && existingCompleteTime == null) {
-                int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-                expectedTime = Integer.parseInt(estimatedAt.substring(3, 5));
-                for (int i = 0; i < hour; i++) {
-                    expectedTime += 60;
-                }
-            } else {
-                // 메세지 출력 "Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다."
-                throw new RuntimeException("Task를 시작한 이후에는 예상 처리 시간을 수정할 수 없습니다.");
-            }
-        }
 
         // 시작 시각 파싱
         if (startTime.length() != 0) {
@@ -217,7 +200,7 @@ public class TaskController {
             }
         }
 
-        this.taskMeasuresService.modifyTime(taskMeasures, expectedTime, startDate, completeDate);
+        this.taskMeasuresService.modifyTime(taskMeasures, startDate, completeDate);
 
         // Task 상태에 따라 Task 처리 시간을 계산
         this.taskMeasuresService.calculateTime(taskMeasures, status);
