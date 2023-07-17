@@ -238,6 +238,13 @@ public class TaskController {
         return "task_list";
     }
 
+    @GetMapping("/start/{taskId}")
+    public String startTask(Model model, @PathVariable("taskId") Long taskId) {
+        Task task = this.taskService.getTaskById(taskId);
+        model.addAttribute(task);
+        return "task/start_form";
+    }
+
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
      * @param taskId Task id
