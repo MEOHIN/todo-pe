@@ -29,18 +29,18 @@
                     <td th:text="${task.description}"></td>
                     <td th:switch="${#strings.toString(task.status)}">
                         <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="post">
-                            <input type="submit" value="시작">
+                            <input type="submit" name="start" value="시작">
                         </form>
                         <div th:case="'ING'">
                             <form th:action="@{|/task/pause/${task.id}|}" method="post">
-                                <input type="submit" value="일시정지">
+                                <input type="submit" name="pause" value="일시정지">
                             </form>
                             <form th:action="@{|/task/complete/${task.id}|}" method="post">
-                                <input type="submit" value="완료">
+                                <input type="submit" name="complete" value="완료">
                             </form>
                         </div>
                         <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
-                            <input type="submit" value="계속">
+                            <input type="submit" name="continue" value="계속">
                         </form>
                     </td>
                 </tr>
