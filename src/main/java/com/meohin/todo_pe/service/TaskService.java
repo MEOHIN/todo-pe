@@ -60,8 +60,9 @@ public class TaskService {
      * @param task      Task
      * @param subject   수정하려는 Task 제목
      */
-    public void modifySubject(Task task, String subject) {
+    public void modifyTask(Task task, String subject, int estimatedAt) {
         task.setSubject(subject);
+        task.setEstimatedAt(estimatedAt);
         task.setModifiedAt(LocalDateTime.now());
         taskRepository.save(task);
     }
