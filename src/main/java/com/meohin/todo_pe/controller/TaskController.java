@@ -115,15 +115,36 @@ public class TaskController {
 
     /**
      * Task 제목을 수정한다.
-     * @param model     모델 객체
-     * @param taskId    Task ID
-     * @param subject   입력받은 수정된 Task 제목
+     * @param model         모델 객체
+     * @param taskId        Task ID
+     * @param subject       입력받은 수정할 Task 제목
+     * @param estimatedAt   입력받은 수정할 예상 처리 시간
      * @return  Task 목록
      */
     @PostMapping("modify/{taskId}")
-    public String modifyTask(Model model, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @RequestParam String subject) {
+    public String modifyTask(Model model, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @RequestParam String subject, @RequestParam String estimatedAt) {
         Task task = this.taskService.getTaskById(taskId);
-        this.taskService.modifySubject(task, subject);
+
+        // 제목 초기화
+        String title = task.getSubject();
+        // 예상 시간 초기화
+        int estimatedTime = task.getEstimatedAt();
+
+        if (subject.length() != 0) {
+            title = subject;
+        }
+
+        // 예상시간 파싱
+        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
+        if (estimatedAt.length() != 0) {
+            int hour = Integer.parseInt(estimatedAt.substring(0, 2));
+            estimatedTime = Integer.parseInt(estimatedAt.substring(3, 5));
+            for (int i = 0; i < hour; i++) {
+                estimatedTime += 60;
+            }
+        }
+
+        this.taskService.modifyTask(task, title, estimatedTime);
         redirectAttributes.addFlashAttribute(taskId);
         redirectAttributes.addFlashAttribute("editedTask", task);
         return "redirect:/task/detail/{taskId}";
