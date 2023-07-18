@@ -161,7 +161,6 @@ public class TaskController {
         LocalDateTime existingPauseTime = taskMeasures.getPauseTime();
 
         // 시간 초기화
-        int expectedTime = taskMeasures.getTask().getEstimatedAt();
         LocalDateTime startDate = taskMeasures.getStartTime();
         LocalDateTime completeDate = taskMeasures.getCompleteTime();
 
