@@ -114,7 +114,7 @@ public class TaskController {
     }
 
     /**
-     * Task 제목을 수정한다.
+     * Task 제목과 예상 처리 시간을 수정한다.
      * @param model         모델 객체
      * @param taskId        Task ID
      * @param subject       입력받은 수정할 Task 제목
