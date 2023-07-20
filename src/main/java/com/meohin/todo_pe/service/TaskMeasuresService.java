@@ -29,7 +29,7 @@ public class TaskMeasuresService {
     }
 
     /**
-     * Task ID 및 완료 시간으로 데이터를 조히
+     * Task ID 및 완료되지 않은 Task 이력을 조회한다.
      * @param taskId  Task
      * @return  조회한 TaskMeasures
      */
