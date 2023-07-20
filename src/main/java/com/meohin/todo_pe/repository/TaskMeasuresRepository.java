@@ -9,5 +9,7 @@ public interface TaskMeasuresRepository extends JpaRepository<TaskMeasures, Long
 
     TaskMeasures findByTaskIdAndCompleteTimeNull(Long taskId);
 
+    List<TaskMeasures> findByTaskIdAndCompleteTimeNotNull(Long taskId);
+
     List<TaskMeasures> findByTaskId(Long taskId);
 }
