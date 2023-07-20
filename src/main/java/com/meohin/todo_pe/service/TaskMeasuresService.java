@@ -38,6 +38,15 @@ public class TaskMeasuresService {
     }
 
     /**
+     * Task ID 및 완료 시각이 존재하는 Task 이력을 조회한다.
+     * @param taskId  Task
+     * @return  조회한 TaskMeasures
+     */
+    public List<TaskMeasures> getTaskMeasuresByCompleteTimeIsNotNull(Long taskId) {
+        return taskMeasuresRepository.findByTaskIdAndCompleteTimeNotNull(taskId);
+    }
+
+    /**
      * Task ID로 데이터를 조회
      * @param taskId    Task ID
      * @return  TaskMeasures List
