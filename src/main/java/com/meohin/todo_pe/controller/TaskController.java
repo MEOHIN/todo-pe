@@ -62,8 +62,8 @@ public class TaskController {
             task = taskService.getTaskById(taskId);
         }
 
-        // TaskMeasures 리스트를 조회한다.
-        List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
+        // TaskMeasures 리스트를 조회
+        List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasuresByCompleteTimeIsNotNull(taskId);
         ArrayList<Integer> estimatedTimeList = new ArrayList<>();
         ArrayList<Integer> totalTimeList = new ArrayList<>();
         ArrayList<LocalDate> completeTimeList = new ArrayList<>();
