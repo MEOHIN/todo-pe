@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,9 +64,26 @@ public class TaskController {
 
         // TaskMeasures 리스트를 조회한다.
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasureList(taskId);
+        ArrayList<Integer> estimatedTimeList = new ArrayList<>();
+        ArrayList<Integer> totalTimeList = new ArrayList<>();
+        ArrayList<LocalDate> completeTimeList = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+        for (TaskMeasures taskMeasure: taskMeasureList) {
+            estimatedTimeList.add(taskMeasure.getEstimatedAt());
+            totalTimeList.add(taskMeasure.getTotalElapsedTime());
+
+            LocalDateTime date = taskMeasure.getCompleteTime();
+            String completeDate = date.format(formatter);
+            completeTimeList.add(LocalDate.parse(completeDate, formatter));
+        }
+
         model.addAttribute("task", task);
         // 모델 객체에 taskMeasuresList를 추가한다.
         model.addAttribute("taskMeasureList", taskMeasureList);
+        model.addAttribute("estimatedTimeList", estimatedTimeList);
+        model.addAttribute("totalTimeList", totalTimeList);
+        model.addAttribute("completeTimeList", completeTimeList);
         return "task_detail";
     }
 
