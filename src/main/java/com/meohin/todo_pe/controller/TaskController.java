@@ -80,7 +80,6 @@ public class TaskController {
         }
 
         model.addAttribute("task", task);
-        // 모델 객체에 taskMeasuresList를 추가한다.
         model.addAttribute("taskMeasureList", taskMeasureList);
         model.addAttribute("estimatedTimeList", estimatedTimeList);
         model.addAttribute("totalTimeList", totalTimeList);
