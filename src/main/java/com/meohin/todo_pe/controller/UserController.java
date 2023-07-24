@@ -1,13 +1,14 @@
 package com.meohin.todo_pe.controller;
 
+import com.meohin.todo_pe.dto.UserDTO;
 import com.meohin.todo_pe.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,20 +22,23 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String signup() {
+    public String signup(UserDTO userDTO) {
         return "login/signup_form";
     }
 
     @PostMapping("/signup")
-    public String signup(Model model, @RequestParam String userId, @RequestParam String pw1, @RequestParam String pw2, @RequestParam String email) {
+    public String signup(@Valid UserDTO userDTO, BindingResult bindingResult) {
 
-        if (!pw1.equals(pw2)) {
-            String errorMessage = "입력한 2개의 패스워드가 일치하지 않습니다.";
-            model.addAttribute("errorMessage", errorMessage);
+        if (bindingResult.hasErrors()) {
+            return "login/signup_form";
+        }
+
+        if (!userDTO.getPw1().equals(userDTO.getPw2())) {
+            bindingResult.rejectValue("pw2", "passwordInCorrect", "입력한 2개의 패스워드가 일치하지 않습니다.");
             return "/login/signup_form";
         }
 
-        this.userService.saveUserInfo(userId, pw1, email);
+        this.userService.saveUserInfo(userDTO.getUserId(), userDTO.getPw1(), userDTO.getEmail());
         return "redirect:/task/list";
     }
 }
