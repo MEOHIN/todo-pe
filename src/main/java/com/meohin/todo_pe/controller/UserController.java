@@ -35,6 +35,6 @@ public class UserController {
         }
 
         this.userService.saveUserInfo(userId, pw1, email);
-        return "redirect/task/list";
+        return "redirect:/task/list";
     }
 }
