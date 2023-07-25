@@ -17,7 +17,8 @@ public class SecurityConfig {
         httpSecurity
                 .authorizeHttpRequests(
                         (authorizeHttpRequests) -> authorizeHttpRequests.requestMatchers(
-                                new AntPathRequestMatcher("/**")).permitAll());
+                                new AntPathRequestMatcher("/**")).permitAll())
+                .formLogin((formLogin) -> formLogin.loginPage("/login").defaultSuccessUrl("/"));
         return httpSecurity.build();
     }
 
