@@ -4,6 +4,7 @@ import com.meohin.todo_pe.dto.UserDTO;
 import com.meohin.todo_pe.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,17 @@ public class UserController {
             return "/login/signup_form";
         }
 
-        this.userService.saveUserInfo(userDTO.getUserId(), userDTO.getPw1(), userDTO.getEmail());
+        try {
+            this.userService.saveUserInfo(userDTO.getUserId(), userDTO.getPw1(), userDTO.getEmail());
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 가입된 회원입니다.");
+            return "/login/signup_form";
+        } catch (Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "/login/signup_form";
+        }
         return "redirect:/task/list";
     }
 }
