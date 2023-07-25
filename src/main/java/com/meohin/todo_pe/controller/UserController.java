@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Controller
@@ -17,7 +16,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login() {
         return "/login/login";
     }
