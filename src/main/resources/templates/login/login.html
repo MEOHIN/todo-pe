@@ -1,0 +1,31 @@
+<!-- layout.html 템플릿 상속 -->
+<html layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<!-- 부모 템플릿 th:block 엘리먼트 내용을 자식 템플릿의 div 엘리먼트 내용으로 교체 -->
+<div layout:fragment="content" class="rootContainer">
+    <div class="mainContainer">
+        <header>
+            <h1>TimeTODO 시작하기</h1>
+        </header>
+        <form method="post" th:action="@{/login}">
+            <div th:if="${param.error}">
+                <div>
+                    ID 또는 비밀번호를 확인해주세요.
+                </div>
+            </div>
+            <div>
+                <label for="userId">아이디</label>
+                <input type="text" name="userId" id="userId">
+            </div>
+            <div>
+                <label for="pw">비밀번호</label>
+                <input type="text" name="pw" id="pw">
+            </div>
+            <input type="submit" value="로그인">
+        </form>
+        <form th:action="@{/signup}" method="get">
+            <button type="submit">회원 가입</button>
+        </form>
+    </div>
+</div>
+</html>
