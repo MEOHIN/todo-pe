@@ -36,5 +36,5 @@ public class TaskMeasures {
     private Task task;
 
     @ManyToOne
-    private User user;
+    private SiteUser siteUser;
 }

@@ -41,5 +41,5 @@ public class Task {
     private List<TaskMeasures> taskMeasuresList;
 
     @ManyToOne
-    private User user;
+    private SiteUser siteUser;
 }
