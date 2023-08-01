@@ -20,7 +20,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (authorizeHttpRequests) -> authorizeHttpRequests.requestMatchers(
                                 new AntPathRequestMatcher("/**")).permitAll())
-                .formLogin((formLogin) -> formLogin.loginPage("/login").defaultSuccessUrl("/"));
+                .formLogin((formLogin) -> formLogin.loginPage("/login").defaultSuccessUrl("/"))
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login").invalidateHttpSession(true));
         return httpSecurity.build();
     }
 
