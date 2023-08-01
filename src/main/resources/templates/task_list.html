@@ -5,6 +5,10 @@
 <div layout:fragment="content" class="rootContainer">
     <div class="mainContainer">
         <header>
+            <!-- 로그아웃 버튼은 인증된 사용자에게만 표시  -->
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <input type="submit" value="로그아웃">
+            </form>
             <form th:action="@{/task/search}" method="get">
                 <div>
                     <input type="text" name="keyword" id="keyword">
