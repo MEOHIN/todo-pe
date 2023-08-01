@@ -1,7 +1,10 @@
 package com.meohin.todo_pe.repository;
 
-import com.meohin.todo_pe.entity.User;
+import com.meohin.todo_pe.entity.SiteUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<SiteUser, Long> {
+    Optional<SiteUser> findByUserId(String userId);
 }
