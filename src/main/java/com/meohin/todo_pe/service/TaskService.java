@@ -20,9 +20,9 @@ public class TaskService {
      * 모든 Task를 조회하고 리스트로 반환한다.
      * @return Task 리스트
      */
-    public List<Task> getTaskList() {
+    public List<Task> getTaskList(SiteUser user) {
         // 모든 Task를 조회하고 반환한다.
-        return taskRepository.findAll();
+        return taskRepository.findTasksBySiteUser(user);
     }
 
     /**

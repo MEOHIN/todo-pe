@@ -43,8 +43,10 @@ public class TaskController {
      * @return Task 목록
      */
     @RequestMapping("/list")
-    public String list(Model model) {
-        List<Task> taskList = taskService.getTaskList();
+    public String list(Model model, Principal principal) {
+        SiteUser user = this.userService.getUser(principal.getName());
+
+        List<Task> taskList = taskService.getTaskList(user);
         model.addAttribute("taskList", taskList);
         return "task_list";
     }
