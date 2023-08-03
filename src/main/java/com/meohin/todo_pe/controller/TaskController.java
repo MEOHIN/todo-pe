@@ -1,16 +1,19 @@
 package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.service.TaskMeasuresService;
 import com.meohin.todo_pe.service.TaskService;
+import com.meohin.todo_pe.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,6 +33,7 @@ public class TaskController {
     // TaskRepository를 사용하여 Task 목록을 조회할 수 있도록 한다.
     private final TaskService taskService;
     private final TaskMeasuresService taskMeasuresService;
+    private final UserService userService;
 
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.
@@ -103,7 +107,10 @@ public class TaskController {
      * @return Task 목록
      */
     @PostMapping("/create")
-    public String createTask(@RequestParam String subject, @RequestParam String description, @RequestParam String estimatedAt) {
+    public String createTask(@RequestParam String subject,
+                             @RequestParam String description,
+                             @RequestParam String estimatedAt,
+                             Principal principal) {
 
         // 예상시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
@@ -113,8 +120,10 @@ public class TaskController {
             minutes += 60;
         }
 
+        SiteUser user = this.userService.getUser(principal.getName());
+
         // 태스크 추가 서비스 호출
-        this.taskService.createTask(subject, description, minutes);
+        this.taskService.createTask(subject, description, minutes, user);
 
         return "redirect:/task/list";
     }

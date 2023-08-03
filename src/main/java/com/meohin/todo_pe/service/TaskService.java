@@ -1,6 +1,7 @@
 package com.meohin.todo_pe.service;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,13 +45,14 @@ public class TaskService {
      * @param description   Task 내용
      * @param estimatedAt   Task 예상 시간
      */
-    public void createTask(String subject, String description, Integer estimatedAt) {
+    public void createTask(String subject, String description, Integer estimatedAt, SiteUser user) {
         Task task = new Task();
 
         task.setCreatedAt(LocalDateTime.now());
         task.setSubject(subject);
         task.setDescription(description);
         task.setEstimatedAt(estimatedAt);
+        task.setSiteUser(user);
 
         taskRepository.save(task);
     }
