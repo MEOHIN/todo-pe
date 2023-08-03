@@ -283,9 +283,10 @@ public class TaskController {
      * @return Task 목록 페이지 리다이렉트
      */
     @PostMapping("/start/{taskId}")
-    public String startTask(@PathVariable("taskId") Long taskId, @RequestParam String estimatedAt) {
+    public String startTask(@PathVariable("taskId") Long taskId, @RequestParam String estimatedAt, Principal principal) {
 
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
 
         // 시간 초기화
         int estimatedTime = task.getEstimatedAt();
@@ -302,7 +303,7 @@ public class TaskController {
 
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
-        this.taskMeasuresService.addTaskMeasures(task, estimatedTime);
+        this.taskMeasuresService.addTaskMeasures(task, estimatedTime, user);
         return "redirect:/task/list";
     }
 

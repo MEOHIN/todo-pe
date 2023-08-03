@@ -1,6 +1,7 @@
 package com.meohin.todo_pe.service;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.repository.TaskMeasuresRepository;
@@ -59,12 +60,13 @@ public class TaskMeasuresService {
      * Task 이력을 저장한다.
      * @param task Task
      */
-    public void addTaskMeasures(Task task, Integer estimatedAt) {
+    public void addTaskMeasures(Task task, Integer estimatedAt, SiteUser user) {
         TaskMeasures taskMeasures = new TaskMeasures();
 
         taskMeasures.setTask(task);
         taskMeasures.setEstimatedAt(estimatedAt);
         taskMeasures.setStartTime(LocalDateTime.now());
+        taskMeasures.setSiteUser(user);
 
         taskMeasuresRepository.save(taskMeasures);
     }
