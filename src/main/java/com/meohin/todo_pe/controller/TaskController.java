@@ -58,7 +58,7 @@ public class TaskController {
      * @return Task 상세
      */
     @RequestMapping(value = "/detail/{taskId}")
-    public String detail(@PathVariable("taskId") Long taskId, Model model) {
+    public String detail(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         // (이전에 세션에 저장된 객체가 있는 경우: 리다이렉트로 상세페이지에 온 경우)
         // 세션에 저장된 Object 타입의 task 객체를 가져와서
         // Task 타입으로 변환하여 Task 타입의 변수인 task에 할당
@@ -70,6 +70,14 @@ public class TaskController {
             task = taskService.getTaskById(taskId);
         }
 
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
+
         // TaskMeasures 리스트를 조회
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasuresByCompleteTimeIsNotNull(taskId);
         ArrayList<Integer> estimatedTimeList = new ArrayList<>();
@@ -78,7 +86,7 @@ public class TaskController {
 
         // 차트에 출력에 필요한 '예상 처리 시간', '실제 처리 시간', '완료일' 리스트를 생성
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
-        for (TaskMeasures taskMeasure: taskMeasureList) {
+        for (TaskMeasures taskMeasure : taskMeasureList) {
             estimatedTimeList.add(taskMeasure.getEstimatedAt());
             totalTimeList.add(taskMeasure.getTotalElapsedTime());
 
@@ -139,8 +147,16 @@ public class TaskController {
      * @return  Task 제목 수정 템플릿
      */
     @GetMapping("/modify/{taskId}")
-    public String modifyTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String modifyTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
+
         model.addAttribute("task", task);
         return "task_modify_form";
     }
@@ -154,8 +170,21 @@ public class TaskController {
      * @return  Task 목록
      */
     @PostMapping("modify/{taskId}")
-    public String modifyTask(Model model, RedirectAttributes redirectAttributes, @PathVariable("taskId") Long taskId, @RequestParam String subject, @RequestParam String estimatedAt) {
+    public String modifyTask(Model model,
+                             RedirectAttributes redirectAttributes,
+                             @PathVariable("taskId") Long taskId,
+                             @RequestParam String subject,
+                             @RequestParam String estimatedAt,
+                             Principal principal) {
+
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
 
         // 제목 초기화
         String title = task.getSubject();
@@ -189,8 +218,16 @@ public class TaskController {
      * @return  TaskMeasures 수정 폼 템플릿
      */
     @GetMapping("/measures/modify/{taskMeasuresId}")
-    public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId) {
+    public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId, Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
+
         model.addAttribute(taskMeasures);
         return "measures_modify_form";
     }
@@ -203,11 +240,21 @@ public class TaskController {
      * @return  Task 목록 페이지
      */
     @PostMapping("/measures/modify/{taskMeasuresId}")
-    public String modifyTaskMeasures(@PathVariable("taskMeasuresId") Long taskMeasuresId,
+    public String modifyTaskMeasures(Model model,
+                                     @PathVariable("taskMeasuresId") Long taskMeasuresId,
                                      @RequestParam String startTime,
-                                     @RequestParam String completeTime) {
+                                     @RequestParam String completeTime,
+                                     Principal principal) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
+
         TaskStatus status = taskMeasures.getTask().getStatus();
         LocalDateTime existingCompleteTime = taskMeasures.getCompleteTime();
         LocalDateTime existingContinueTime = taskMeasures.getContinueTime();
@@ -274,8 +321,15 @@ public class TaskController {
     }
 
     @GetMapping("/start/{taskId}")
-    public String startTask(Model model, @PathVariable("taskId") Long taskId) {
+    public String startTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
         model.addAttribute(task);
         return "task/start_form";
     }
@@ -287,10 +341,16 @@ public class TaskController {
      * @return Task 목록 페이지 리다이렉트
      */
     @PostMapping("/start/{taskId}")
-    public String startTask(@PathVariable("taskId") Long taskId, @RequestParam String estimatedAt, Principal principal) {
+    public String startTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String estimatedAt, Principal principal) {
 
         Task task = this.taskService.getTaskById(taskId);
         SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
 
         // 시간 초기화
         int estimatedTime = task.getEstimatedAt();
@@ -312,8 +372,15 @@ public class TaskController {
     }
 
     @PostMapping("/pause/{taskId}")
-    public String pauseTask(@PathVariable("taskId") Long taskId) {
+    public String pauseTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.PAUSE);
@@ -323,8 +390,15 @@ public class TaskController {
     }
 
     @PostMapping("/continue/{taskId}")
-    public String continueTask( @PathVariable("taskId") Long taskId) {
+    public String continueTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
@@ -333,8 +407,15 @@ public class TaskController {
     }
 
     @PostMapping("/complete/{taskId}")
-    public String completeTask(@PathVariable("taskId") Long taskId) {
+    public String completeTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, task);
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "error";
+        }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.STANDBY);
