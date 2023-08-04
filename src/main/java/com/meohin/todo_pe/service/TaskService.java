@@ -84,5 +84,19 @@ public class TaskService {
         }
         taskRepository.save(task);
     }
+
+    /**
+     * 현재 로그인한 사용자와 해당 사용자가 접근하려는 Task의 사용자 정보가 동일한지 검증한다.
+     * @param user  로그인한 사용자
+     * @param task  사용자가 접근하려는 Task
+     * @return  검증결과: TRUE/FALSE
+     */
+    public boolean validateUser(SiteUser user, Task task) {
+
+        String currentUserId = user.getUserId();
+        String taskUserId = task.getSiteUser().getUserId();
+
+        return currentUserId.equals(taskUserId);
+    }
 }
 
