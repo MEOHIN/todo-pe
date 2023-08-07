@@ -5,6 +5,9 @@
 <div layout:fragment="content" class="rootContainer">
   <div class="mainContainer">
     <h1 th:text="${errorMessage}"></h1>
+    <div th:unless="${errorMessage}">
+      <h1>올바르지 않은 접근입니다.</h1>
+    </div>
     <form th:action="@{/task/list}" method="get">
       <input type="submit" value="홈으로 이동">
     </form>
