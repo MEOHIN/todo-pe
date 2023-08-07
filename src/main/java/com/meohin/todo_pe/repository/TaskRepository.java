@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTasksBySiteUser(SiteUser user);
-    List<Task> findTasksBySubjectContains(String subject);
+    List<Task> findTasksBySubjectContainsAndSiteUser(String subject, SiteUser user);
 }

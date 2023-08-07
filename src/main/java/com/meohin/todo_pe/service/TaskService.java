@@ -35,8 +35,8 @@ public class TaskService {
         return taskRepository.findById(taskId).orElse(null);
     }
 
-    public List<Task> getTaskByKeyword(String subject) {
-        return taskRepository.findTasksBySubjectContains(subject);
+    public List<Task> getTaskByKeyword(String subject, SiteUser user) {
+        return taskRepository.findTasksBySubjectContainsAndSiteUser(subject, user);
     }
 
     /**

@@ -16,7 +16,8 @@
                 <input type="submit" value="검색">
             </form>
         </header>
-        <table>
+        <div th:if="${noResult}" th:text="${noResult}"></div>
+        <table th:unless="${noResult}">
             <thead>
                 <tr>
                     <th>제목</th>

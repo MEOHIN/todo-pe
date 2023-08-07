@@ -314,8 +314,12 @@ public class TaskController {
      * @return  task 목록 템플릿
      */
     @GetMapping("/search")
-    public String searchTask(Model model, @RequestParam String keyword) {
-        List<Task> taskList = this.taskService.getTaskByKeyword(keyword);
+    public String searchTask(Model model, @RequestParam String keyword, Principal principal) {
+        SiteUser user = this.userService.getUser(principal.getName());
+        List<Task> taskList = this.taskService.getTaskByKeyword(keyword, user);
+        if (taskList.size()==0) {
+            model.addAttribute("noResult", "검색결과가 없습니다.");
+        }
         model.addAttribute("taskList", taskList);
         return "task_list";
     }
