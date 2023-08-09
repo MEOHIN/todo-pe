@@ -138,4 +138,12 @@ public class TaskMeasuresService {
         // 세팅 저장
         taskMeasuresRepository.save(taskMeasures);
     }
+
+    /**
+     * Task 이력을 삭제한다.
+     * @param taskMeasures    TaskMeasures
+     */
+    public void deleteTaskMeasures(TaskMeasures taskMeasures) {
+        this.taskMeasuresRepository.delete(taskMeasures);
+    }
 }

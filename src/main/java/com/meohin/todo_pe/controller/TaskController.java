@@ -309,6 +309,32 @@ public class TaskController {
     }
 
     /**
+     * Task 이력을 삭제한다.
+     * @param model             모델 객체
+     * @param taskMeasuresId    TaskMeasures ID
+     * @param principal         현재 로그인 사용자 객체
+     * @return  Task 목록 페이지로 리다이렉트
+     */
+    @GetMapping(("/measures/delete/{taskMeasuresId}"))
+    public String deleteTaskMeasures(Model model,
+                                     @PathVariable("taskMeasuresId") Long taskMeasuresId,
+                                     Principal principal) {
+        TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        SiteUser user = this.userService.getUser(principal.getName());
+        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+
+        if (!userValidationResult) {
+            model.addAttribute("errorMessage", "삭제권한이 없습니다.");
+            return "error";
+        }
+
+        // Task 이력을 삭제
+        this.taskMeasuresService.deleteTaskMeasures(taskMeasures);
+
+        return "redirect:/task/list";
+    }
+
+    /**
      * 검색 키워드가 포함된 Task를 검색한다.
      * @param model     모델 객체
      * @param keyword   입력받은 검색 키워드
