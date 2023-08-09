@@ -5,14 +5,18 @@
 <div layout:fragment="content" class="container">
     <!-- 상단바: 뒤로가기 버튼, Task 제목, Task 제목 수정하기 버튼 -->
     <header>
-        <button onclick="history.back()" >뒤로</button>
+        <button class="btn-flat waves-effect waves-light" onclick="history.back()">
+            <i class="material-icons">arrow_back_ios</i>
+        </button>
         <span th:text="${task.subject}"></span>
         <!-- GET 방식으로 제목을 불러오고, POST 방식으로 제목을 수정 -->
-        <a th:href="@{|/task/modify/${task.id}|}" th:text="'수정'"></a>
+        <a th:href="@{|/task/modify/${task.id}|}" class="btn-flat waves-effect waves-light">
+            <i class="material-icons left">edit</i>
+        </a>
     </header>
 
     <!-- 통계 영역: 그래프 -->
-    <div>
+    <div class="col s12">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -52,24 +56,19 @@
         });
     </script>
 
-        <!-- 태스크 이력: taskMeasures 목록 -->
-        <table>
-            <thead>
-                <tr>
-                    <th>시작 시각</th>
-                    <th>총 소요 시간</th>
-                    <th>예상 처리 시간</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="taskMeasure: ${taskMeasureList}">
-                    <td>
+    <!-- 태스크 이력: taskMeasures 목록 -->
+    <div class="row">
+        <div th:each="taskMeasure: ${taskMeasureList}" class="col s12 m12">
+            <div class="card teal lighten-5">
+                <div class="card-content black-text">
+                    <div>
                         <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
-                    </td>
-                    <td th:text="${taskMeasure.totalElapsedTime}"></td>
-                    <td th:text="${taskMeasure.estimatedAt}"></td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                    <div class="card-title" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
+                    <div th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </html>

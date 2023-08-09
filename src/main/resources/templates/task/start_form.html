@@ -5,11 +5,13 @@
 <div layout:fragment="content" class="container">
     <h5>정말로 시작하시겠습니까?</h5>
     <form th:action="@{|/task/start/${task.id}|}" method="post">
-        <div>
-            <label for="estimatedAt">예상 처리 시간을 입력하세요</label>
-            <input type="text" name="estimatedAt" id="estimatedAt">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <label for="estimatedAt">예상 처리 시간을 입력하세요</label>
+                <input placeholder="00:00" type="text" name="estimatedAt" id="estimatedAt" class="validate">
+            </div>
+            <button type="submit" class="btn waves-effect waves-light col s12">시작</button>
         </div>
-        <input type="submit" value="시작">
     </form>
 </div>
 </html>

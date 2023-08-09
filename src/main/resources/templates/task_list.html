@@ -6,53 +6,64 @@
         <header>
             <!-- 로그아웃 버튼은 인증된 사용자에게만 표시  -->
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-                <input type="submit" value="로그아웃">
+                <button class="btn waves-effect waves-light" type="submit">로그아웃</button>
             </form>
             <form th:action="@{/task/search}" method="get">
-                <div>
-                    <input type="text" name="keyword" id="keyword">
+                <div class="row">
+                    <div class="input-field col s10 m10 l10">
+                        <input placeholder="검색어를 입력해주세요." type="text" name="keyword" id="keyword" class="validate">
                 </div>
-                <input type="submit" value="검색">
-            </form>
-        </header>
+                <button class="btn waves-effect waves-light" type="submit"><i class="material-icons left">search</i>검색</button>
+            </div>
+        </form>
+    </header>
+    <main>
+        <form th:action="@{/task/create}" method="get">
+            <button class="btn waves-effect waves-light" type="submit">추가
+                <i class="material-icons left">add_circle</i>
+            </button>
+        </form>
         <div th:if="${noResult}" th:text="${noResult}"></div>
-        <table th:unless="${noResult}">
-            <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>목표 시간</th>
-                    <th>상세 내용</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="task: ${taskList}">
-                    <td>
-                        <a th:href="@{|/task/detail/${task.id}|}" th:text="${task.subject}"></a>
-                    </td>
-                    <td th:text="${task.estimatedAt}"></td>
-                    <td th:text="${task.description}"></td>
-                    <td th:switch="${#strings.toString(task.status)}">
-                        <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get">
-                            <input type="submit" name="start" value="시작">
-                        </form>
-                        <div th:case="'ING'">
-                            <form th:action="@{|/task/pause/${task.id}|}" method="post">
-                                <input type="submit" name="pause" value="일시정지">
+        <div th:unless="${noResult}" class="row">
+            <div th:each="task: ${taskList}"  class="col s12 m12">
+                <div class="card">
+                    <div class="card-content">
+                        <div>
+                            <span class="card-title">
+                                <a th:href="@{|/task/detail/${task.id}|}" th:text="${task.subject}"></a>
+                            </span>
+                        </div>
+                        <div th:text="${task.estimatedAt}"></div>
+                        <div th:text="${task.description}"></div>
+                        <div th:switch="${#strings.toString(task.status)}">
+                            <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get">
+                                <button class="btn waves-effect waves-light teal lighten-2" type="submit">시작</button>
                             </form>
-                            <form th:action="@{|/task/complete/${task.id}|}" method="post">
-                                <input type="submit" name="complete" value="완료">
+                            <div th:case="'ING'">
+                                <form th:action="@{|/task/pause/${task.id}|}" method="post">
+                                    <button class="btn waves-effect waves-light teal lighten-2" type="submit">일시정지</button>
+                                </form>
+                                <form th:action="@{|/task/complete/${task.id}|}" method="post">
+                                    <button class="btn waves-effect waves-light teal lighten-2" type="submit">완료</button>
+                                </form>
+                            </div>
+                            <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
+                                <button class="btn waves-effect waves-light teal lighten-2" type="submit">계속</button>
                             </form>
                         </div>
-                        <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
-                            <input type="submit" name="continue" value="계속">
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <form th:action="@{/task/create}" method="get">
-            <input type="submit" value="추가">
-        </form>
-    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="page-footer white">
+        <div class="row">
+            <a class="grey-text text-lighten-1" href="#!">개인정보처리방침 보기</a>
+        </div>
+        <div class="footer-copyright teal lighten-2">
+            © 2014. MEOHIN all rights reserved.
+<!--                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
+        </div>
+    </footer>
 </div>
 </html>

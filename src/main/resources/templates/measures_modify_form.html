@@ -3,21 +3,28 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ko">
 <!-- 부모 템플릿 th:block 엘리먼트 내용을 자식 템플릿의 div 엘리먼트 내용으로 교체 -->
 <div layout:fragment="content" class="container">
-    <h1>Task 이력 수정</h1>
+    <header>
+        <button class="btn-flat waves-effect waves-light" onclick="history.back()">
+            <i class="material-icons">arrow_back_ios</i>
+        </button>
+        <span>할 일 이력 수정</span>
+    </header>
     <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
-        <div>
-          <label for="estimatedAt">예상 시간</label>
-          <input type="text" name="estimatedAt" id="estimatedAt">
+        <div class="row">
+            <div class="input-field col s12 m12 l12">
+                <label for="estimatedAt">예상 날짜와 시간</label>
+                <input placeholder="00:00" type="text" name="estimatedAt" id="estimatedAt" class="validate">
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <label for="startTime">시작 날짜와 시간</label>
+                <input placeholder="2023-06-04 10:15" type="text" name="startTime" id="startTime" class="validate">
+            </div>
+            <div class="input-field col s12 m12 l12">
+                <label for="completeTime">완료 날짜와 시각</label>
+                <input placeholder="2023-07-03 12:30" type="text" name="completeTime" id="completeTime" class="validate">
+            </div>
+            <button type="submit" class="btn waves-effect waves-light col s12">저장</button>
         </div>
-        <div>
-          <label for="startTime">시작 시각</label>
-          <input type="text" name="startTime" id="startTime">
-        </div>
-        <div>
-          <label for="completeTime">완료 시각</label>
-          <input type="text" name="completeTime" id="completeTime">
-        </div>
-        <input type="submit" value="저장">
     </form>
 </div>
 </html>
