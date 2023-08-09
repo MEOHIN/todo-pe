@@ -256,6 +256,7 @@ public class TaskController {
         }
 
         TaskStatus status = taskMeasures.getTask().getStatus();
+        LocalDateTime existingStartTime = taskMeasures.getStartTime();
         LocalDateTime existingCompleteTime = taskMeasures.getCompleteTime();
         LocalDateTime existingContinueTime = taskMeasures.getContinueTime();
         LocalDateTime existingPauseTime = taskMeasures.getPauseTime();
@@ -287,11 +288,11 @@ public class TaskController {
         if (completeTime.length() != 0) {
             if (status == TaskStatus.STANDBY && existingCompleteTime != null) {
                 LocalDateTime inputCompleteTime = LocalDateTime.parse(completeTime, formatter);
-                if (inputCompleteTime.compareTo(existingContinueTime) > 0) {
+                if ((existingContinueTime !=null && inputCompleteTime.compareTo(existingContinueTime) > 0) || inputCompleteTime.compareTo(existingStartTime) >0) {
                     completeDate = inputCompleteTime;
                 } else {
-                    // 메세지 출력 "수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다."
-                    throw new RuntimeException("수정하려는 완료 시각이 재시작 시각보다 이후여야 합니다.");
+                    // 메세지 출력 "수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다."
+                    throw new RuntimeException("수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다.");
                 }
             } else {
                 // 메세지 출력 "Task를 완료해야만 완료 시각을 수정할 수 있습니다."
