@@ -63,6 +63,13 @@
                 <div class="card-content black-text">
                     <div>
                         <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
+                        <span>
+                            <a href="javascript:void(0);"
+                               th:data-uri="@{|/task/measures/delete/${taskMeasure.id}|}"
+                               class="delete waves-effect waves-teal btn-flat">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                        </span>
                     </div>
                     <div class="card-title" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
                     <div th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}"></div>
@@ -71,4 +78,14 @@
         </div>
     </div>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+        });
+    });
+</script>
 </html>
