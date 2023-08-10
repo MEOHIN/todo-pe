@@ -13,7 +13,7 @@
         <div class="row">
             <div class="input-field col s12 m12 l12">
                 <label for="subject">제목</label>
-                <input type="text" name="subject" id="subject" class="validate">
+                <input type="text" name="subject" id="subject" th:value="${task.subject}" class="validate">
             </div>
             <div class="input-field col s12 m12 l12">
                 <label for="estimatedAt">예상 처리 시간</label>
