@@ -5,9 +5,16 @@
 <div layout:fragment="content" class="container">
     <header>
         <button class="btn-flat waves-effect waves-light" onclick="history.back()">
-            <i class="material-icons">arrow_back_ios</i>
+            <i class="material-icons">arrow_back</i>
         </button>
-        <span>할 일 이력 수정</span>
+        <span>할 일 이력 상세</span>
+        <span>
+            <a href="javascript:void(0);"
+               th:data-uri="@{|/task/measures/delete/${taskMeasures.id}|}"
+               class="delete waves-effect waves-teal btn-flat">
+                <i class="material-icons">delete_outline</i>
+            </a>
+        </span>
     </header>
     <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
         <div class="row">
@@ -27,4 +34,14 @@
         </div>
     </form>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+        });
+    });
+</script>
 </html>
