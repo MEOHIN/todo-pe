@@ -58,6 +58,9 @@
 
     <!-- 태스크 이력: taskMeasures 목록 -->
     <div class="row">
+        <div th:if="${#lists.isEmpty(taskMeasureList)}">
+            <h3>완료한 이력이 없습니다.</h3>
+        </div>
         <div th:each="taskMeasure: ${taskMeasureList}" class="col s12 m12">
             <div class="card teal lighten-5">
                 <div class="card-content black-text">
