@@ -5,9 +5,9 @@
 <div layout:fragment="content" class="container">
     <!-- 상단바: 뒤로가기 버튼, Task 제목, Task 제목 수정하기 버튼 -->
     <header>
-        <button class="btn-flat waves-effect waves-light" onclick="history.back()">
-            <i class="material-icons">arrow_back_ios</i>
-        </button>
+        <a th:href="@{/}" class="btn-flat waves-effect waves-light">
+            <i class="material-icons">arrow_back</i>
+        </a>
         <span th:text="${task.subject}"></span>
         <!-- GET 방식으로 제목을 불러오고, POST 방식으로 제목을 수정 -->
         <a th:href="@{|/task/modify/${task.id}|}" class="btn-flat waves-effect waves-light">
