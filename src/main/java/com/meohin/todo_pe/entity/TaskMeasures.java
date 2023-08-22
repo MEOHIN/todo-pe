@@ -17,6 +17,8 @@ public class TaskMeasures {
 
     private Integer estimatedAt;
 
+    private LocalDateTime modifiedAt;
+
     private LocalDateTime startTime;
 
     private LocalDateTime pauseTime;
