@@ -65,7 +65,7 @@ public class TaskMeasuresService {
 
         taskMeasures.setTask(task);
         taskMeasures.setEstimatedAt(estimatedAt);
-        taskMeasures.setStartTime(LocalDateTime.now());
+        taskMeasures.setStartTime(LocalDateTime.now().withNano(0));
         taskMeasures.setSiteUser(user);
 
         taskMeasuresRepository.save(taskMeasures);
@@ -79,13 +79,13 @@ public class TaskMeasuresService {
     public void saveTime(TaskMeasures taskMeasures, TaskStatus timeStatusToSet) {
 
         if (timeStatusToSet == TaskStatus.PAUSE) {
-            taskMeasures.setPauseTime(LocalDateTime.now());
+            taskMeasures.setPauseTime(LocalDateTime.now().withNano(0));
         }
         else if (timeStatusToSet == TaskStatus.ING) {
-            taskMeasures.setContinueTime(LocalDateTime.now());
+            taskMeasures.setContinueTime(LocalDateTime.now().withNano(0));
         }
         else if (timeStatusToSet == TaskStatus.STANDBY) {
-            taskMeasures.setCompleteTime(LocalDateTime.now());
+            taskMeasures.setCompleteTime(LocalDateTime.now().withNano(0));
         }
         taskMeasuresRepository.save(taskMeasures);
     }
@@ -99,23 +99,23 @@ public class TaskMeasuresService {
         if (taskStatus == TaskStatus.PAUSE) {
             if (taskMeasures.getContinueTime() == null) {
                 Duration elapsedPausedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getPauseTime());
-                int elapsedPausedTime = (int) elapsedPausedDuration.toSeconds();
+                int elapsedPausedTime = (int) elapsedPausedDuration.toMinutes();
                 taskMeasures.setElapsedPausedTime(elapsedPausedTime);
             } else {
                 Duration elapsedPausedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getPauseTime());
-                int elapsedPausedTimeFromContinue = (int) elapsedPausedDuration.toSeconds();
+                int elapsedPausedTimeFromContinue = (int) elapsedPausedDuration.toMinutes();
                 taskMeasures.setElapsedPausedTime(taskMeasures.getElapsedPausedTime() + elapsedPausedTimeFromContinue);
             }
         }
         else if (taskStatus == TaskStatus.STANDBY) {
             if (taskMeasures.getContinueTime() == null) {
                 Duration totalElapsedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getCompleteTime());
-                int totalElapsedTime = (int) totalElapsedDuration.toSeconds();
+                int totalElapsedTime = (int) totalElapsedDuration.toMinutes();
                 taskMeasures.setTotalElapsedTime(totalElapsedTime);
             }
             else {
                 Duration elapsedCompletedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getCompleteTime());
-                int elapsedCompletedTime = (int) elapsedCompletedDuration.toSeconds();
+                int elapsedCompletedTime = (int) elapsedCompletedDuration.toMinutes();
                 taskMeasures.setElapsedCompletedTime(elapsedCompletedTime);
 
                 taskMeasures.setTotalElapsedTime(taskMeasures.getElapsedPausedTime() + elapsedCompletedTime);

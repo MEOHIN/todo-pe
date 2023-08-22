@@ -48,7 +48,7 @@ public class TaskService {
     public void createTask(String subject, String description, Integer estimatedAt, SiteUser user) {
         Task task = new Task();
 
-        task.setCreatedAt(LocalDateTime.now());
+        task.setCreatedAt(LocalDateTime.now().withNano(0));
         task.setSubject(subject);
         task.setDescription(description);
         task.setEstimatedAt(estimatedAt);
@@ -65,7 +65,7 @@ public class TaskService {
     public void modifyTask(Task task, String subject, int estimatedAt) {
         task.setSubject(subject);
         task.setEstimatedAt(estimatedAt);
-        task.setModifiedAt(LocalDateTime.now());
+        task.setModifiedAt(LocalDateTime.now().withNano(0));
         taskRepository.save(task);
     }
 

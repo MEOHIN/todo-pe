@@ -18,8 +18,10 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Task 컨틀롤러 클래스다.
@@ -235,15 +237,19 @@ public class TaskController {
     /**
      * Task 이력을 수정한다.
      * @param taskMeasuresId    TaskMeasures ID
-     * @param startTime         수정할 시작 시각
-     * @param completeTime      수정할 완료 시각
+     * @param inputStartDate         수정할 시작 날짜
+     * @param inputStartTime         수정할 시작 시각
+     * @param inputCompleteDate      수정할 완료 날짜
+     * @param inputCompleteTime      수정할 완료 시각
      * @return  Task 목록 페이지
      */
     @PostMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
-                                     @RequestParam String startTime,
-                                     @RequestParam String completeTime,
+                                     @RequestParam String inputStartDate,
+                                     @RequestParam String inputStartTime,
+                                     @RequestParam String inputCompleteDate,
+                                     @RequestParam String inputCompleteTime,
                                      Principal principal) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
@@ -256,51 +262,74 @@ public class TaskController {
         }
 
         TaskStatus status = taskMeasures.getTask().getStatus();
-        LocalDateTime existingStartTime = taskMeasures.getStartTime();
-        LocalDateTime existingCompleteTime = taskMeasures.getCompleteTime();
-        LocalDateTime existingContinueTime = taskMeasures.getContinueTime();
-        LocalDateTime existingPauseTime = taskMeasures.getPauseTime();
+        LocalDateTime existingStart = taskMeasures.getStartTime();
+        LocalDateTime existingComplete = taskMeasures.getCompleteTime();
+        LocalDateTime existingContinue = taskMeasures.getContinueTime();
+        LocalDateTime existingPause = taskMeasures.getPauseTime();
 
         // 시간 초기화
-        LocalDateTime startDate = taskMeasures.getStartTime();
-        LocalDateTime completeDate = taskMeasures.getCompleteTime();
+        String startDate = inputStartDate;
+        String startTime = inputStartTime;
+        String completeDate = inputCompleteDate;
+        String completeTime = inputCompleteTime;
 
         // 포맷 패턴 정의
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a").withLocale(Locale.US);
+
+        if (startDate.length() == 0) {
+            startDate = existingStart.format(DateTimeFormatter.ISO_DATE);
+        }
+        if (startTime.length() == 0) {
+            startTime = 0+existingStart.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
+        }
+        if (completeDate.length() == 0) {
+            completeDate = existingComplete.format(DateTimeFormatter.ISO_DATE);
+        }
+        if (completeTime.length() == 0) {
+            completeTime = 0+existingComplete.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
+        }
 
         // 시작 시각 파싱
-        if (startTime.length() != 0) {
-            if (status == TaskStatus.PAUSE && existingContinueTime == null) {
-                LocalDateTime inputStartTime = LocalDateTime.parse(startTime, formatter);
-                if (inputStartTime.compareTo(existingPauseTime) < 0) {
-                    startDate = inputStartTime;
+        if (inputStartDate.length() != 0 || inputStartTime.length() != 0 ) {
+            if (status == TaskStatus.PAUSE && existingContinue == null) {
+                String resultStart = startDate + " " + startTime;
+                LocalDateTime startDateTime = LocalDateTime.parse(resultStart, inputFormatter);
+                if (startDateTime.compareTo(existingPause) < 0 && startDateTime.compareTo(LocalDateTime.now()) < 0) {
+                    existingStart = startDateTime;
                 } else {
                     // 메세지 출력 "수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다."
-                    throw new RuntimeException("수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다.");
+                    model.addAttribute("errorMessage", "수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다.");
+                    return "/login/error";
                 }
             } else {
                 // 메세지 출력 "Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할수 있습니다."
-                throw new RuntimeException("Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할 수 있습니다.");
+                model.addAttribute("errorMessage", "Task를 처음 일시정지했을 때만 시작 시각을 수정할 수 있습니다.");
+                return "/login/error";
             }
         }
 
         // 완료 시각 파싱
-        if (completeTime.length() != 0) {
-            if (status == TaskStatus.STANDBY && existingCompleteTime != null) {
-                LocalDateTime inputCompleteTime = LocalDateTime.parse(completeTime, formatter);
-                if ((existingContinueTime !=null && inputCompleteTime.compareTo(existingContinueTime) > 0) || inputCompleteTime.compareTo(existingStartTime) >0) {
-                    completeDate = inputCompleteTime;
+        if (inputCompleteDate.length() !=0 || inputCompleteTime.length() != 0)  {
+            if (status == TaskStatus.STANDBY && existingComplete != null) {
+                String resultComplete = completeDate + " " + completeTime;
+                LocalDateTime completeDateTime = LocalDateTime.parse(resultComplete, inputFormatter);
+                if (((existingContinue != null && completeDateTime.compareTo(existingContinue) > 0)
+                        ||
+                        completeDateTime.compareTo(existingStart) > 0) && completeDateTime.compareTo(LocalDateTime.now()) < 0) {
+                    existingComplete = completeDateTime;
                 } else {
                     // 메세지 출력 "수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다."
-                    throw new RuntimeException("수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다.");
+                    model.addAttribute("errorMessage", "수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다.");
+                    return "/login/error";
                 }
             } else {
-                // 메세지 출력 "Task를 완료해야만 완료 시각을 수정할 수 있습니다."
-                throw new RuntimeException("Task를 완료해야만 완료 시각을 수정할 수 있습니다.");
+                // 메1세지 출력 "Task를 완료해야만 완료 시각을 수정할 수 있습니다."
+                model.addAttribute("errorMessage", "Task를 완료해야만 완료 시각을 수정할 수 있습니다.");
+                return "/login/error";
             }
         }
 
-        this.taskMeasuresService.modifyTime(taskMeasures, startDate, completeDate);
+        this.taskMeasuresService.modifyTime(taskMeasures, existingStart, existingComplete);
 
         // Task 상태에 따라 Task 처리 시간을 계산
         this.taskMeasuresService.calculateTime(taskMeasures, status);
