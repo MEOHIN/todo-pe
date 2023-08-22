@@ -75,7 +75,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         // TaskMeasures 리스트를 조회
@@ -154,7 +154,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         model.addAttribute("task", task);
@@ -183,7 +183,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         // 제목 초기화
@@ -225,7 +225,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         model.addAttribute(taskMeasures);
@@ -252,7 +252,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         TaskStatus status = taskMeasures.getTask().getStatus();
@@ -325,7 +325,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "삭제권한이 없습니다.");
-            return "error";
+            return "/login/error";
         }
 
         // Task 이력을 삭제
@@ -359,7 +359,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
         model.addAttribute(task);
         return "task/start_form";
@@ -380,7 +380,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
 
         // 시간 초기화
@@ -410,7 +410,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
@@ -428,7 +428,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
@@ -445,7 +445,7 @@ public class TaskController {
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "error";
+            return "/login/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
