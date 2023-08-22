@@ -135,6 +135,10 @@ public class TaskMeasuresService {
         taskMeasures.setStartTime(startTime);
         // Task 완료 시각 설정
         taskMeasures.setCompleteTime(completeTime);
+
+        // 이력 수정 시각 설정
+        taskMeasures.setModifiedAt(LocalDateTime.now().withNano(0));
+
         // 세팅 저장
         taskMeasuresRepository.save(taskMeasures);
     }
