@@ -245,8 +245,6 @@ public class TaskController {
     /**
      * Task 이력을 수정한다.
      * @param taskMeasuresId    TaskMeasures ID
-     * @param inputStartDate         수정할 시작 날짜
-     * @param inputStartTime         수정할 시작 시각
      * @param inputCompleteDate      수정할 완료 날짜
      * @param inputCompleteTime      수정할 완료 시각
      * @return  Task 목록 페이지
@@ -254,8 +252,6 @@ public class TaskController {
     @PostMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
-                                     @RequestParam String inputStartDate,
-                                     @RequestParam String inputStartTime,
                                      @RequestParam String inputCompleteDate,
                                      @RequestParam String inputCompleteTime,
                                      Principal principal) {
@@ -273,47 +269,19 @@ public class TaskController {
         LocalDateTime existingStart = taskMeasures.getStartTime();
         LocalDateTime existingComplete = taskMeasures.getCompleteTime();
         LocalDateTime existingContinue = taskMeasures.getContinueTime();
-        LocalDateTime existingPause = taskMeasures.getPauseTime();
 
         // 시간 초기화
-        String startDate = inputStartDate;
-        String startTime = inputStartTime;
         String completeDate = inputCompleteDate;
         String completeTime = inputCompleteTime;
 
         // 포맷 패턴 정의
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a").withLocale(Locale.US);
 
-        if (startDate.length() == 0) {
-            startDate = existingStart.format(DateTimeFormatter.ISO_DATE);
-        }
-        if (startTime.length() == 0) {
-            startTime = 0+existingStart.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
-        }
         if (completeDate.length() == 0) {
             completeDate = existingComplete.format(DateTimeFormatter.ISO_DATE);
         }
         if (completeTime.length() == 0) {
             completeTime = 0+existingComplete.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
-        }
-
-        // 시작 시각 파싱
-        if (inputStartDate.length() != 0 || inputStartTime.length() != 0 ) {
-            if (status == TaskStatus.PAUSE && existingContinue == null) {
-                String resultStart = startDate + " " + startTime;
-                LocalDateTime startDateTime = LocalDateTime.parse(resultStart, inputFormatter);
-                if (startDateTime.compareTo(existingPause) < 0 && startDateTime.compareTo(LocalDateTime.now()) < 0) {
-                    existingStart = startDateTime;
-                } else {
-                    // 메세지 출력 "수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다."
-                    model.addAttribute("errorMessage", "수정하려는 시작 시각이 일시정지 시각보다 이전이어야 합니다.");
-                    return "/login/error";
-                }
-            } else {
-                // 메세지 출력 "Task를 한 번도 재시작하지 않았을 때, 시작 시각을 수정할수 있습니다."
-                model.addAttribute("errorMessage", "Task를 처음 일시정지했을 때만 시작 시각을 수정할 수 있습니다.");
-                return "/login/error";
-            }
         }
 
         // 완료 시각 파싱

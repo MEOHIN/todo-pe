@@ -18,13 +18,14 @@
     </header>
     <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
         <div class="row">
+            <span class="helper-text" data-error="wrong" data-success="right">시작 날짜와 시작 시각은 수정할 수 없습니다.</span>
             <div>
                 <label for="inputStartDate">시작 날짜</label>
-                <input th:placeholder="${startDate}" type="text" name="inputStartDate" id="inputStartDate" class="datepicker">
+                <input disabled th:placeholder="${startDate}" type="text" name="inputStartDate" id="inputStartDate" class="datepicker">
             </div>
             <div>
                 <label for="inputStartTime">시작 시각</label>
-                <input th:placeholder="${startTime}" type="text" name="inputStartTime" id="inputStartTime" class="timepicker">
+                <input disabled th:placeholder="${startTime}" type="text" name="inputStartTime" id="inputStartTime" class="timepicker">
             </div>
             <div>
                 <label for="inputCompleteDate">완료 날짜</label>
