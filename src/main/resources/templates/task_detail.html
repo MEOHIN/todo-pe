@@ -68,10 +68,62 @@
                         <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
                     </div>
                     <div class="card-title" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
-                    <div th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}"></div>
+                    <input type="hidden" class="hidden-total-time" th:value="${taskMeasure.totalElapsedTime}">
+                    <div th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}" class="estimated-at"></div>
+                    <input type="hidden" class="hidden-estimated-time" th:value="${taskMeasure.estimatedAt}">
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    <!--  시간 출력 포맷  -->
+    var totalTimeElements = document.getElementsByClassName('hidden-total-time');
+    var userTotalTime = document.getElementsByClassName('card-title');
+    var estimatedTimeElements = document.getElementsByClassName('hidden-estimated-time');
+    var userEstimatedTime = document.getElementsByClassName('estimated-at');
+    for (var i = 0; i < estimatedTimeElements.length; i++) {
+        var hiddenEstimatedElement = estimatedTimeElements[i];
+        var estimatedAtMinutes = parseInt(hiddenEstimatedElement.value);
+        var formattedEstimatedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
+
+        var hiddenTotalTimeElement = totalTimeElements[i];
+        var totalTimeMinutes = parseInt(hiddenTotalTimeElement.value);
+        var formattedTotalTime = formatMinutesToHoursAndMinutes(totalTimeMinutes);
+        // 1. Browser 에서 break point 를 IntelliJ 에서 쓰는 것처럼 할 수 있다.
+        // 2. console.log 로 변수의 값을 한번에 볼 수 있다. dictionary 형태로
+        // 3. console.table 같은게 있다.
+        // 4. 클라이언트(브라우저)에서 계산에 쓰는 값은 input hidden 으로 처리하는것이 좀 더 우아하다.
+
+        userEstimatedTime[i].textContent = '예상 처리 시간: ' + formattedEstimatedTime;
+        userTotalTime[i].textContent = '총 소요시간: ' + formattedTotalTime;
+    }
+
+    function formatMinutesToHoursAndMinutes(minutes) {
+        var days;
+        var hours;
+        var remainingMinutes;
+
+
+        if (minutes === 0) {
+            return '1분 미만'
+        }
+        if (minutes/1440 >= 1) {
+            days = Math.floor(minutes / 1440);
+            hours = Math.floor((minutes % 1440) / 60);
+            remainingMinutes =(minutes % 1440) % 60;
+            return days + '일 ' + hours + '시간 ' + remainingMinutes + '분';
+        } else {
+            hours = Math.floor(minutes / 60);
+            remainingMinutes = minutes % 60;
+            if (remainingMinutes === 0) {
+                return hours + '시간 '
+            }
+            if (hours === 0)  {
+                return remainingMinutes + '분';
+            }
+            return hours + '시간 ' + remainingMinutes + '분';
+        }
+    }
+</script>
 </html>

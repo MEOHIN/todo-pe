@@ -23,4 +23,25 @@
         </div>
     </form>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    <!--  시간 출력 포맷  -->
+    var estimatedTime = document.getElementById('estimatedAt');
+    var estimatedAtMinutes = parseInt(estimatedTime.value);
+    var formattedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
+    estimatedTime.value = formattedTime;
+
+    console.log(formattedTime)
+
+    function formatMinutesToHoursAndMinutes(minutes) {
+        var hours = Math.floor(minutes/60);
+        var remainingMinutes = minutes % 60;
+        console.log(remainingMinutes);
+        console.log(remainingMinutes.toString().length);
+        if (remainingMinutes.toString().length === 1) {
+            return hours + ':' + '0' + remainingMinutes;
+        } else {
+            return hours + ':' + remainingMinutes;
+        }
+    }
+</script>
 </html>
