@@ -252,20 +252,22 @@ public class TaskController {
     @PostMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
+                                     RedirectAttributes redirectAttributes,
                                      @RequestParam String inputCompleteDate,
                                      @RequestParam String inputCompleteTime,
                                      Principal principal) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        Task task = taskMeasures.getTask();
         SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+        boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
             return "/login/error";
         }
 
-        TaskStatus status = taskMeasures.getTask().getStatus();
+        TaskStatus status = task.getStatus();
         LocalDateTime existingStart = taskMeasures.getStartTime();
         LocalDateTime existingComplete = taskMeasures.getCompleteTime();
         LocalDateTime existingContinue = taskMeasures.getContinueTime();
@@ -310,7 +312,8 @@ public class TaskController {
         // Task 상태에 따라 Task 처리 시간을 계산
         this.taskMeasuresService.calculateTime(taskMeasures, status);
 
-        return "redirect:/task/list";
+        redirectAttributes.addFlashAttribute("editedTask", task);
+        return "redirect:/task/detail/" + task.getId();
     }
 
     /**
