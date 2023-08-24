@@ -70,6 +70,10 @@ public class TaskController {
         if(task == null) {
             // taskId에 해당하는 Task를 가져와서 task에 할당
             task = taskService.getTaskById(taskId);
+            if (task == null) {
+                model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+                return "/login/error";
+            }
         }
 
         SiteUser user = this.userService.getUser(principal.getName());
@@ -151,6 +155,10 @@ public class TaskController {
     @GetMapping("/modify/{taskId}")
     public String modifyTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -180,6 +188,10 @@ public class TaskController {
                              Principal principal) {
 
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -222,6 +234,10 @@ public class TaskController {
     @GetMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId, Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        if (taskMeasures == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
 
@@ -258,6 +274,10 @@ public class TaskController {
                                      Principal principal) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        if (taskMeasures == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         Task task = taskMeasures.getTask();
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
@@ -328,6 +348,10 @@ public class TaskController {
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
                                      Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
+        if (taskMeasures == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
 
@@ -362,6 +386,10 @@ public class TaskController {
     @GetMapping("/start/{taskId}")
     public String startTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -383,6 +411,10 @@ public class TaskController {
     public String startTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String estimatedAt, Principal principal) {
 
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -413,6 +445,10 @@ public class TaskController {
     @PostMapping("/pause/{taskId}")
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -431,6 +467,10 @@ public class TaskController {
     @PostMapping("/continue/{taskId}")
     public String continueTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
@@ -448,6 +488,10 @@ public class TaskController {
     @PostMapping("/complete/{taskId}")
     public String completeTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
+        if (task == null) {
+            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
+            return "/login/error";
+        }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
