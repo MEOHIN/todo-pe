@@ -15,12 +15,22 @@
                 <label for="estimatedAt">예상 처리 시간을 입력하세요</label>
                 <input type="text" name="estimatedAt" id="estimatedAt" th:value="${task.estimatedAt}" class="validate">
             </div>
-            <button type="submit" class="btn waves-effect waves-light col s12">시작</button>
+            <button type="submit" class="start btn waves-effect waves-light col s12">시작</button>
         </div>
     </form>
 </div>
 <script layout:fragment="script" type="text/javascript">
-    <!--  시간 출력 포맷  -->
+    // 시작 여부 확인
+    const delete_elements = document.getElementsByClassName("start");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 시작하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+        });
+    });
+
+    // 시간 출력 포맷
     var estimatedTime = document.getElementById('estimatedAt');
     var estimatedAtMinutes = parseInt(estimatedTime.value);
     var formattedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
