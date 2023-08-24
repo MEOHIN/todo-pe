@@ -96,7 +96,7 @@
         // 4. 클라이언트(브라우저)에서 계산에 쓰는 값은 input hidden 으로 처리하는것이 좀 더 우아하다.
 
         userEstimatedTime[i].textContent = '예상 처리 시간: ' + formattedEstimatedTime;
-        userTotalTime[i].textContent = '총 소요시간: ' + formattedTotalTime;
+        userTotalTime[i].textContent = '총 소요 시간: ' + formattedTotalTime;
     }
 
     function formatMinutesToHoursAndMinutes(minutes) {
@@ -104,20 +104,25 @@
         var hours;
         var remainingMinutes;
 
-
         if (minutes === 0) {
-            return '1분 미만'
+            return '1분 미만';
         }
         if (minutes/1440 >= 1) {
             days = Math.floor(minutes / 1440);
             hours = Math.floor((minutes % 1440) / 60);
             remainingMinutes =(minutes % 1440) % 60;
+            if (remainingMinutes === 0 ) {
+                return days + '일 ' + hours + '시간 ';
+            }
+            if (hours === 0) {
+                return days + '일 ' + remainingMinutes + '분';
+            }
             return days + '일 ' + hours + '시간 ' + remainingMinutes + '분';
         } else {
             hours = Math.floor(minutes / 60);
             remainingMinutes = minutes % 60;
             if (remainingMinutes === 0) {
-                return hours + '시간 '
+                return hours + '시간 ';
             }
             if (hours === 0)  {
                 return remainingMinutes + '분';
