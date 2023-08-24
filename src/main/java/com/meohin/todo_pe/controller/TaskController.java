@@ -229,8 +229,16 @@ public class TaskController {
             model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
             return "/login/error";
         }
+        String startDate = taskMeasures.getStartTime().format(DateTimeFormatter.ISO_DATE);
+        String startTime = 0+taskMeasures.getStartTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
+        String completeDate = taskMeasures.getCompleteTime().format(DateTimeFormatter.ISO_DATE);
+        String completeTime = 0+taskMeasures.getCompleteTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
 
         model.addAttribute(taskMeasures);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("startTime", startTime);
+        model.addAttribute("completeDate", completeDate);
+        model.addAttribute("completeTime", completeTime);
         return "measures_modify_form";
     }
 
