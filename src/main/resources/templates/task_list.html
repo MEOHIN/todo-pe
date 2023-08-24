@@ -45,7 +45,7 @@
                                     <button class="btn waves-effect waves-light teal lighten-2" type="submit">일시정지</button>
                                 </form>
                                 <form th:action="@{|/task/complete/${task.id}|}" method="post">
-                                    <button class="btn waves-effect waves-light teal lighten-2" type="submit">완료</button>
+                                    <button class="complete btn waves-effect waves-light teal lighten-2" type="submit">완료</button>
                                 </form>
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
@@ -68,7 +68,17 @@
     </footer>
 </div>
 <script layout:fragment="script" type="text/javascript">
-    <!--  시간 출력 포맷  -->
+    // 완료 여부 확인
+    const delete_elements = document.getElementsByClassName("complete");
+    Array.from(delete_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 완료하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            }
+        });
+    });
+
+    // 시간 출력 포맷
     var hiddenEstimatedTime = document.getElementsByClassName('hidden-estimated-time');
     var estimatedTime = document.getElementsByClassName('estimated-at');
 
