@@ -78,18 +78,18 @@
 </div>
 <script layout:fragment="script" type="text/javascript">
     <!--  시간 출력 포맷  -->
-    var totalTimeElements = document.getElementsByClassName('hidden-total-time');
-    var userTotalTime = document.getElementsByClassName('card-title');
-    var estimatedTimeElements = document.getElementsByClassName('hidden-estimated-time');
-    var userEstimatedTime = document.getElementsByClassName('estimated-at');
-    for (var i = 0; i < estimatedTimeElements.length; i++) {
-        var hiddenEstimatedElement = estimatedTimeElements[i];
-        var estimatedAtMinutes = parseInt(hiddenEstimatedElement.value);
-        var formattedEstimatedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
+    let totalTimeElements = document.getElementsByClassName('hidden-total-time');
+    let userTotalTime = document.getElementsByClassName('card-title');
+    let estimatedTimeElements = document.getElementsByClassName('hidden-estimated-time');
+    let userEstimatedTime = document.getElementsByClassName('estimated-at');
+    for (let i = 0; i < estimatedTimeElements.length; i++) {
+        let hiddenEstimatedElement = estimatedTimeElements[i];
+        let estimatedAtMinutes = parseInt(hiddenEstimatedElement.value);
+        let formattedEstimatedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
 
-        var hiddenTotalTimeElement = totalTimeElements[i];
-        var totalTimeMinutes = parseInt(hiddenTotalTimeElement.value);
-        var formattedTotalTime = formatMinutesToHoursAndMinutes(totalTimeMinutes);
+        let hiddenTotalTimeElement = totalTimeElements[i];
+        let totalTimeMinutes = parseInt(hiddenTotalTimeElement.value);
+        let formattedTotalTime = formatMinutesToHoursAndMinutes(totalTimeMinutes);
         // 1. Browser 에서 break point 를 IntelliJ 에서 쓰는 것처럼 할 수 있다.
         // 2. console.log 로 변수의 값을 한번에 볼 수 있다. dictionary 형태로
         // 3. console.table 같은게 있다.
@@ -100,9 +100,9 @@
     }
 
     function formatMinutesToHoursAndMinutes(minutes) {
-        var days;
-        var hours;
-        var remainingMinutes;
+        let days;
+        let hours;
+        let remainingMinutes;
 
         if (minutes === 0) {
             return '1분 미만';
