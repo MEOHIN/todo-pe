@@ -11,11 +11,11 @@
             </div>
             <div class="input-field col s12 m12 l12">
                 <label for="userId">아이디</label>
-                <input type="text" name="userId" id="userId" class="validate">
+                <input type="text" name="userId" id="userId" class="validate" onblur="noSpaceForm(this);">
             </div>
             <div class="input-field col s12 m12 l12">
                 <label for="pw1">비밀번호</label>
-                <input type="password" name="pw1" id="pw1" class="validate">
+                <input type="password" name="pw1" id="pw1" class="validate" onblur="noSpaceForm(this);">
             </div>
             <div class="input-field col s12 m12 l12">
                 <label for="pw2">비밀번호 확인</label>
@@ -30,4 +30,15 @@
         </div>
     </form>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    function noSpaceForm(text) {
+        let space_text = /\s/;
+        if(space_text.exec(text.value)) {
+            alert("해당 항목에는 공백을 포함할 수 없습니다.");
+            text.focus();
+            text.value = text.value.replace(/\s/g, '');
+            return false;
+        }
+    }
+</script>
 </html>
