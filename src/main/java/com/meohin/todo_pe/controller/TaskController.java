@@ -1,16 +1,19 @@
 package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.dto.TaskDTO;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
 import com.meohin.todo_pe.service.TaskMeasuresService;
 import com.meohin.todo_pe.service.TaskService;
 import com.meohin.todo_pe.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -111,29 +114,34 @@ public class TaskController {
 
     /**
      * tast_form 템플릿을 렌더링하여 출력한다.
+     * @param taskDTO   Task 등록 입력항목에 대응하는 폼 클래스
      * @return Task 입력 폼
      */
     @GetMapping("/create")
-    public String createTask() {
+    public String createTask(TaskDTO taskDTO) {
         return "task_form";
     }
 
     /**
      * POST 방식으로 요청한 /task/create URL을 처리한다.
-     * @param subject     Task 제목
-     * @param description Task 내용
+     * @param taskDTO       입력받은 Task 등록 정보
+     * @param bindingResult 유효성 검사 결과
+     * @param principal     현재 로그인한 사용자
      * @return Task 목록
      */
     @PostMapping("/create")
-    public String createTask(@RequestParam String subject,
-                             @RequestParam String description,
-                             @RequestParam String estimatedAt,
+    public String createTask(@Valid TaskDTO taskDTO,
+                             BindingResult bindingResult,
                              Principal principal) {
+
+        if (bindingResult.hasErrors()) {
+            return "task_form";
+        }
 
         // 예상시간 파싱
         // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-        int minutes = Integer.parseInt(estimatedAt.substring(3, 5));
+        int hour = Integer.parseInt(taskDTO.getEstimatedAt().substring(0, 2));
+        int minutes = Integer.parseInt(taskDTO.getEstimatedAt().substring(3, 5));
         for(int i=0; i<hour; i++) {
             minutes += 60;
         }
@@ -141,7 +149,7 @@ public class TaskController {
         SiteUser user = this.userService.getUser(principal.getName());
 
         // 태스크 추가 서비스 호출
-        this.taskService.createTask(subject, description, minutes, user);
+        this.taskService.createTask(taskDTO.getSubject(), taskDTO.getDescription(), minutes, user);
 
         return "redirect:/task/list";
     }
