@@ -14,7 +14,7 @@ public class UserDTO {
     @NotEmpty(message = "ID는 필수 입력 항목입니다.")
     private String userId;
 
-    @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&*()_-]{8,16}$", message = "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.")
+    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[\\W_]).{8,16}$", message = "비밀번호는 영문 대/소문자, 숫자, 특수문자를 각 하나 이상 포함하여 8~16자를 입력합니다.")
     @NotEmpty(message = "비밀번호는 필수 입력 항목입니다.")
     private String pw1;
 
