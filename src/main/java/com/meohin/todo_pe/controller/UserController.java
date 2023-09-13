@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @RequiredArgsConstructor
 @Controller
 public class UserController {
@@ -17,12 +19,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/task/list";
+        }
         return "/login/login";
     }
 
     @GetMapping("/signup")
-    public String signup(UserDTO userDTO) {
+    public String signup(UserDTO userDTO, Principal principal) {
+        if (principal != null) {
+            return "redirect:/task/list";
+        }
         return "login/signup_form";
     }
 
