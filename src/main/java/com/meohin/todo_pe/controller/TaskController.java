@@ -383,11 +383,14 @@ public class TaskController {
     @GetMapping("/search")
     public String searchTask(Model model, @RequestParam String keyword, Principal principal) {
         SiteUser user = this.userService.getUser(principal.getName());
-        List<Task> taskList = this.taskService.getTaskByKeyword(keyword, user);
-        if (taskList.size()==0) {
-            model.addAttribute("noResult", "검색결과가 없습니다.");
+        List<Task> tasks = this.taskService.getTaskList(user);
+        List<Task> keywordTasks = this.taskService.getTaskByKeyword(keyword, user);
+        if (tasks.size()==0) {
+            model.addAttribute("searchResult", "등록된 할 일이 없습니다.");
+        } else if (keywordTasks.size()==0) {
+            model.addAttribute("searchResult", "검색결과가 없습니다.");
         }
-        model.addAttribute("taskList", taskList);
+        model.addAttribute("taskList", keywordTasks);
         return "task_list";
     }
 

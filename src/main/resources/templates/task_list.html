@@ -23,8 +23,8 @@
                 <i class="material-icons left">add_circle</i>
             </button>
         </form>
-        <div th:if="${noResult}" th:text="${noResult}"></div>
-        <div th:unless="${noResult}" class="row">
+        <div th:if="${searchResult}" th:text="${searchResult}"></div>
+        <div th:unless="${searchResult}" class="row">
             <div th:each="task: ${taskList}"  class="col s12 m12">
                 <div class="card">
                     <div class="card-content">
