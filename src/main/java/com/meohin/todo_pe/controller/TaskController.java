@@ -74,8 +74,7 @@ public class TaskController {
             // taskId에 해당하는 Task를 가져와서 task에 할당
             task = taskService.getTaskById(taskId);
             if (task == null) {
-                model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-                return "/login/error";
+                return "/error";
             }
         }
 
@@ -83,8 +82,7 @@ public class TaskController {
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
 
         // TaskMeasures 리스트를 조회
@@ -164,15 +162,13 @@ public class TaskController {
     public String modifyTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
 
         model.addAttribute("task", task);
@@ -197,15 +193,13 @@ public class TaskController {
 
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
 
         // 제목 초기화
@@ -243,15 +237,13 @@ public class TaskController {
     public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId, Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         String startDate = taskMeasures.getStartTime().format(DateTimeFormatter.ISO_DATE);
         String startTime = 0+taskMeasures.getStartTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
@@ -283,16 +275,14 @@ public class TaskController {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         Task task = taskMeasures.getTask();
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
 
         TaskStatus status = task.getStatus();
@@ -325,13 +315,11 @@ public class TaskController {
                     existingComplete = completeDateTime;
                 } else {
                     // 메세지 출력 "수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다."
-                    model.addAttribute("errorMessage", "수정하려는 완료 시각이 시작 시각과 재시작 시각보다 이후여야 합니다.");
-                    return "/login/error";
+                    return "/error";
                 }
             } else {
                 // 메1세지 출력 "Task를 완료해야만 완료 시각을 수정할 수 있습니다."
-                model.addAttribute("errorMessage", "Task를 완료해야만 완료 시각을 수정할 수 있습니다.");
-                return "/login/error";
+                return "/error";
             }
         }
 
@@ -357,15 +345,13 @@ public class TaskController {
                                      Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "삭제권한이 없습니다.");
-            return "/login/error";
+            return "/error";
         }
 
         // Task 이력을 삭제
@@ -398,15 +384,13 @@ public class TaskController {
     public String startTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         model.addAttribute(task);
         return "task/start_form";
@@ -423,15 +407,13 @@ public class TaskController {
 
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
 
         // 시간 초기화
@@ -457,15 +439,13 @@ public class TaskController {
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
@@ -479,15 +459,13 @@ public class TaskController {
     public String continueTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
@@ -500,15 +478,13 @@ public class TaskController {
     public String completeTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         SiteUser user = this.userService.getUser(principal.getName());
         boolean userValidationResult = taskService.validateUser(user, task);
 
         if (!userValidationResult) {
-            model.addAttribute("errorMessage", "올바르지 않은 접근입니다.");
-            return "/login/error";
+            return "/error";
         }
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
