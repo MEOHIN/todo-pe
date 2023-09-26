@@ -9,7 +9,10 @@
         </a>
         <span>할 일 수정</span>
     </header>
-    <form th:action="@{|/task/modify/${task.id}|}" method="post">
+    <form th:action="@{|/task/modify/${task.id}|}" th:object="${taskVO}" method="post">
+        <div role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+        </div>
         <div class="row">
             <div class="input-field col s12 m12 l12">
                 <label for="subject">제목</label>
