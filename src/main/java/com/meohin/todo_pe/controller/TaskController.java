@@ -425,6 +425,10 @@ public class TaskController {
                             BindingResult bindingResult) {
 
         Task task = this.taskService.getTaskById(taskId);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("task", task);
+            return "start_form";
+        }
         if (task == null) {
             return "/error";
         }
