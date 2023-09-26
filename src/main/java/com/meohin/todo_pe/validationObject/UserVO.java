@@ -1,4 +1,4 @@
-package com.meohin.todo_pe.dto;
+package com.meohin.todo_pe.validationObject;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
