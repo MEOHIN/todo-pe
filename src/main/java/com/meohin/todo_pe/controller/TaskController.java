@@ -164,10 +164,15 @@ public class TaskController {
      * Task 제목을 수정하는 페이지로 이동한다.
      * @param model     모델 객체
      * @param taskId    Task ID
+     * @param principal 현재 로그인한 사용자
+     * @param taskVO    입력받은 Task 등록 정보의 유효성을 검증하는 객체
      * @return  Task 제목 수정 템플릿
      */
     @GetMapping("/modify/{taskId}")
-    public String modifyTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
+    public String modifyTask(Model model,
+                             @PathVariable("taskId") Long taskId,
+                             Principal principal,
+                             TaskVO taskVO) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
             return "/error";
@@ -185,21 +190,27 @@ public class TaskController {
 
     /**
      * Task 제목과 예상 처리 시간을 수정한다.
-     * @param model         모델 객체
-     * @param taskId        Task ID
-     * @param subject       입력받은 수정할 Task 제목
-     * @param estimatedAt   입력받은 수정할 예상 처리 시간
+     * @param model                 모델 객체
+     * @param principal             현재 로그인한 사용자
+     * @param taskId                Task ID
+     * @param taskVO                입력받은 수정 정보의 유효성을 검증하는 객체
+     * @param bindingResult         검증 수행 결과
+     * @param redirectAttributes    리다이렉션 후에 데이터를 전달하는 데 사용되는 객체
      * @return  Task 목록
      */
     @PostMapping("modify/{taskId}")
     public String modifyTask(Model model,
-                             RedirectAttributes redirectAttributes,
+                             Principal principal,
                              @PathVariable("taskId") Long taskId,
-                             @RequestParam String subject,
-                             @RequestParam String estimatedAt,
-                             Principal principal) {
+                             @Valid TaskVO taskVO,
+                             BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
 
         Task task = this.taskService.getTaskById(taskId);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("task", task);
+            return "task_form";
+        }
         if (task == null) {
             return "/error";
         }
