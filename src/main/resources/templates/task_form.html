@@ -32,4 +32,25 @@
         </div>
     </form>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    <!--  시간 출력 포맷  -->
+    if (document.getElementById('modify_estimatedAt')) {
+        var estimatedTime = document.getElementById('modify_estimatedAt');
+        var estimatedAtMinutes = parseInt(estimatedTime.value);
+        var formattedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
+        estimatedTime.value = formattedTime;
+
+        console.log(formattedTime)
+
+        function formatMinutesToHoursAndMinutes(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const remainingMinutes = minutes % 60;
+
+            const paddedHours = hours.toString().padStart(2, '0');
+            const paddedMinutes = remainingMinutes.toString().padStart(2, '0');
+
+            return `${paddedHours}:${paddedMinutes}`;
+        }
+    }
+</script>
 </html>
