@@ -1,6 +1,6 @@
 package com.meohin.todo_pe.controller;
 
-import com.meohin.todo_pe.dto.UserDTO;
+import com.meohin.todo_pe.validationObject.UserVO;
 import com.meohin.todo_pe.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public String signup(UserDTO userDTO, Principal principal) {
+    public String signup(UserVO userVO, Principal principal) {
         if (principal != null) {
             return "redirect:/task/list";
         }
@@ -35,19 +35,19 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserDTO userDTO, BindingResult bindingResult) {
+    public String signup(@Valid UserVO userVO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "login/signup_form";
         }
 
-        if (!userDTO.getPw1().equals(userDTO.getPw2())) {
+        if (!userVO.getInputPW().equals(userVO.getConfirmPW())) {
             bindingResult.rejectValue("pw2", "passwordInCorrect", "입력한 2개의 패스워드가 일치하지 않습니다.");
             return "/login/signup_form";
         }
 
         try {
-            this.userService.saveUserInfo(userDTO.getUserId(), userDTO.getPw1(), userDTO.getEmail());
+            this.userService.saveUserInfo(userVO.getInputUserId(), userVO.getInputPW(), userVO.getInputEmail());
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 가입된 회원입니다.");
