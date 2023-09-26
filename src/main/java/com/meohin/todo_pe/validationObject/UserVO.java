@@ -8,7 +8,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
+/**
+ * 사용자 정보 입력값 검증 클래스
+ */
+public class UserVO {
 
     @Pattern(regexp = "^[a-z0-9_-]{5,20}$", message = "아이디는 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.")
     @NotEmpty(message = "ID는 필수 입력 항목입니다.")
