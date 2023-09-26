@@ -16,8 +16,13 @@
                 <input type="text" name="subject" id="subject" th:value="${task.subject}" class="validate">
             </div>
             <div class="input-field col s12 m12 l12">
+                <label for="description">내용</label>
+                <textarea name="description" id="description" th:value="${task.description}" class="materialize-textarea"></textarea>
+            </div>
+            <div class="input-field col s12 m12 l12">
                 <label for="estimatedAt">예상 처리 시간</label>
-                <input type="text" name="estimatedAt" id="estimatedAt" th:value="${task.estimatedAt}" class="validate">
+                <input type="text" name="estimatedAt" id="estimatedAt" th:value="${task.estimatedAt}" minlength="5" class="validate">
+                <span class="helper-text" data-error="00:00 형식으로 입력해주세요. 3시간 30분이라면 03:30으로 입력합니다."></span>
             </div>
             <button type="submit" class="btn waves-effect waves-light col s12">저장</button>
         </div>

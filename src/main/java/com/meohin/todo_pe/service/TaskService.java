@@ -58,12 +58,15 @@ public class TaskService {
     }
 
     /**
-     * Task의 제목을 수정한다.
-     * @param task      Task
-     * @param subject   수정하려는 Task 제목
+     * Task 정보를 수정한다.
+     * @param task          Task
+     * @param subject       수정하려는 Task 제목
+     * @param description   수정하려는 Task 내용
+     * @param estimatedAt   수정하려는 Task 예상 처리 시간
      */
-    public void modifyTask(Task task, String subject, int estimatedAt) {
+    public void modifyTask(Task task, String subject, String description, int estimatedAt) {
         task.setSubject(subject);
+        task.setDescription(description);
         task.setEstimatedAt(estimatedAt);
         task.setModifiedAt(LocalDateTime.now().withNano(0));
         taskRepository.save(task);
