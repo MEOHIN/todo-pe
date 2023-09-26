@@ -404,8 +404,8 @@ public class TaskController {
         if (!userValidationResult) {
             return "/error";
         }
-        model.addAttribute(task);
-        return "task/start_form";
+        model.addAttribute("task", task);
+        return "start_form";
     }
 
     /**
