@@ -132,7 +132,7 @@ public class TaskController {
         }
 
         // 예상시간 파싱
-        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.\
+        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
         String[] timeParts = taskVO.getInputEstimatedAt().split(":");
 
         int hours = Integer.parseInt(timeParts[0]);
