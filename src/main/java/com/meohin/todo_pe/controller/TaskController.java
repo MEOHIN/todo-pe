@@ -261,7 +261,7 @@ public class TaskController {
         this.taskService.modifyTask(task, title, contents, estimatedTime);
         redirectAttributes.addFlashAttribute(taskId);
         redirectAttributes.addFlashAttribute("editedTask", task);
-        return "redirect:/task/detail/{taskId}";
+        return String.format("redirect:/task/detail/%s", taskId);
     }
 
     /**
