@@ -9,7 +9,11 @@
         </a>
         <h5>정말로 시작하시겠습니까?</h5>
     </header>
-    <form th:action="@{|/task/start/${task.id}|}" method="post">
+    <form th:object="${estimatedTimeVO}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+        </div>
         <div class="row">
             <div class="input-field col s12 m12 l12">
                 <label for="estimatedAt">예상 처리 시간을 입력하세요</label>
