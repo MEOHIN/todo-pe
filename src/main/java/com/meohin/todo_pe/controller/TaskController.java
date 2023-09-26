@@ -440,16 +440,23 @@ public class TaskController {
         }
 
         // 시간 초기화
-        int estimatedTime = task.getEstimatedAt();
+        int estimatedTime;
+        if (estimatedTimeVO.getInputEstimatedAt().length() != 0) {
+            // 예상시간 파싱
+            // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
+            String[] timeParts = estimatedTimeVO.getInputEstimatedAt().split(":");
 
-        // 예상시간 파싱
-        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        if (estimatedAt.length() != 0) {
-            int hour = Integer.parseInt(estimatedAt.substring(0, 2));
-            estimatedTime = Integer.parseInt(estimatedAt.substring(3, 5));
-            for (int i = 0; i < hour; i++) {
-                estimatedTime += 60;
+            int hours = Integer.parseInt(timeParts[0]);
+            int minutes = Integer.parseInt(timeParts[1]);
+
+            if (estimatedTimeVO.getInputEstimatedAt().length() < 5
+                    && timeParts.length != 2
+                    && timeParts[1].length() > 2) {
+                return "/error";
             }
+            estimatedTime = (hours * 60) + minutes;
+        } else {
+            estimatedTime = task.getEstimatedAt();
         }
 
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
