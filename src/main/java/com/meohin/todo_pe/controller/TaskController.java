@@ -74,17 +74,11 @@ public class TaskController {
         if(task == null) {
             // taskId에 해당하는 Task를 가져와서 task에 할당
             task = taskService.getTaskById(taskId);
-            if (task == null) {
-                return "/error";
-            }
+            if (task == null) return "/error";
         }
 
         SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
-
-        if (!userValidationResult) {
-            return "/error";
-        }
+        if (!taskService.validateUser(user, task)) return "/error";
 
         // TaskMeasures 리스트를 조회
         List<TaskMeasures> taskMeasureList = taskMeasuresService.getTaskMeasuresByCompleteTimeIsNotNull(taskId);
@@ -174,15 +168,10 @@ public class TaskController {
                              Principal principal,
                              TaskVO taskVO) {
         Task task = this.taskService.getTaskById(taskId);
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (task == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
 
         model.addAttribute("task", task);
         return "task_form";
@@ -211,15 +200,11 @@ public class TaskController {
             model.addAttribute("task", task);
             return "task_form";
         }
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        if (task == null) return "/error";
+
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
 
         // 제목 초기화
         String title;
@@ -273,15 +258,11 @@ public class TaskController {
     @GetMapping("/measures/modify/{taskMeasuresId}")
     public String modifyTaskMeasures(Model model, @PathVariable("taskMeasuresId") Long taskMeasuresId, Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
-        if (taskMeasures == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+        if (taskMeasures == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, taskMeasures.getTask())) return "/error";
+
         String startDate = taskMeasures.getStartTime().format(DateTimeFormatter.ISO_DATE);
         String startTime = 0+taskMeasures.getStartTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.US));
         String completeDate = taskMeasures.getCompleteTime().format(DateTimeFormatter.ISO_DATE);
@@ -311,16 +292,11 @@ public class TaskController {
                                      Principal principal) {
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
-        if (taskMeasures == null) {
-            return "/error";
-        }
+        if (taskMeasures == null) return "/error";
+
         Task task = taskMeasures.getTask();
         SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
-
-        if (!userValidationResult) {
-            return "/error";
-        }
+        if (!taskService.validateUser(user, task)) return "/error";
 
         TaskStatus status = task.getStatus();
         LocalDateTime existingStart = taskMeasures.getStartTime();
@@ -381,15 +357,10 @@ public class TaskController {
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
                                      Principal principal) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
-        if (taskMeasures == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, taskMeasures.getTask());
+        if (taskMeasures == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, taskMeasures.getTask())) return "/error";
 
         // Task 이력을 삭제
         this.taskMeasuresService.deleteTaskMeasures(taskMeasures);
@@ -431,15 +402,11 @@ public class TaskController {
                             Principal principal,
                             EstimatedTimeVO estimatedTimeVO) {
         Task task = this.taskService.getTaskById(taskId);
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (task == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
+
         model.addAttribute("task", task);
         return "start_form";
     }
@@ -465,11 +432,11 @@ public class TaskController {
             model.addAttribute("task", task);
             return "start_form";
         }
-        if (task == null) {
-            return "/error";
-        }
+
+        if (task == null) return "/error";
+
         SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (!taskService.validateUser(user, task)) return "/error";
 
         if (!userValidationResult) {
             return "/error";
@@ -504,15 +471,11 @@ public class TaskController {
     @PostMapping("/pause/{taskId}")
     public String pauseTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (task == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
+
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 일시정지 버튼을 누르면 PAUSE 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.PAUSE);
@@ -524,15 +487,11 @@ public class TaskController {
     @PostMapping("/continue/{taskId}")
     public String continueTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (task == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
+
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 계속 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
@@ -543,15 +502,11 @@ public class TaskController {
     @PostMapping("/complete/{taskId}")
     public String completeTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
         Task task = this.taskService.getTaskById(taskId);
-        if (task == null) {
-            return "/error";
-        }
-        SiteUser user = this.userService.getUser(principal.getName());
-        boolean userValidationResult = taskService.validateUser(user, task);
+        if (task == null) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!taskService.validateUser(user, task)) return "/error";
+
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresByCompleteTimeNull(taskId);
         // 완료 버튼을 누르면 STANDBY 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.STANDBY);
