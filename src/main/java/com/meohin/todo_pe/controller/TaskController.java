@@ -185,7 +185,7 @@ public class TaskController {
         }
 
         model.addAttribute("task", task);
-        return "task_modify_form";
+        return "task_form";
     }
 
     /**
