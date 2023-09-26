@@ -1,6 +1,7 @@
 package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.validationObject.EstimatedTimeVO;
 import com.meohin.todo_pe.dto.TaskDTO;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
@@ -380,8 +381,19 @@ public class TaskController {
         return "task_list";
     }
 
+    /**
+     * Task 시작 및 예상 처리 시간을 수정하는 페이지로 이동한다.
+     * @param model             모델 객체
+     * @param taskId            Task ID
+     * @param principal         현재 로그인한 사용자 객체
+     * @param estimatedTimeVO   입력받은 예상 처리 시간의 유효성을 검증하는 객체
+     * @return  Task 시작 템플릿
+     */
     @GetMapping("/start/{taskId}")
-    public String startTask(Model model, @PathVariable("taskId") Long taskId, Principal principal) {
+    public String startTask(Model model,
+                            @PathVariable("taskId") Long taskId,
+                            Principal principal,
+                            EstimatedTimeVO estimatedTimeVO) {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
             return "/error";
@@ -398,12 +410,19 @@ public class TaskController {
 
     /**
      * POST 방식으로 요청한 시작버튼의 /task/start/{task id} URL을 처리한다.
-     * @param taskId        Task id
-     * @param estimatedAt   예상 처리 시간
-     * @return Task 목록 페이지 리다이렉트
+     * @param model             모델 객체
+     * @param principal         현재 로그인한 사용자 객체
+     * @param taskId            Task id
+     * @param estimatedTimeVO   입력받은 예상 처리 시간의 유효성을 검증하는 객체
+     * @param bindingResult     유효성 검사 결과를 저장하는 객체
+     * @return  Task 목록 페이지 리다이렉트
      */
     @PostMapping("/start/{taskId}")
-    public String startTask(Model model, @PathVariable("taskId") Long taskId, @RequestParam String estimatedAt, Principal principal) {
+    public String startTask(Model model,
+                            Principal principal,
+                            @PathVariable("taskId") Long taskId,
+                            @Valid EstimatedTimeVO estimatedTimeVO,
+                            BindingResult bindingResult) {
 
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) {
