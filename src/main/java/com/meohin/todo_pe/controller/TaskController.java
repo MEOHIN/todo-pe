@@ -2,7 +2,7 @@ package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.validationObject.EstimatedTimeVO;
-import com.meohin.todo_pe.dto.TaskDTO;
+import com.meohin.todo_pe.validationObject.TaskVO;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
@@ -113,23 +113,23 @@ public class TaskController {
 
     /**
      * tast_form 템플릿을 렌더링하여 출력한다.
-     * @param taskDTO   Task 등록 입력항목에 대응하는 폼 클래스
+     * @param taskVO   Task 등록 입력항목에 대응하는 폼 클래스
      * @return Task 입력 폼
      */
     @GetMapping("/create")
-    public String createTask(TaskDTO taskDTO) {
+    public String createTask(TaskVO taskVO) {
         return "task_form";
     }
 
     /**
      * POST 방식으로 요청한 /task/create URL을 처리한다.
-     * @param taskDTO       입력받은 Task 등록 정보
+     * @param taskVO        입력받은 Task 등록 정보의 유효성을 검증하는 객체
      * @param bindingResult 유효성 검사 결과
      * @param principal     현재 로그인한 사용자
      * @return Task 목록
      */
     @PostMapping("/create")
-    public String createTask(@Valid TaskDTO taskDTO,
+    public String createTask(@Valid TaskVO taskVO,
                              BindingResult bindingResult,
                              Principal principal) {
 
@@ -148,7 +148,7 @@ public class TaskController {
         SiteUser user = this.userService.getUser(principal.getName());
 
         // 태스크 추가 서비스 호출
-        this.taskService.createTask(taskDTO.getSubject(), taskDTO.getDescription(), minutes, user);
+        this.taskService.createTask(taskVO.getInputSubject(), taskVO.getInputDescription(), estimatedTime, user);
 
         return "redirect:/task/list";
     }
