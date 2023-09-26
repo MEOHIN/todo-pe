@@ -138,12 +138,19 @@ public class TaskController {
         }
 
         // 예상시간 파싱
-        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        int hour = Integer.parseInt(taskDTO.getEstimatedAt().substring(0, 2));
-        int minutes = Integer.parseInt(taskDTO.getEstimatedAt().substring(3, 5));
-        for(int i=0; i<hour; i++) {
-            minutes += 60;
+        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.\
+        String[] timeParts = taskVO.getInputEstimatedAt().split(":");
+
+        int hours = Integer.parseInt(timeParts[0]);
+        int minutes = Integer.parseInt(timeParts[1]);
+
+        if (taskVO.getInputEstimatedAt().length() < 5
+                && timeParts.length != 2
+                && timeParts[1].length() > 2) {
+            return "/error";
         }
+
+        int estimatedTime = (hours * 60) + minutes;
 
         SiteUser user = this.userService.getUser(principal.getName());
 
