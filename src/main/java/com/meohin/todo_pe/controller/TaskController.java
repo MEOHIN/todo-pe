@@ -131,20 +131,20 @@ public class TaskController {
             return "task_form";
         }
 
-        // 예상시간 파싱
-        // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-        String[] timeParts = taskVO.getInputEstimatedAt().split(":");
+        String userEstimatedTime = taskVO.getInputEstimatedAt();    // 사용자 입력값
 
-        int hours = Integer.parseInt(timeParts[0]);
-        int minutes = Integer.parseInt(timeParts[1]);
+        // 시간 포맷 검사 1
+        boolean isValidLength = userEstimatedTime.length() >= 5;    // 길이 검즌
+        isValidLength = isValidLength && userEstimatedTime.contains(":");   // 필수 문자열 검증
+        if (!isValidLength) return "/error";
 
-        if (taskVO.getInputEstimatedAt().length() < 5
-                && timeParts.length != 2
-                && timeParts[1].length() > 2) {
-            return "/error";
-        }
+        // 시간 포맷 검사2
+        String[] timeParts = userEstimatedTime.split(":");
+        isValidLength = (timeParts[0].length() >= 2 && timeParts[1].length() == 2);
+        if (!isValidLength) return "/error";
 
-        int estimatedTime = (hours * 60) + minutes;
+        // 분 단위로 치환
+        int estimatedTime = (Integer.parseInt(timeParts[0]) * 60) + Integer.parseInt(timeParts[1]);
 
         SiteUser user = this.userService.getUser(principal.getName());
 
@@ -222,28 +222,30 @@ public class TaskController {
             contents = task.getDescription();
         }
 
-        // 예상 시간 초기화
-        int estimatedTime;
-        if (taskVO.getInputDescription().length() != 0) {
-            // 예상시간 파싱
-            // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-            String[] timeParts = taskVO.getInputEstimatedAt().split(":");
+        // 예상 처리 시간 설정
+        int taskEstimatedTime = task.getEstimatedAt();  // 태스크 기본값
+        String userEstimatedTime = taskVO.getInputEstimatedAt();    // 사용자 입력값
 
-            int hours = Integer.parseInt(timeParts[0]);
-            int minutes = Integer.parseInt(timeParts[1]);
+        // 사용자 입력값이 있으면,
+        if (userEstimatedTime.length() != 0) {
+            // 시간 포맷 검사 1
+            boolean isValidLength = userEstimatedTime.length() >= 5;    // 길이 검즌
+            isValidLength = isValidLength && userEstimatedTime.contains(":");   // 필수 문자열 검증
+            if (!isValidLength) return "/error";
 
-            if (taskVO.getInputEstimatedAt().length() < 5
-                    && timeParts.length != 2
-                    && timeParts[1].length() > 2) {
-                return "/error";
-            }
+            // 시간 포맷 검사2
+            String[] timeParts = userEstimatedTime.split(":");
+            isValidLength = (timeParts[0].length() >= 2 && timeParts[1].length() == 2);
+            if (!isValidLength) return "/error";
 
-            estimatedTime = (hours * 60) + minutes;
-        } else {
-            estimatedTime = task.getEstimatedAt();
+            // 분 단위로 치환
+            taskEstimatedTime = (Integer.parseInt(timeParts[0]) * 60) + Integer.parseInt(timeParts[1]);
         }
 
-        this.taskService.modifyTask(task, title, contents, estimatedTime);
+        // 신규 실행 태스크 등록 및 태스크 진행상태 변경.
+        this.taskService.modifyTask(task, title, contents, taskEstimatedTime);
+
+        // 세션에 태스크 정보 저장
         redirectAttributes.addFlashAttribute(taskId);
         redirectAttributes.addFlashAttribute("editedTask", task);
         return String.format("redirect:/task/detail/%s", taskId);
@@ -438,33 +440,30 @@ public class TaskController {
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
-        if (!userValidationResult) {
-            return "/error";
-        }
+        // 예상 처리시간 설정
+        int taskEstimatedTime = task.getEstimatedAt(); // 태스크 기본 값
+        String userEstimatedTime = estimatedTimeVO.getInputEstimatedAt(); // 사용자 입력 값
 
-        // 시간 초기화
-        int estimatedTime;
-        if (estimatedTimeVO.getInputEstimatedAt().length() != 0) {
-            // 예상시간 파싱
-            // 00:00 포맷으로 정해진 문자열을 파싱해서 분단위로 맞춰준다.
-            String[] timeParts = estimatedTimeVO.getInputEstimatedAt().split(":");
+        // 사용자 입력값이 있으면,
+        if (userEstimatedTime.length() != 0) {
+            // 시간 포맷 검사 1
+            boolean isValidLength = userEstimatedTime.length() >= 5; // 길이 검증
+            isValidLength = isValidLength && userEstimatedTime.contains(":"); // 필수 문자열 검증
+            if (!isValidLength) return "/error";
 
-            int hours = Integer.parseInt(timeParts[0]);
-            int minutes = Integer.parseInt(timeParts[1]);
+            // 시간 포맷 검사2
+            String[] timeParts = userEstimatedTime.split(":");
+            isValidLength = (timeParts[0].length() >= 2 && timeParts[1].length() == 2);
+            if (!isValidLength) return "/error";
 
-            if (estimatedTimeVO.getInputEstimatedAt().length() < 5
-                    && timeParts.length != 2
-                    && timeParts[1].length() > 2) {
-                return "/error";
-            }
-            estimatedTime = (hours * 60) + minutes;
-        } else {
-            estimatedTime = task.getEstimatedAt();
+            // 분 단위로 치환
+            taskEstimatedTime = (Integer.parseInt(timeParts[0]) * 60) + Integer.parseInt(timeParts[1]);
         }
 
         // 시작 버튼을 누르면 ING 상태가 돼야 한다.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
-        this.taskMeasuresService.addTaskMeasures(task, estimatedTime, user);
+        this.taskMeasuresService.addTaskMeasures(task, taskEstimatedTime, user);
+
         return "redirect:/task/list";
     }
 
