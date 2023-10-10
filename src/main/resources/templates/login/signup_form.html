@@ -4,7 +4,7 @@
 <!-- 부모 템플릿 th:block 엘리먼트 내용을 자식 템플릿의 div 엘리먼트 내용으로 교체 -->
 <div layout:fragment="content" class="container">
     <h1>TimeTODO 회원 가입</h1>
-    <form th:action="@{/signup}" th:object="${userDTO}" method="post">
+    <form th:action="@{/signup}" th:object="${userVO}" method="post">
         <div class="row">
             <div role="alert" th:if="${#fields.hasAnyErrors()}">
                 <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
