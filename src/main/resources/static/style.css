@@ -50,7 +50,24 @@ body {
 input.valid[type=text]:not(.browser-default),
 input.valid[type=password]:not(.browser-default),
 input[type=text]:not(.browser-default):focus:not([readonly]),
-input[type=password]:not(.browser-default):focus:not([readonly]) {
+input[type=password]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid var(--themeDefault);
+    -webkit-box-shadow: 0 1px 0 0 var(--themeDefault);
+    box-shadow: 0 1px 0 0 var(--themeDefault);
+}
+
+input.valid[type=text]:not(.browser-default),
+input.valid[type=text]:not(.browser-default):focus,
+textarea.materialize-textarea.valid,
+textarea.materialize-textarea.valid:focus {
+    border-bottom: 1px solid #5078A9;
+    -webkit-box-shadow: 0 1px 0 0 #5078A9;
+    box-shadow: 0 1px 0 0 #5078A9;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid var(--themeDefault);
     -webkit-box-shadow: 0 1px 0 0 var(--themeDefault);
     box-shadow: 0 1px 0 0 var(--themeDefault);
