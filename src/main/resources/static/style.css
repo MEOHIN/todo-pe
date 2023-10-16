@@ -26,10 +26,19 @@ body {
 .center-text {
     text-align: center;
 }
-/*텍스트 폰트 */
-.title_text {
-    font-weight: 500;
-    font-size: 5em;
+/* 브랜드 타이틀 텍스트 크기 */
+h1 {
+    font-size: 3.5em;
+}
+
+/* 콘텐츠 텍스트 크기 */
+body {
+    font-size: 1em;
+}
+
+/* 헤더 텍스트 크기 */
+header {
+    font-size: 1.25em;
 }
 
 /* 색 테마 */
