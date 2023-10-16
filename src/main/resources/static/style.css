@@ -37,6 +37,16 @@ body {
     --themeDefault: #6750A4;
 }
 
+.btn {
+    background-color: var(--themeDefault);
+}
+.btn:hover {
+    background-color: #7f6ebc;
+}
+.btn:focus {
+    background-color: #4f366b;
+}
+
 input.valid[type=text]:not(.browser-default),
 input.valid[type=password]:not(.browser-default),
 input[type=text]:not(.browser-default):focus:not([readonly]),
