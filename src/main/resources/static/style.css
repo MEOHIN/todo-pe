@@ -31,3 +31,17 @@ body {
     font-weight: 500;
     font-size: 5em;
 }
+
+/* 색 테마 */
+:root {
+    --themeDefault: #6750A4;
+}
+
+input.valid[type=text]:not(.browser-default),
+input.valid[type=password]:not(.browser-default),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid var(--themeDefault);
+    -webkit-box-shadow: 0 1px 0 0 var(--themeDefault);
+    box-shadow: 0 1px 0 0 var(--themeDefault);
+}
