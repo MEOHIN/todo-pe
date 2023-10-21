@@ -15,20 +15,20 @@
             <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
         </div>
         <div class="row">
-            <div class="input-field col s12 m12 l12">
+            <div class="input-field">
                 <label for="subject">제목</label>
                 <input type="text" name="inputSubject" id="subject" th:value="${task} ? ${task.subject}" class="validate">
             </div>
-            <div class="input-field col s12 m12 l12">
+            <div class="input-field">
                 <label for="description">내용</label>
                 <textarea name="inputDescription" id="description" th:text="${task} ? ${task.description}" class="validate materialize-textarea"></textarea>
             </div>
-            <div class="input-field col s12 m12 l12">
+            <div class="input-field">
                 <label for="estimatedAt">예상 처리 시간</label>
                 <input th:placeholder="${task} ?: '00:00'" type="text" name="inputEstimatedAt" th:id="${task} ? 'modify_estimatedAt' : 'estimatedAt'" th:value="${task} ? ${task.estimatedAt}" minlength="5" class="validate">
                 <span class="helper-text" data-error="00:00 형식으로 입력해주세요. 3시간 30분이라면 03:30으로 입력합니다."></span>
             </div>
-            <button type="submit" class="btn waves-effect waves-light col s12">저장</button>
+            <button type="submit" class="btn waves-effect waves-light">저장</button>
         </div>
     </form>
 </div>
