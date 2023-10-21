@@ -28,7 +28,7 @@
                 <input th:placeholder="${task} ?: '00:00'" type="text" name="inputEstimatedAt" th:id="${task} ? 'modify_estimatedAt' : 'estimatedAt'" th:value="${task} ? ${task.estimatedAt}" minlength="5" class="validate">
                 <span class="helper-text" data-error="00:00 형식으로 입력해주세요. 3시간 30분이라면 03:30으로 입력합니다."></span>
             </div>
-            <button type="submit" class="btn rounded-btn waves-effect waves-light">저장</button>
+            <button type="submit" class="btn rounded-btn footer-button-container waves-effect waves-light">저장</button>
         </div>
     </form>
 </div>
