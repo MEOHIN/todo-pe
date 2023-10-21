@@ -38,18 +38,18 @@
                         <div th:text="${task.description}"></div>
                         <div th:switch="${#strings.toString(task.status)}">
                             <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get">
-                                <button class="btn waves-effect waves-light teal lighten-2" type="submit">시작</button>
+                                <button class="btn waves-effect waves-light" type="submit">시작</button>
                             </form>
                             <div th:case="'ING'">
                                 <form th:action="@{|/task/pause/${task.id}|}" method="post">
-                                    <button class="btn waves-effect waves-light teal lighten-2" type="submit">일시정지</button>
+                                    <button class="btn waves-effect waves-light" type="submit">일시정지</button>
                                 </form>
                                 <form th:action="@{|/task/complete/${task.id}|}" method="post">
-                                    <button class="complete btn waves-effect waves-light teal lighten-2" type="submit">완료</button>
+                                    <button class="complete btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
-                                <button class="btn waves-effect waves-light teal lighten-2" type="submit">계속</button>
+                                <button class="btn waves-effect waves-light" type="submit">계속</button>
                             </form>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
         <div class="row">
             <a class="grey-text text-lighten-1" href="#!">개인정보처리방침 보기</a>
         </div>
-        <div class="footer-copyright teal lighten-2">
+        <div class="footer-copyright">
             © 2014. MEOHIN all rights reserved.
 <!--                    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>-->
         </div>
