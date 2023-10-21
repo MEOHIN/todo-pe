@@ -26,4 +26,12 @@
     </form>
     <button id="btn-join" class="btn rounded-btn waves-effect waves-light background-color">회원 가입</button>
 </div>
+<script layout:fragment="script" type="text/javascript">
+    $(document).ready(function() {
+        // 회원가입버튼 클릭 이벤트
+        $("#btn-join").click(function () {
+            window.location.href = "/signup";
+        });
+    });
+</script>
 </html>
