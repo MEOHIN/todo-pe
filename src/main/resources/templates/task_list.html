@@ -10,7 +10,7 @@
             </form>
             <form th:action="@{/task/search}" method="get">
                 <div class="row">
-                    <div class="input-field col s10 m10 l10">
+                    <div class="input-field">
                         <input placeholder="검색어를 입력해주세요." type="text" name="keyword" id="keyword" class="validate">
                 </div>
                 <button class="btn waves-effect waves-light" type="submit"><i class="material-icons left">search</i>검색</button>
@@ -25,7 +25,7 @@
         </form>
         <div th:if="${searchResult}" th:text="${searchResult}"></div>
         <div th:unless="${searchResult}" class="row">
-            <div th:each="task: ${taskList}"  class="col s12 m12">
+            <div th:each="task: ${taskList}">
                 <div class="card">
                     <div class="card-content">
                         <div>
