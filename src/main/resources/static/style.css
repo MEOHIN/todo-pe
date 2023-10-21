@@ -1,8 +1,7 @@
 /* 화면 좌우 여백 */
 body {
     margin: 0 auto;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 20px 5% 0 5%;
     height: 100%;  /* 전체 높이 설정 */
 }
 
