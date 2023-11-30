@@ -5,6 +5,17 @@ body {
     height: 100%;  /* 전체 높이 설정 */
 }
 
+/* 상단바 수직 정렬 */
+header {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    width: 100%; /* 컨테이너의 너비에 맞게 요소 너비 설정 */
+    box-sizing: border-box; /* 패딩 값이 너비에 포함되도록 설정 */
+}
+
 /* 콘텐츠 중앙 정렬 */
 .centered-content {
     display: flex;
