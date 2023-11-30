@@ -47,10 +47,12 @@
                                 <form th:action="@{|/task/complete/${task.id}|}" method="post">
                                     <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
+                                <div class="stopwatch">00:00:00</div>
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
                                 <button class="btn waves-effect waves-light" type="submit">계속</button>
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
+                                <div class="stopwatch">00:00:00</div>
                             </form>
                         </div>
                     </div>
