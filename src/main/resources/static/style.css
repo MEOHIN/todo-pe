@@ -97,11 +97,40 @@ header {
     color: var(--themeDefault);
 }
 
+.card {
+    position: relative;
+    overflow: hidden;   /* 오버레이가 카드 밖으로 나가지 않도록 설정 */
+}
+
 /* 카드 컬러 */
 .card-content {
     background-color: var(--cardColor);
 }
 
+/* 진행중인 카드 오버레이 */
+.overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 어두운 색 오버레이 */
+    z-index: 1; /* 카드 내용 위에 오버레이가 표시되도록 z-index 설정 */
+}
+
+/* stopwatch */
+.stopwatch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5em; /* 타이머 크기 */
+    z-index: 2; /* 오버레이 위에 표시 */
+}
+
+/* 페이지 하단 버튼 */
 .footer-button-container {
     position: fixed;
     bottom: 20px;
