@@ -68,10 +68,11 @@ header {
     background-color: var(--themeDefault);
 }
 .btn:hover {
-    background-color: #7f6ebc;
+    background-color: var(--hoverColor);
 }
 .btn:focus {
-    background-color: #4f366b;
+    background-color: var(--focusColor);
+}
 
 .btn-container {
     display: flex;
@@ -102,14 +103,34 @@ input.valid[type=text]:not(.browser-default),
 input.valid[type=text]:not(.browser-default):focus,
 textarea.materialize-textarea.valid,
 textarea.materialize-textarea.valid:focus {
-    border-bottom: 1px solid #5078A9;
-    -webkit-box-shadow: 0 1px 0 0 #5078A9;
-    box-shadow: 0 1px 0 0 #5078A9;
+    border-bottom: 1px solid var(--validBorderColor);
+    -webkit-box-shadow: 0 1px 0 0 var(--validBorderColor);
+    box-shadow: 0 1px 0 0 var(--validBorderColor);
 }
 
-input[type=text]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid var(--themeDefault);
-    -webkit-box-shadow: 0 1px 0 0 var(--themeDefault);
-    box-shadow: 0 1px 0 0 var(--themeDefault);
+/* 데이트피커, 타임피커 컬러 */
+.datepicker-date-display,
+.datepicker-table td.is-selected,
+.timepicker-digital-display {
+    background-color: var(--themeDefault);
+    color: #fff !important;
+}
+
+.dropdown-content li>span,
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done,
+.datepicker-table td.is-today,
+.timepicker-close {
+    color: var(--iconColor);
+}
+
+.timepicker-svg line {
+    stroke: var(--themeDefault);
+}
+
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+    fill: var(--themeDefault);
 }
