@@ -14,17 +14,20 @@
                         <input placeholder="검색어를 입력해주세요." type="text" name="keyword" id="keyword" class="validate">
         <form th:action="@{/task/search}" method="get" class="search-form">
             <div class="search-row">
+                <div class="input-field search-input-container">
+                    <input placeholder="검색어를 입력하세요." th:type="text" name="keyword" id="keyword" class="validate search-input">
                 </div>
                 <button class="btn waves-effect waves-light" type="submit"><i class="material-icons left">search</i>검색</button>
             </div>
         </form>
     </header>
     <main>
-        <form th:action="@{/task/create}" method="get">
-            <button class="btn waves-effect waves-light" type="submit">추가
+        <div class="btn-container">
+            <a id="btn-add-task" class="btn small-rounded-btn waves-effect waves-light" type="submit">
                 <i class="material-icons left">add_circle</i>
-            </button>
-        </form>
+                할 일 등록
+            </a>
+        </div>
         <div th:if="${searchResult}" th:text="${searchResult}"></div>
         <div th:unless="${searchResult}" class="row">
             <div th:each="task: ${taskList}">
@@ -70,6 +73,13 @@
     </footer>
 </div>
 <script layout:fragment="script" type="text/javascript">
+    $(document).ready(function () {
+        // 할일등록버튼 클릭 이벤트
+        $("#btn-add-task").click(function () {
+            window.location.href = "/task/create"
+        })
+    })
+
     // 완료 여부 확인
     const delete_elements = document.getElementsByClassName("complete");
     Array.from(delete_elements).forEach(function (element) {
