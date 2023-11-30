@@ -28,35 +28,33 @@
         </div>
         <div th:if="${searchResult}" th:text="${searchResult}"></div>
         <div th:unless="${searchResult}" class="row">
-            <div th:each="task: ${taskList}">
-                <div class="card">
+            <!--// 할일 목록 렌더링 //-->
+            <div th:each="task: ${taskList}" class="card">
+                <a th:href="@{|/task/detail/${task.id}|}" style="display: block; color: inherit; text-decoration: none;">
                     <div class="card-content">
-                        <div>
-                            <span class="card-title">
-                                <a th:href="@{|/task/detail/${task.id}|}" th:text="${task.subject}"></a>
-                            </span>
-                        </div>
+                        <div class="card-title" th:text="${task.subject}"></div>
                         <div th:text="${task.estimatedAt}" class="estimated-at"></div>
                         <input type="hidden" class="hidden-estimated-time" th:value="${task.estimatedAt}">
-                        <div th:text="${task.description}"></div>
+                        <div th:text="${task.description}" class="description"></div>
                         <div th:switch="${#strings.toString(task.status)}">
-                            <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get">
-                                <button class="btn waves-effect waves-light" type="submit">시작</button>
+                            <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get" class="run-type-btn">
+                                <button class="start btn small-rounded-btn waves-effect waves-light" type="submit">시작</button>
                             </form>
                             <div th:case="'ING'">
                                 <form th:action="@{|/task/pause/${task.id}|}" method="post">
-                                    <button class="btn waves-effect waves-light" type="submit">일시정지</button>
+                                    <button class="pause btn small-rounded-btn waves-effect waves-light" type="submit">일시정지</button>
                                 </form>
                                 <form th:action="@{|/task/complete/${task.id}|}" method="post">
-                                    <button class="complete btn waves-effect waves-light" type="submit">완료</button>
+                                    <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
                                 <button class="btn waves-effect waves-light" type="submit">계속</button>
+                                <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
                             </form>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </main>
