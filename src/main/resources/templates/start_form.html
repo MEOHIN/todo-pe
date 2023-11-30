@@ -7,7 +7,7 @@
         <a th:href="@{/}" class="btn-flat waves-effect waves-light">
             <i class="material-icons">arrow_back</i>
         </a>
-        <h5>정말로 시작하시겠습니까?</h5>
+        <span>할 일 시작하기</span>
     </header>
     <form th:object="${estimatedTimeVO}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
