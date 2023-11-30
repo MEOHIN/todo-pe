@@ -53,6 +53,12 @@ header {
 }
 .btn:focus {
     background-color: #4f366b;
+
+.btn-container {
+    display: flex;
+    justify-content: center; /* 가로 정렬을 중앙으로 설정 */
+    padding: 10px;
+}
 }
 
 .footer-button-container {
