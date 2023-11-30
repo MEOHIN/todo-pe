@@ -1,3 +1,15 @@
+/* 기본 설정 및 변수 */
+:root {
+    --themeDefault: #6750A4;
+    --hoverColor: #7f6ebc;
+    --focusColor: #4f366b;
+    --validBorderColor: #5078A9;
+    --iconColor: #633F95;
+    --addBtnColor: #EADDFF;
+    --searchBoxColor: #ECE6F0;
+    --cardColor: #faf7ff;
+}
+
 /* 화면 좌우 여백 */
 body {
     margin: 0 auto;
@@ -51,11 +63,7 @@ header {
     font-size: 1.25em;
 }
 
-/* 색 테마 */
-:root {
-    --themeDefault: #6750A4;
-}
-
+/* 버튼 컬러 */
 .btn {
     background-color: var(--themeDefault);
 }
