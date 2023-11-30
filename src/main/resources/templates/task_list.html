@@ -40,7 +40,7 @@
                             <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get" class="run-type-btn">
                                 <button class="start btn small-rounded-btn waves-effect waves-light" type="submit">시작</button>
                             </form>
-                            <div th:case="'ING'">
+                            <div th:case="'ING'" class="overlay run-type-btn">
                                 <form th:action="@{|/task/pause/${task.id}|}" method="post">
                                     <button class="pause btn small-rounded-btn waves-effect waves-light" type="submit">일시정지</button>
                                 </form>
@@ -49,8 +49,7 @@
                                 </form>
                                 <div class="stopwatch">00:00:00</div>
                             </div>
-                            <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post">
-                                <button class="btn waves-effect waves-light" type="submit">계속</button>
+                            <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post" class="overlay run-type-btn">
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
                                 <div class="stopwatch">00:00:00</div>
                             </form>
@@ -77,6 +76,74 @@
             window.location.href = "/task/create"
         })
     })
+
+    // 스톱워치
+    $(document).ready(function () {     // JQuery 준비 이벤트 핸들러: 문서가 완전히 로드되고 준비된 후에 코드가 실행되도록 한다.
+
+        // 각 타이머를 추적하고 각 카드의 타이머를 저장한다.
+        let timers = {};
+
+        // 주어진 카드의 타이머를 업데이트한다.
+        function updateTimer(card) {
+            //  jQuery의 .data() 메소드로 카드의 startTime 속성 값을 가져와 정수로 변환한다.
+            let startTime = parseInt($(card).data('startTime'));
+            //  jQuery의 .data() 메소드로 카드의 startTime 속성 값을 가져와 정수로 변환한다.
+            let pausedTime = parseInt($(card).data('pausedTime'));
+            // 일시정지된 시간과 현재 시간과 시작 시간의 차이를 더하여 경과 시간을 계산한다.
+            let elapsedTime = pausedTime + (Date.now() - startTime);
+            // 카드 내 '.stopwatch'를 요소를 찾아 경과 시간을 표시한다.
+            $(card).find('.stopwatch').text(formatElapsedTime(elapsedTime));
+        }
+
+        // 밀리초 단위의 시간을 HH:MM:SS 형식으로 변환한다.
+        function formatElapsedTime(elapsedTime) {
+            let seconds = Math.floor((elapsedTime / 1000) % 60);
+            let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+            let hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
+            // 시, 분, 초를 배열로 만들고, 각 단위가 10보다 작으면 앞에 '0'을 붙여서 두 자리 수로 만든 후, :로 연결하여 문자열로 반환한다.
+            return [hours, minutes, seconds].map(unit => (unit < 10) ? '0' + unit : unit).join(':');
+        }
+
+        // .start 클래스를 가진 요소에 클릭 이벤트 핸들러를 추가한다.
+        $('.start').click(function () {
+            // 클릭된 버튼(this)에 가장 가까운 상위 .card 요소를 찾고, 그 .card 요소를 JQuery 객체로 반환한다.
+            let card = $(this).closest('.card');
+            // 찾은 .card 요소에 startTime 속성을 현재 시간(Date.now())으로 설정한다.
+            $(card).data('startTime', Date.now());
+            //동일한 .card 요소에 pausedTime 속성을 0으로 설정한다.
+            $(card).data('pausedTime', 0);
+            //  타이머를 식별하기 위해, .card 요소의 data-taskId 속성 값을 가져와 taskId 변수에 저장한다.
+            let taskId = $(card).data('taskId');
+            // setInterval 함수를 사용하여 매 1초(1000 밀리초)마다 updateTimer 함수를 호출한다.
+            // updateTimer 함수는 card 요소의 타이머를 업데이트하고, 생성된 인터벌 타이머는 timers 객체의 taskId 속성에 저장되어, 나중에 타이머를 중지할 수 있게 한다.
+            timers[card.data('taskId')] = setInterval(function() {updateTimer(card);}, 1000);
+
+            // 타이머를 보이게 한다.
+            $(card).find('.stopwatch').show();
+        });
+
+        $('.pause').click(function() {
+            var card = $(this).closest('.card');
+            clearInterval(timers[card.data('taskId')]);
+            // .card 요소의 data-pausedTime 속성 값을 가져오고, 만약 값이 없다면 0을 사용한다.
+            var pausedTime = card.data('pausedTime') || 0;
+            // 기존의 일시정지된 시간에 현재 시간과 시작 시간의 차이를 더하여 일시정지된 시간을 업데이트한다.
+            card.data('pausedTime', pausedTime + (Date.now() - card.data('startTime')));
+        });
+
+        $('.continue').click(function() {
+            var card = $(this).closest('.card');
+            card.data('startTime', Date.now());
+            timers[card.data('taskId')] = setInterval(function() { updateTimer(card); }, 1000);
+        });
+
+        $('.complete').click(function() {
+            var card = $(this).closest('.card');
+            clearInterval(timers[card.data('taskId')]);
+            card.find('.stopwatch').hide();
+            console.log("-----------")
+        });
+    });
 
     // 완료 여부 확인
     const delete_elements = document.getElementsByClassName("complete");
