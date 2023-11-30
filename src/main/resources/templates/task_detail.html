@@ -56,37 +56,23 @@
             });
         </script>
 
-    <!-- 태스크 이력: taskMeasures 목록 -->
-    <div class="row">
-        <div th:if="${#lists.isEmpty(taskMeasureList)}">
-            <h3>완료한 이력이 없습니다.</h3>
-        </div>
-        <div th:each="taskMeasure: ${taskMeasureList}" class="col s12 m12">
-            <div class="card teal lighten-5">
-                <div class="card-content black-text">
-                    <div>
-                        <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}" th:text="${taskMeasure.startTime}"></a>
-                    </div>
-                    <div class="card-title" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
-                    <input type="hidden" class="hidden-total-time" th:value="${taskMeasure.totalElapsedTime}">
-                    <div th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}" class="estimated-at"></div>
-                    <input type="hidden" class="hidden-estimated-time" th:value="${taskMeasure.estimatedAt}">
-                </div>
-            </div>
-        </div>
-    </div>
         <!-- 태스크 이력: taskMeasures 목록 -->
         <div class="row">
             <div th:if="${#lists.isEmpty(taskMeasureList)}">
                 <h3>완료한 이력이 없습니다.</h3>
             </div>
             <div th:each="taskMeasure: ${taskMeasureList}" class="col s12 m12">
+                <a th:href="@{|/task/measures/modify/${taskMeasure.id}|}">
                     <div class="card teal lighten-5">
                         <div class="card-content black-text">
+                            <div class="start-at" th:text="'시작 일시: ' + ${taskMeasure.startTime}"></div>
+                            <input type="hidden" class="hidden-start-time" th:value="${taskMeasure.startTime}">
+                            <div class="card-title total-time" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
                             <input type="hidden" class="hidden-total-time" th:value="${taskMeasure.totalElapsedTime}">
                             <input type="hidden" class="hidden-estimated-time" th:value="${taskMeasure.estimatedAt}">
                         </div>
                     </div>
+                </a>
             </div>
         </div>
     </main>
