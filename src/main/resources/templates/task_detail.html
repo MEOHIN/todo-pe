@@ -14,47 +14,47 @@
             <i class="material-icons left">edit</i>
         </a>
     </header>
+    <main>
+        <!-- 통계 영역: 그래프 -->
+        <div class="col s12">
+            <canvas id="myChart"></canvas>
+        </div>
 
-    <!-- 통계 영역: 그래프 -->
-    <div class="col s12">
-        <canvas id="myChart"></canvas>
-    </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+        <script th:inline="javascript">
+            let estimatedTimeList = [[${estimatedTimeList}]];
+            let totalTimeList = [[${totalTimeList}]];
+            let completeTimeList = [[${completeTimeList}]];
 
-    <script th:inline="javascript">
-        let estimatedTimeList = [[${estimatedTimeList}]];
-        let totalTimeList = [[${totalTimeList}]];
-        let completeTimeList = [[${completeTimeList}]];
+            const ctx = document.getElementById('myChart');
 
-        const ctx = document.getElementById('myChart');
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: completeTimeList,
-                datasets: [
-                    {
-                    label: '예상 처리 시간',
-                    data: estimatedTimeList,
-                    borderWidth: 1,
-                    },
-                    {
-                    label: '실제 처리 시간',
-                    data: totalTimeList,
-                    borderWidth: 1,
-                    }
-                ],
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: completeTimeList,
+                    datasets: [
+                        {
+                            label: '예상 처리 시간',
+                            data: estimatedTimeList,
+                            borderWidth: 1,
+                        },
+                        {
+                            label: '실제 처리 시간',
+                            data: totalTimeList,
+                            borderWidth: 1,
+                        }
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
-    </script>
+            });
+        </script>
 
     <!-- 태스크 이력: taskMeasures 목록 -->
     <div class="row">
@@ -75,6 +75,21 @@
             </div>
         </div>
     </div>
+        <!-- 태스크 이력: taskMeasures 목록 -->
+        <div class="row">
+            <div th:if="${#lists.isEmpty(taskMeasureList)}">
+                <h3>완료한 이력이 없습니다.</h3>
+            </div>
+            <div th:each="taskMeasure: ${taskMeasureList}" class="col s12 m12">
+                    <div class="card teal lighten-5">
+                        <div class="card-content black-text">
+                            <input type="hidden" class="hidden-total-time" th:value="${taskMeasure.totalElapsedTime}">
+                            <input type="hidden" class="hidden-estimated-time" th:value="${taskMeasure.estimatedAt}">
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </main>
 </div>
 <script layout:fragment="script" type="text/javascript">
     <!--  시간 출력 포맷  -->

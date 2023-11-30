@@ -16,29 +16,34 @@
             </a>
         </span>
     </header>
-    <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
-        <div class="row">
-            <span class="helper-text" data-error="wrong" data-success="right">시작 날짜와 시작 시각은 수정할 수 없습니다.</span>
-            <div>
-                <label for="inputStartDate">시작 날짜</label>
-                <input disabled th:placeholder="${startDate}" type="text" name="inputStartDate" id="inputStartDate" class="datepicker">
-            </div>
-            <div>
-                <label for="inputStartTime">시작 시각</label>
-                <input disabled th:placeholder="${startTime}" type="text" name="inputStartTime" id="inputStartTime" class="timepicker">
-            </div>
-            <div>
-                <label for="inputCompleteDate">완료 날짜</label>
-                <input th:placeholder="${completeDate}" type="text" name="inputCompleteDate" id="inputCompleteDate" class="datepicker">
-            </div>
-            <div>
-                <label for="inputCompleteTime">완료 시각</label>
-                <input th:placeholder="${completeTime}" type="text" name="inputCompleteTime" id="inputCompleteTime" class="timepicker">
-            </div>
-            <button type="submit" class="btn waves-effect waves-light col s12">수정</button>
-        </div>
-    </form>
+    <main>
+        <form th:action="@{|/task/measures/modify/${taskMeasures.id}|}" method="post">
+            <div class="row">
+                <span class="helper-text" data-error="wrong" data-success="right">시작 날짜와 시작 시각은 수정할 수 없습니다.</span>
+                <div>
+                    <label for="inputStartDate">시작 날짜</label>
+                    <input disabled th:placeholder="${startDate}" type="text" name="inputStartDate" id="inputStartDate"
+                           class="datepicker">
+                </div>
+                <div>
+                    <label for="inputStartTime">시작 시각</label>
+                    <input disabled th:placeholder="${startTime}" type="text" name="inputStartTime" id="inputStartTime"
+                           class="timepicker">
+                </div>
+                <div>
+                    <label for="inputCompleteDate">완료 날짜</label>
+                    <input th:placeholder="${completeDate}" type="text" name="inputCompleteDate" id="inputCompleteDate"
+                           class="datepicker">
+                </div>
+                <div>
+                    <label for="inputCompleteTime">완료 시각</label>
+                    <input th:placeholder="${completeTime}" type="text" name="inputCompleteTime" id="inputCompleteTime"
+                           class="timepicker">
+                </div>
                 <button type="submit" class="btn big-rounded-btn footer-button-container waves-effect waves-light">저장</button>
+            </div>
+        </form>
+    </main>
 </div>
 <script layout:fragment="script" type="text/javascript">
     const delete_elements = document.getElementsByClassName("delete");
