@@ -79,16 +79,24 @@
     </main>
 </div>
 <script layout:fragment="script" type="text/javascript">
-    <!--  시간 출력 포맷  -->
+    <!--  날짜 시간 출력 포맷  -->
+    let startTimeElements = document.getElementsByClassName('hidden-start-time');
+    let userStartTime = document.getElementsByClassName('start-at');
     let totalTimeElements = document.getElementsByClassName('hidden-total-time');
-    let userTotalTime = document.getElementsByClassName('card-title');
+    let userTotalTime = document.getElementsByClassName('total-time');
     let estimatedTimeElements = document.getElementsByClassName('hidden-estimated-time');
     let userEstimatedTime = document.getElementsByClassName('estimated-at');
     for (let i = 0; i < estimatedTimeElements.length; i++) {
+        // 시작 날짜 출력 포맷
+        let hiddenStartElement = startTimeElements[i];
+        let formattedStartTime = hiddenStartElement.value.replace(/T/, ' ').substring(0, 16);
+
+        // 예상 처리 시간 출력 포맷
         let hiddenEstimatedElement = estimatedTimeElements[i];
         let estimatedAtMinutes = parseInt(hiddenEstimatedElement.value);
         let formattedEstimatedTime = formatMinutesToHoursAndMinutes(estimatedAtMinutes);
 
+        // 총 소요 시간 출력 포맷
         let hiddenTotalTimeElement = totalTimeElements[i];
         let totalTimeMinutes = parseInt(hiddenTotalTimeElement.value);
         let formattedTotalTime = formatMinutesToHoursAndMinutes(totalTimeMinutes);
@@ -97,6 +105,7 @@
         // 3. console.table 같은게 있다.
         // 4. 클라이언트(브라우저)에서 계산에 쓰는 값은 input hidden 으로 처리하는것이 좀 더 우아하다.
 
+        userStartTime[i].textContent = '시작 일시: ' + formattedStartTime;
         userEstimatedTime[i].textContent = '예상 처리 시간: ' + formattedEstimatedTime;
         userTotalTime[i].textContent = '총 소요 시간: ' + formattedTotalTime;
     }
@@ -109,11 +118,11 @@
         if (minutes === 0) {
             return '1분 미만';
         }
-        if (minutes/1440 >= 1) {
+        if (minutes / 1440 >= 1) {
             days = Math.floor(minutes / 1440);
             hours = Math.floor((minutes % 1440) / 60);
-            remainingMinutes =(minutes % 1440) % 60;
-            if (remainingMinutes === 0 ) {
+            remainingMinutes = (minutes % 1440) % 60;
+            if (remainingMinutes === 0) {
                 return days + '일 ' + hours + '시간 ';
             }
             if (hours === 0) {
@@ -126,7 +135,7 @@
             if (remainingMinutes === 0) {
                 return hours + '시간 ';
             }
-            if (hours === 0)  {
+            if (hours === 0) {
                 return remainingMinutes + '분';
             }
             return hours + '시간 ' + remainingMinutes + '분';
