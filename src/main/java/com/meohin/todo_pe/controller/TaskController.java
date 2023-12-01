@@ -135,7 +135,7 @@ public class TaskController {
         String userEstimatedTime = taskVO.getInputEstimatedAt();    // 사용자 입력값
 
         // 시간 포맷 검사 1
-        boolean isValidLength = userEstimatedTime.length() >= 5;    // 길이 검즌
+        boolean isValidLength = userEstimatedTime.length() >= 5;    // 길이 검증
         isValidLength = isValidLength && userEstimatedTime.contains(":");   // 필수 문자열 검증
         if (!isValidLength) return "/error";
 
