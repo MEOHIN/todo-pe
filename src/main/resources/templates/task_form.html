@@ -59,5 +59,37 @@
             return `${paddedHours}:${paddedMinutes}`;
         }
     }
+
+    <!-- 바이트 기반으로 입력 글자 수 제한 -->
+    function calculateBytes(str) {
+        let byteSize = 0;
+        for (let i = 0; i < str.length; i++) {
+            let charCode = str.charCodeAt(i);
+            if (charCode < 0x0080) {
+                byteSize += 1; // ASCII 문자는 1바이트
+            } else if (charCode < 0x0800) {
+                byteSize += 2; // 2바이트 문자
+            } else {
+                byteSize += 3; // 한글 등 3바이트 문자
+            }
+        }
+        return byteSize;
+    }
+
+    function checkByteLimit(field, maxBytes) {
+        if ( calculateBytes(field.value) > maxBytes ) {
+            let newStr = '';
+            let byteSize = 0;
+            for (let i = 0; i < field.value.length; i++) {
+                let char = field.value[i];
+                let charBytes = calculateBytes(char);
+                if (byteSize + charBytes > maxBytes) break;
+                newStr += char;
+                byteSize += charBytes;
+            }
+            field.value = newStr;
+            alert('최대 입력 글자 수를 초과했습니다.');
+        }
+    }
 </script>
 </html>
