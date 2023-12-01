@@ -77,6 +77,7 @@ public class TaskController {
             if (task == null) return "/error";
         }
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
@@ -167,12 +168,16 @@ public class TaskController {
                              @PathVariable("taskId") Long taskId,
                              Principal principal,
                              TaskVO taskVO) {
+
+        // Task 정보 불러오기
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
+        // 정상 Task 정보인 경우 렌더링
         model.addAttribute("task", task);
         return "task_form";
     }
@@ -195,14 +200,19 @@ public class TaskController {
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 
+        // Task 정보를 불러온다.
         Task task = this.taskService.getTaskById(taskId);
+
+        // Model 바인딩이 비정상이면 돌아가기
         if (bindingResult.hasErrors()) {
             model.addAttribute("task", task);
             return "task_form";
         }
 
+        // 태스크 정보가 없으면 오류
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
@@ -248,6 +258,8 @@ public class TaskController {
         // 세션에 태스크 정보 저장
         redirectAttributes.addFlashAttribute(taskId);
         redirectAttributes.addFlashAttribute("editedTask", task);
+
+        // 상세 페이지로 이동
         return String.format("redirect:/task/detail/%s", taskId);
     }
 
@@ -262,6 +274,7 @@ public class TaskController {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, taskMeasures.getTask())) return "/error";
 
@@ -361,6 +374,7 @@ public class TaskController {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, taskMeasures.getTask())) return "/error";
 
@@ -403,12 +417,16 @@ public class TaskController {
                             @PathVariable("taskId") Long taskId,
                             Principal principal,
                             EstimatedTimeVO estimatedTimeVO) {
+
+        // Task 정보 불러오기
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
+        // 정상 Task 정보인 경우 렌더링
         model.addAttribute("task", task);
         return "start_form";
     }
@@ -429,14 +447,19 @@ public class TaskController {
                             @Valid EstimatedTimeVO estimatedTimeVO,
                             BindingResult bindingResult) {
 
+        // Task 정보를 불러온다.
         Task task = this.taskService.getTaskById(taskId);
+
+        // Model 바인딩이 비정상이면 돌아가기
         if (bindingResult.hasErrors()) {
             model.addAttribute("task", task);
             return "start_form";
         }
 
+        // 태스크 정보가 없으면 오류
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
@@ -460,10 +483,12 @@ public class TaskController {
             taskEstimatedTime = (Integer.parseInt(timeParts[0]) * 60) + Integer.parseInt(timeParts[1]);
         }
 
-        // 시작 버튼을 누르면 ING 상태가 돼야 한다.
+
+        // 신규 실행 태스크 등록 및 태스트 진행상태 변경.
         this.taskService.convertTaskStatus(task, TaskStatus.ING);
         this.taskMeasuresService.addTaskMeasures(task, taskEstimatedTime, user);
 
+        // 목록 페이지로 이동
         return "redirect:/task/list";
     }
 
@@ -472,6 +497,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
@@ -488,6 +514,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
@@ -503,6 +530,7 @@ public class TaskController {
         Task task = this.taskService.getTaskById(taskId);
         if (task == null) return "/error";
 
+        // 다른 유저의 Task면 오류
         SiteUser user = this.userService.getUser(principal.getName());
         if (!taskService.validateUser(user, task)) return "/error";
 
