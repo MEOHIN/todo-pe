@@ -150,7 +150,7 @@ public class TaskController {
         SiteUser user = this.userService.getUser(principal.getName());
 
         // 태스크 추가 서비스 호출
-        this.taskService.createTask(taskVO.getInputSubject(), taskVO.getInputDescription(), estimatedTime, user);
+        this.taskService.createTask(userSubject, userDescription, estimatedTime, user);
 
         return "redirect:/task/list";
     }
