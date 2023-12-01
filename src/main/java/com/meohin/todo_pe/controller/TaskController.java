@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -132,7 +133,23 @@ public class TaskController {
             return "task_form";
         }
 
-        String userEstimatedTime = taskVO.getInputEstimatedAt();    // 사용자 입력값
+        // 제목과 내용의 입력값 길이를 바이트 기준으로 검사
+        int byteLength;
+        boolean isWithinByteLimit;
+
+        // 제목 길이 검증
+        String userSubject = taskVO.getInputSubject();  // 사용자 제목 입력값
+        byteLength = userSubject.getBytes(StandardCharsets.UTF_8).length;
+        isWithinByteLimit = byteLength <= 60;
+        if (!isWithinByteLimit) { return "task_form";}
+
+        // 내용 길이 검증
+        String userDescription = taskVO.getInputDescription();  // 사용자 내용 입력값
+        byteLength = userDescription.getBytes(StandardCharsets.UTF_8).length;
+        isWithinByteLimit = byteLength <= 600;
+        if (!isWithinByteLimit) { return "task_form"; }
+
+        String userEstimatedTime = taskVO.getInputEstimatedAt();    // 사용자 예상처리시간 입력값
 
         // 시간 포맷 검사 1
         boolean isValidLength = userEstimatedTime.length() >= 5;    // 길이 검증
@@ -231,6 +248,20 @@ public class TaskController {
         } else {
             contents = task.getDescription();
         }
+
+        // 제목과 내용의 입력값 길이를 바이트 기준으로 검사
+        int byteLength;
+        boolean isWithinByteLimit;
+
+        // 제목 길이 검증
+        byteLength = title.getBytes(StandardCharsets.UTF_8).length;
+        isWithinByteLimit = byteLength <= 60;
+        if (!isWithinByteLimit) { return "task_form";}
+
+        // 내용 길이 검증
+        byteLength = contents.getBytes(StandardCharsets.UTF_8).length;
+        isWithinByteLimit = byteLength <= 600;
+        if (!isWithinByteLimit) { return "task_form"; }
 
         // 예상 처리 시간 설정
         int taskEstimatedTime = task.getEstimatedAt();  // 태스크 기본값
