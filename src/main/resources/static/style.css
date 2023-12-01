@@ -139,6 +139,42 @@ header {
     padding: 0 20px;
 }
 
+/* 검색창 */
+.search-form {
+    width: 100%;
+}
+.search-row {
+    display: flex;  /* flexbox container를 활성화한다. */
+    align-items: center; /* vertical alignment를 중앙으로 설정한다. */
+    flex-direction: row;
+    margin-top: 1rem;
+    border: solid 1px white;
+    border-radius: 20px;
+    padding-right: 4px;
+    background-color: var(--searchBoxColor);
+}
+.search-input-container {
+    flex-grow: 1;   /* input field가 사용 가능한 공간을 채우도록 한다. */
+    margin: 0;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+.search-btn {
+    padding-left: 1rem!important;
+    align-items: center;
+}
+.search-input, .search-input:hover, .search-input:focus {
+    border-bottom-width: 0!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    margin:0!important;
+}
+
+.search-input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.9em;
+}
+
 /* 입력창 밑줄 컬러: 포커스될 때 */
 input.valid[type=text]:not(.browser-default),
 input.valid[type=password]:not(.browser-default),
