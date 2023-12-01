@@ -2,6 +2,7 @@ package com.meohin.todo_pe.validationObject;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,11 @@ import lombok.Setter;
  */
 public class TaskVO {
     @NotEmpty(message = "제목은 필수 입력 항목입니다.")
+    @Size(max = 20, message = "제목은 한글 20자 또는 영문 60자 내로 작성합니다.")
     private String inputSubject;
 
     @NotEmpty(message = "내용은 필수 입력 항목입니다.")
+    @Size(max = 200, message = "내용은 한글 200자 또는 영문 600자 내로 작성합니다.")
     private String inputDescription;
 
     @NotEmpty(message = "예상 처리 시간은 필수 입력 항목입니다.")

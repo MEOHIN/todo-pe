@@ -21,10 +21,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 200)
+    @Column(length = 60)
     private String subject;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 600)
     private String description;
 
     private Integer estimatedAt;
