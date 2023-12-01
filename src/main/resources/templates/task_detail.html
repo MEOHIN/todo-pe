@@ -69,6 +69,7 @@
                             <input type="hidden" class="hidden-start-time" th:value="${taskMeasure.startTime}">
                             <div class="card-title total-time" th:text="'총 소요시간: ' + ${taskMeasure.totalElapsedTime}"></div>
                             <input type="hidden" class="hidden-total-time" th:value="${taskMeasure.totalElapsedTime}">
+                            <div class="estimated-at" th:text="'예상 처리 시간: ' + ${taskMeasure.estimatedAt}"></div>
                             <input type="hidden" class="hidden-estimated-time" th:value="${taskMeasure.estimatedAt}">
                         </div>
                     </div>
