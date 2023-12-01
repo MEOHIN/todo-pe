@@ -146,8 +146,8 @@
     });
 
     // 완료 여부 확인
-    const delete_elements = document.getElementsByClassName("complete");
-    Array.from(delete_elements).forEach(function (element) {
+    const complete_elements = document.getElementsByClassName("complete");
+    Array.from(complete_elements).forEach(function (element) {
         element.addEventListener('click', function () {
             if (confirm("정말로 완료하시겠습니까?")) {
                 location.href = this.dataset.uri;
@@ -172,8 +172,6 @@
         if (remainingMinutes === 0) {
             return '예상 처리 시간: ' + hours + '시간 ';
         }
-        return hours + '시간 ' + remainingMinutes + '분';
-    }
         if (hours === 0) {
             return '예상 처리 시간: ' + remainingMinutes + '분';
         }
