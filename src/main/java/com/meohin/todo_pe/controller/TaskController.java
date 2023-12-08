@@ -53,8 +53,8 @@ public class TaskController {
     public String list(Model model, Principal principal) {
         SiteUser user = this.userService.getUser(principal.getName());
 
-        List<Task> taskList = taskService.getTaskList(user);
-        model.addAttribute("taskList", taskList);
+        List<Task> taskList = taskService.getTasksWithTaskMeasuresByUserId(user);
+        model.addAttribute("tasksWithMeasures", taskList);
         return "task_list";
     }
 
