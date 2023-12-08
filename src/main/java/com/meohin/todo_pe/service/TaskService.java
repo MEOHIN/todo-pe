@@ -40,6 +40,19 @@ public class TaskService {
     }
 
     /**
+     * 특정 사용자의 각 task에 대해 최신의 taskMeasures 데이터를 반환한다.
+     * 특정 사용자를 기준으로 task를 조회하고,
+     * 각 task마다 taskMeasures 목록 중에서 taskMeasures ID가 가장 큰(가장 최근에 생성된) TaskMeasures 엔터티를 선택하여 가져오며,
+     * 이 결과를 taskMeasuresList의 ID를 기준으로 내림차순으로 정렬하여 반환한다.
+     *
+     * @param user    현재 접속한 사용자
+     * @return
+     */
+    public List<Task> getTasksWithTaskMeasuresByUserId(SiteUser user) {
+        return taskRepository.findDistinctBySiteUserOrderByTaskMeasuresListStartTimeDesc(user);
+    }
+
+    /**
      * 입력받은 Task 데이터를 저장한다.
      * @param subject       Task 제목
      * @param description   Task 내용
