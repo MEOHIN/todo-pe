@@ -1,6 +1,7 @@
 package com.meohin.todo_pe.controller;
 
 import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.entity.TaskWithMeasures;
 import com.meohin.todo_pe.validationObject.EstimatedTimeVO;
 import com.meohin.todo_pe.validationObject.TaskVO;
 import com.meohin.todo_pe.entity.SiteUser;
@@ -53,7 +54,7 @@ public class TaskController {
     public String list(Model model, Principal principal) {
         SiteUser user = this.userService.getUser(principal.getName());
 
-        List<Task> taskList = taskService.getTasksWithTaskMeasuresByUserId(user);
+        List<TaskWithMeasures> taskList = taskService.getTasksWithTaskMeasuresByUserId(user);
         model.addAttribute("tasksWithMeasures", taskList);
         return "task_list";
     }
