@@ -3,7 +3,9 @@ package com.meohin.todo_pe.service;
 import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
+import com.meohin.todo_pe.entity.TaskWithMeasures;
 import com.meohin.todo_pe.repository.TaskRepository;
+import com.meohin.todo_pe.repository.TaskWithMeasuresRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final TaskWithMeasuresRepository taskWithMeasuresRepository;
 
     /**
      * 모든 Task를 조회하고 리스트로 반환한다.
@@ -48,8 +51,8 @@ public class TaskService {
      * @param user    현재 접속한 사용자
      * @return
      */
-    public List<Task> getTasksWithTaskMeasuresByUserId(SiteUser user) {
-        return taskRepository.findDistinctBySiteUserOrderByTaskMeasuresListStartTimeDesc(user);
+    public List<TaskWithMeasures> getTasksWithTaskMeasuresByUserId(SiteUser user) {
+        return taskWithMeasuresRepository.getTaskListWithMeasures(user.getId());
     }
 
     /**
