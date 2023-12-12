@@ -13,5 +13,6 @@ public interface TaskWithMeasures {
 
     Long getMeasuresId();
     LocalDateTime getStartTime();
+    LocalDateTime getPauseTime();
     Integer getElapsedTime();
 }
