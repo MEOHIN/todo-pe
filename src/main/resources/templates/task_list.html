@@ -47,11 +47,20 @@
                                 <form th:action="@{|/task/complete/${task.taskId}|}" method="post">
                                     <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
-                                <div class="stopwatch">00:00:00</div>
+                                <div th:text="'00:00:00'" class="ing-timer stopwatch"></div>
+                                <input type="hidden"
+                                       th:class="${task.pauseTime} ? 'pauseTime' : 'startTime'"
+                                       th:value="${task.pauseTime} ? ${task.pauseTime} : ${task.startTime}">
+                                <input type="hidden"
+                                       class="elapsedTime"
+                                       th:value="${task.elapsedTime}">
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.taskId}|}" method="post" class="overlay run-type-btn">
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
-                                <div class="stopwatch">00:00:00</div>
+                                <div th:text="${task.elapsedTime}" class="pause-timer stopwatch"></div>
+                                <input type="hidden"
+                                       class="elapsedTime"
+                                       th:value="${task.elapsedTime}">
                             </form>
                         </div>
                     </div>
