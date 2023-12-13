@@ -30,26 +30,26 @@
         <div th:unless="${searchResult}" class="row">
             <!--// 할일 목록 렌더링 //-->
             <div th:each="task: ${tasksWithMeasures}" class="card">
-                <a th:href="@{|/task/detail/${task.id}|}" style="display: block; color: inherit; text-decoration: none;">
-                    <div class="card-content">
+                <a th:href="@{|/task/detail/${task.taskId}|}" style="display: block; color: inherit; text-decoration: none;">
+                    <div class="card-content" th:id="'taskId-' + ${task.taskId}" th:value="${task.taskId}">
                         <div class="card-title" th:text="${task.subject}"></div>
                         <div th:text="${task.estimatedAt}" class="estimated-at"></div>
                         <input type="hidden" class="hidden-estimated-time" th:value="${task.estimatedAt}">
                         <div th:text="${task.description}" class="description"></div>
-                        <div th:switch="${#strings.toString(task.status)}">
-                            <form th:case="'STANDBY'" th:action="@{|/task/start/${task.id}|}" method="get" class="run-type-btn">
+                        <div th:switch="${#strings.toString(task.status)}" class="my-card" th:status="${#strings.toString(task.status)}">
+                            <form th:case="'STANDBY'" th:action="@{|/task/start/${task.taskId}|}" method="get" class="run-type-btn">
                                 <button class="start btn small-rounded-btn waves-effect waves-light" type="submit">시작</button>
                             </form>
                             <div th:case="'ING'" class="overlay run-type-btn">
-                                <form th:action="@{|/task/pause/${task.id}|}" method="post">
+                                <form th:action="@{|/task/pause/${task.taskId}|}" method="post">
                                     <button class="pause btn small-rounded-btn waves-effect waves-light" type="submit">일시정지</button>
                                 </form>
-                                <form th:action="@{|/task/complete/${task.id}|}" method="post">
+                                <form th:action="@{|/task/complete/${task.taskId}|}" method="post">
                                     <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
                                 <div class="stopwatch">00:00:00</div>
                             </div>
-                            <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.id}|}" method="post" class="overlay run-type-btn">
+                            <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.taskId}|}" method="post" class="overlay run-type-btn">
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
                                 <div class="stopwatch">00:00:00</div>
                             </form>
