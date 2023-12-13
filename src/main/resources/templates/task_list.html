@@ -88,69 +88,71 @@
 
     // 스톱워치
     $(document).ready(function () {     // JQuery 준비 이벤트 핸들러: 문서가 완전히 로드되고 준비된 후에 코드가 실행되도록 한다.
+        $('.card').each(function () {
+            var card = $(this);
+            var timerContainer = card.find('.stopwatch');
+            var status = card.find('.my-card').attr('status');
 
-        // 각 타이머를 추적하고 각 카드의 타이머를 저장한다.
-        let timers = {};
+            var startTime = new Date(card.find('.startTime').val()).getTime();  // 진행중인 태스크는 이 값이 존재함.
+            var pauseTime = new Date(card.find('.pauseTime').val()).getTime();  // 진행중인 태스크이지만, 한번이라도 일시정지한 기록이 있는 태스크
+            var elapsedMinutes = parseInt(card.find('.elapsedTime').val());     // 일시정지한 태스크의 누적진행 시간, (이 값이 10이면 10분)
+            if (!elapsedMinutes) { elapsedMinutes = 0;}
 
-        // 주어진 카드의 타이머를 업데이트한다.
-        function updateTimer(card) {
-            //  jQuery의 .data() 메소드로 카드의 startTime 속성 값을 가져와 정수로 변환한다.
-            let startTime = parseInt($(card).data('startTime'));
-            //  jQuery의 .data() 메소드로 카드의 startTime 속성 값을 가져와 정수로 변환한다.
-            let pausedTime = parseInt($(card).data('pausedTime'));
-            // 일시정지된 시간과 현재 시간과 시작 시간의 차이를 더하여 경과 시간을 계산한다.
-            let elapsedTime = pausedTime + (Date.now() - startTime);
-            // 카드 내 '.stopwatch'를 요소를 찾아 경과 시간을 표시한다.
-            $(card).find('.stopwatch').text(formatElapsedTime(elapsedTime));
-        }
+            // elapsedMillis를 일, 시간, 분으로 변환하는 함수 - updateTimer()에서 사용
+            function convertMillisToDaysHoursMinutes(elapsedMillis) {
+                var millisecondsInMinute = 60 * 1000;
+                var millisecondsInHour = 60 * millisecondsInMinute;
+                var millisecondsInDay = 24 * millisecondsInHour;
 
-        // 밀리초 단위의 시간을 HH:MM:SS 형식으로 변환한다.
-        function formatElapsedTime(elapsedTime) {
-            let seconds = Math.floor((elapsedTime / 1000) % 60);
-            let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
-            let hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
-            // 시, 분, 초를 배열로 만들고, 각 단위가 10보다 작으면 앞에 '0'을 붙여서 두 자리 수로 만든 후, :로 연결하여 문자열로 반환한다.
-            return [hours, minutes, seconds].map(unit => (unit < 10) ? '0' + unit : unit).join(':');
-        }
+                var days = Math.floor(elapsedMillis / millisecondsInDay);
+                elapsedMillis %= millisecondsInDay;
 
-        // .start 클래스를 가진 요소에 클릭 이벤트 핸들러를 추가한다.
-        $('.start').click(function () {
-            // 클릭된 버튼(this)에 가장 가까운 상위 .card 요소를 찾고, 그 .card 요소를 JQuery 객체로 반환한다.
-            let card = $(this).closest('.card');
-            // 찾은 .card 요소에 startTime 속성을 현재 시간(Date.now())으로 설정한다.
-            $(card).data('startTime', Date.now());
-            //동일한 .card 요소에 pausedTime 속성을 0으로 설정한다.
-            $(card).data('pausedTime', 0);
-            //  타이머를 식별하기 위해, .card 요소의 data-taskId 속성 값을 가져와 taskId 변수에 저장한다.
-            let taskId = $(card).data('taskId');
-            // setInterval 함수를 사용하여 매 1초(1000 밀리초)마다 updateTimer 함수를 호출한다.
-            // updateTimer 함수는 card 요소의 타이머를 업데이트하고, 생성된 인터벌 타이머는 timers 객체의 taskId 속성에 저장되어, 나중에 타이머를 중지할 수 있게 한다.
-            timers[card.data('taskId')] = setInterval(function() {updateTimer(card);}, 1000);
+                var hours = Math.floor(elapsedMillis / millisecondsInHour);
+                elapsedMillis %= millisecondsInHour;
 
-            // 타이머를 보이게 한다.
-            $(card).find('.stopwatch').show();
-        });
+                var minutes = Math.floor(elapsedMillis / millisecondsInMinute);
 
-        $('.pause').click(function() {
-            var card = $(this).closest('.card');
-            clearInterval(timers[card.data('taskId')]);
-            // .card 요소의 data-pausedTime 속성 값을 가져오고, 만약 값이 없다면 0을 사용한다.
-            var pausedTime = card.data('pausedTime') || 0;
-            // 기존의 일시정지된 시간에 현재 시간과 시작 시간의 차이를 더하여 일시정지된 시간을 업데이트한다.
-            card.data('pausedTime', pausedTime + (Date.now() - card.data('startTime')));
-        });
+                return { days: days, hours: hours, minutes: minutes };
+            }
 
-        $('.continue').click(function() {
-            var card = $(this).closest('.card');
-            card.data('startTime', Date.now());
-            timers[card.data('taskId')] = setInterval(function() { updateTimer(card); }, 1000);
-        });
+            // 지속 시간을 포맷하는 함수  - updateTimer()에서 사용
+            function formatDuration(duration) {
+                var formattedDuration = "";
+                if (duration.days > 0) formattedDuration += duration.days + "일 ";
+                if (duration.hours > 0) formattedDuration += duration.hours + "시간 ";
+                if (duration.minutes > 0) formattedDuration += duration.minutes + "분";
 
-        $('.complete').click(function() {
-            var card = $(this).closest('.card');
-            clearInterval(timers[card.data('taskId')]);
-            card.find('.stopwatch').hide();
-            console.log("-----------")
+                return formattedDuration.trim();
+            }
+
+            // 타이머 업데이트 함수
+            function formatCurrentElapsedTime() {
+                var now = new Date().getTime();
+                var elapsedMillis = elapsedMinutes * 60 * 1000; // 분을 밀리초로 변경
+
+                // 현재 실행누적시간
+                if (startTime) {
+                    elapsedMillis += now - startTime; // 누적시간 + 현재시각 - 시작시각
+                } else if (pauseTime) {
+                    elapsedMillis += now - pauseTime; // 누적시간 + 현재시각 - 일시정지시각
+                }
+
+                // 누적 시간 텍스트 포맷팅
+                var elapsedDuration = convertMillisToDaysHoursMinutes(elapsedMillis);
+                var timerText = formatDuration(elapsedDuration);
+
+                // 텍스트 설정
+                timerContainer.text(timerText);
+            }
+
+            // 화면에 누적시간 출력
+            formatCurrentElapsedTime();
+
+            // 진행중인 경우 갱신된 시간으로 출력한다.
+            if(status === 'ING') {
+                timerContainer.addClass("blink");
+                setInterval(formatCurrentElapsedTime, 1000); // 바로 실행안되고, 최초 실행은 지정된 ms 시간 후에.
+            }
         });
     });
 
