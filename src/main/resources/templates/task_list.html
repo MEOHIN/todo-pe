@@ -48,22 +48,14 @@
                                     <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
                                 <div th:text="${task.elapsedTime}" class="ing-timer stopwatch"></div>
-                                <input type="hidden"
-                                       class="start-time"
-                                       th:value="${task.startTime}">
-                                <input type="hidden"
-                                       class="continue-time"
-                                       th:value="${task.pauseTime} ? ${task.continueTime}">
-                                <input type="hidden"
-                                       class="elapsed-time"
-                                       th:value="${task.elapsedTime}">
+                                <input type="hidden" class="start-time" th:value="${task.startTime}">
+                                <input type="hidden" class="continue-time" th:value="${task.pauseTime} ? ${task.continueTime}">
+                                <input type="hidden" class="elapsed-time" th:value="${task.elapsedTime}">
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.taskId}|}" method="post" class="overlay run-type-btn">
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
                                 <div th:text="${task.elapsedTime}" class="pause-timer stopwatch"></div>
-                                <input type="hidden"
-                                       class="elapsed-time"
-                                       th:value="${task.elapsedTime}">
+                                <input type="hidden" class="elapsed-time" th:value="${task.elapsedTime}">
                             </form>
                         </div>
                     </div>
@@ -82,15 +74,13 @@
     </footer>
 </div>
 <script layout:fragment="script" type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function () { // JQuery 준비 이벤트 핸들러: 문서가 완전히 로드되고 준비된 후에 코드가 실행되도록 한다.
         // 할일등록버튼 클릭 이벤트
         $("#btn-add-task").click(function () {
             window.location.href = "/task/create"
         })
-    })
 
-    // 스톱워치
-    $(document).ready(function () {     // JQuery 준비 이벤트 핸들러: 문서가 완전히 로드되고 준비된 후에 코드가 실행되도록 한다.
+        // 스톱워치
         $('.card').each(function () {
             var card = $(this);
             var timerContainer = card.find('.stopwatch');
