@@ -20,6 +20,7 @@ public interface TaskWithMeasuresRepository extends JpaRepository<Task, Long> {
             tm.id as measuresId,
             tm.start_time as startTime,
             tm.pause_time as pauseTime,
+            tm.continue_time as continueTime,
             tm.elapsed_paused_time as elapsedTime
         FROM (
             SELECT t.*, MAX(tm.id) as tm_id
