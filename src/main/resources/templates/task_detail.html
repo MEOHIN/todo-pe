@@ -98,7 +98,7 @@
 
         // 총 소요 시간 출력 포맷
         let hiddenTotalTimeElement = totalTimeElements[i];
-        let totalTimeMinutes = parseInt(hiddenTotalTimeElement.value);
+        let totalTimeMinutes = Math.floor(parseInt(hiddenTotalTimeElement.value) / 60);
         let formattedTotalTime = formatMinutesToHoursAndMinutes(totalTimeMinutes);
         // 1. Browser 에서 break point 를 IntelliJ 에서 쓰는 것처럼 할 수 있다.
         // 2. console.log 로 변수의 값을 한번에 볼 수 있다. dictionary 형태로
