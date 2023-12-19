@@ -47,7 +47,7 @@
                                 <form th:action="@{|/task/complete/${task.taskId}|}" method="post">
                                     <button class="complete btn small-rounded-btn waves-effect waves-light" type="submit">완료</button>
                                 </form>
-                                <div th:text="'00:00:00'" class="ing-timer stopwatch"></div>
+                                <div th:text="${task.elapsedTime}" class="ing-timer stopwatch"></div>
                                 <input type="hidden"
                                        class="start-time"
                                        th:value="${task.startTime}">
@@ -103,7 +103,8 @@
 
             // elapsedMillis를 일, 시간, 분으로 변환하는 함수 - updateTimer()에서 사용
             function convertMillisToDaysHoursMinutes(elapsedMillis) {
-                var millisecondsInMinute = 60 * 1000;
+                var millisecondsInSecond = 1000;
+                var millisecondsInMinute = 60 * millisecondsInSecond;
                 var millisecondsInHour = 60 * millisecondsInMinute;
                 var millisecondsInDay = 24 * millisecondsInHour;
 
@@ -114,8 +115,11 @@
                 elapsedMillis %= millisecondsInHour;
 
                 var minutes = Math.floor(elapsedMillis / millisecondsInMinute);
+                elapsedMillis %= millisecondsInMinute
 
-                return { days: days, hours: hours, minutes: minutes };
+                var seconds = Math.floor(elapsedMillis / millisecondsInSecond);
+
+                return { days: days, hours: hours, minutes: minutes, seconds: seconds };
             }
 
             // 지속 시간을 포맷하는 함수  - updateTimer()에서 사용
@@ -123,7 +127,8 @@
                 var formattedDuration = "";
                 if (duration.days > 0) formattedDuration += duration.days + "일 ";
                 if (duration.hours > 0) formattedDuration += duration.hours + "시간 ";
-                if (duration.minutes > 0) formattedDuration += duration.minutes + "분";
+                if (duration.minutes > 0) formattedDuration += duration.minutes + "분 ";
+                if (duration.seconds > 0) formattedDuration += duration.seconds + "초";
 
                 return formattedDuration.trim();
             }
@@ -131,7 +136,7 @@
             // 타이머 업데이트 함수
             function formatCurrentElapsedTime() {
                 var now = new Date().getTime();
-                var elapsedMillis = elapsedMinutes * 60 * 1000; // 분을 밀리초로 변경
+                var elapsedMillis = elapsedSeconds * 1000; // 분을 밀리초로 변경
 
                 // 현재 실행누적시간
                 if (continueTime) {
