@@ -49,17 +49,20 @@
                                 </form>
                                 <div th:text="'00:00:00'" class="ing-timer stopwatch"></div>
                                 <input type="hidden"
-                                       th:class="${task.pauseTime} ? 'pauseTime' : 'startTime'"
-                                       th:value="${task.pauseTime} ? ${task.pauseTime} : ${task.startTime}">
+                                       class="start-time"
+                                       th:value="${task.startTime}">
                                 <input type="hidden"
-                                       class="elapsedTime"
+                                       class="continue-time"
+                                       th:value="${task.pauseTime} ? ${task.continueTime}">
+                                <input type="hidden"
+                                       class="elapsed-time"
                                        th:value="${task.elapsedTime}">
                             </div>
                             <form th:case="'PAUSE'" th:action="@{|/task/continue/${task.taskId}|}" method="post" class="overlay run-type-btn">
                                 <button class="continue btn small-rounded-btn waves-effect waves-light" type="submit">계속</button>
                                 <div th:text="${task.elapsedTime}" class="pause-timer stopwatch"></div>
                                 <input type="hidden"
-                                       class="elapsedTime"
+                                       class="elapsed-time"
                                        th:value="${task.elapsedTime}">
                             </form>
                         </div>
@@ -93,10 +96,10 @@
             var timerContainer = card.find('.stopwatch');
             var status = card.find('.my-card').attr('status');
 
-            var startTime = new Date(card.find('.startTime').val()).getTime();  // 진행중인 태스크는 이 값이 존재함.
-            var pauseTime = new Date(card.find('.pauseTime').val()).getTime();  // 진행중인 태스크이지만, 한번이라도 일시정지한 기록이 있는 태스크
-            var elapsedMinutes = parseInt(card.find('.elapsedTime').val());     // 일시정지한 태스크의 누적진행 시간, (이 값이 10이면 10분)
-            if (!elapsedMinutes) { elapsedMinutes = 0;}
+            var startTime = new Date(card.find('.start-time').val()).getTime();  // 진행중인 태스크는 이 값이 존재함.
+            var continueTime = new Date(card.find('.continue-time').val()).getTime();  // 진행중인 태스크이지만, 한번이라도 일시정지한 기록이 있는 태스크
+            var elapsedSeconds = parseInt(card.find('.elapsed-time').val());     // 일시정지한 태스크의 누적진행 시간, (이 값이 10이면 10분)
+            if (!elapsedSeconds) { elapsedSeconds = 0;}
 
             // elapsedMillis를 일, 시간, 분으로 변환하는 함수 - updateTimer()에서 사용
             function convertMillisToDaysHoursMinutes(elapsedMillis) {
@@ -131,10 +134,10 @@
                 var elapsedMillis = elapsedMinutes * 60 * 1000; // 분을 밀리초로 변경
 
                 // 현재 실행누적시간
-                if (startTime) {
-                    elapsedMillis += now - startTime; // 누적시간 + 현재시각 - 시작시각
-                } else if (pauseTime) {
-                    elapsedMillis += now - pauseTime; // 누적시간 + 현재시각 - 일시정지시각
+                if (continueTime) {
+                    elapsedMillis += now - continueTime; // 누적시간 + 현재시각 - 시작시각
+                } else if (startTime) {
+                    elapsedMillis += now - startTime; // 누적시간 + 현재시각 - 일시정지시각
                 }
 
                 // 누적 시간 텍스트 포맷팅
