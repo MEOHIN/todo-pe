@@ -130,9 +130,9 @@
 
                 // 현재 실행누적시간
                 if (continueTime) {
-                    elapsedMillis += now - continueTime; // 누적시간 + 현재시각 - 시작시각
+                    elapsedMillis += now - continueTime; // 누적시간 + 현재시각 - 계속시각
                 } else if (startTime) {
-                    elapsedMillis += now - startTime; // 누적시간 + 현재시각 - 일시정지시각
+                    elapsedMillis += now - startTime; // 누적시간 + 현재시각 - 시작시각
                 }
 
                 // 누적 시간 텍스트 포맷팅
@@ -140,7 +140,11 @@
                 var timerText = formatDuration(elapsedDuration);
 
                 // 텍스트 설정
-                timerContainer.text(timerText);
+                if (status === 'ING') {
+                    timerContainer.text("진행중: \n" + timerText);
+                } else {
+                    timerContainer.text("일시정지: \n" + timerText);
+                }
             }
 
             // 화면에 누적시간 출력
