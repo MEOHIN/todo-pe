@@ -96,28 +96,41 @@ public class TaskMeasuresService {
      * @param taskStatus    저장하려는 시점의 task 상태
      */
     public void calculateTime(TaskMeasures taskMeasures, TaskStatus taskStatus) {
-        if (taskStatus == TaskStatus.PAUSE) {
-            if (taskMeasures.getContinueTime() == null) {
+        if (taskStatus == TaskStatus.PAUSE) {   // Task가 일시정지 상태일 때,
+            if (taskMeasures.getContinueTime() == null) {   // Task를 시작한 이후 처음 일시정지한 경우
+                // '시작' 시각부터 '일시정지' 시각까지의 시간 간격을 계산하여 'start-pause 작업수행시간'을 얻는다.
                 Duration elapsedPausedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getPauseTime());
                 int elapsedPausedTime = (int) elapsedPausedDuration.toMinutes();
+                // 'start-pause 작업수행시간'을 분 단위로 변환한다.
+                // 분 단위의 'start-pause 작업수행시간'을 DB에 업데이트한다.
                 taskMeasures.setElapsedPausedTime(elapsedPausedTime);
-            } else {
+            } else {    // Task를 시작한 이후 두 번 이상 일시정지한 경우
+                // '계속' 시각부터 '일시정지' 시각까지의 시간 간격을 계산하여 'continue-pause 작업수행시간'을 얻는다.
                 Duration elapsedPausedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getPauseTime());
                 int elapsedPausedTimeFromContinue = (int) elapsedPausedDuration.toMinutes();
+                // 'continue-pause 작업수행시간'을 분 단위로 변환한다.
+                // 'start-pause 작업수행시간'과 'continue-pause 작업수행시간'을 합하고, 합한 값을 DB에 업데이트한다.
                 taskMeasures.setElapsedPausedTime(taskMeasures.getElapsedPausedTime() + elapsedPausedTimeFromContinue);
             }
         }
-        else if (taskStatus == TaskStatus.STANDBY) {
-            if (taskMeasures.getContinueTime() == null) {
+        else if (taskStatus == TaskStatus.STANDBY) {    // Task가 완료 상태일 때,
+            if (taskMeasures.getContinueTime() == null) {   // Task를 시작한 이후 한 번에 완료한 경우 = 한 번도 일시정지한 적이 없는 경우
+                // '시작' 시각부터 '완료' 시각까지의 시간 간격을 계산하여 'start-complete 작업수행시간'을 얻는다.
                 Duration totalElapsedDuration = Duration.between(taskMeasures.getStartTime(), taskMeasures.getCompleteTime());
                 int totalElapsedTime = (int) totalElapsedDuration.toMinutes();
+                // 'start-complete 작업수행시간'을 분 단위로 변환한다.
+                // 'start-complete 작업수행시간'을 '총 작업수행시간'으로 DB에 업데이트한다.
                 taskMeasures.setTotalElapsedTime(totalElapsedTime);
             }
-            else {
+            else {  // Task를 시작한 이후 한 번 이상 일시정지한 적이 있는 경우
+                // '계속' 시각부터 '완료' 시각까지의 시간 간격을 계산하여 'continue-complete 작업수행시간'을 얻는다.
                 Duration elapsedCompletedDuration = Duration.between(taskMeasures.getContinueTime(), taskMeasures.getCompleteTime());
                 int elapsedCompletedTime = (int) elapsedCompletedDuration.toMinutes();
+                // 'continue-complete 작업수행시간'을 분 단위로 변환한다.
+                // 'continue-complete 작업수행시간'을 DB에 업데이트 한다.
                 taskMeasures.setElapsedCompletedTime(elapsedCompletedTime);
 
+                // 'continue-complete 작업수행시간'과 '시작' 시각부터 '일시정지' 시각까지의 시간 간격을 합하고, 합한 값을 '총 작업수행시간'으로 DB에 업데이트 한다.
                 taskMeasures.setTotalElapsedTime(taskMeasures.getElapsedPausedTime() + elapsedCompletedTime);
             }
         }
