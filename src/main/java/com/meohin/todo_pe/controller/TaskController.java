@@ -89,11 +89,15 @@ public class TaskController {
         ArrayList<Integer> totalTimeList = new ArrayList<>();
         ArrayList<LocalDate> completeTimeList = new ArrayList<>();
 
-        // 차트에 출력에 필요한 '예상 처리 시간', '실제 처리 시간', '완료일' 리스트를 생성
+        // 완료일 포매팅
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+
+        // 차트에 출력에 필요한 '예상 처리 시간', '실제 처리 시간', '완료일' 리스트를 생성
         for (TaskMeasures taskMeasure : taskMeasureList) {
             estimatedTimeList.add(taskMeasure.getEstimatedAt());
-            totalTimeList.add(taskMeasure.getTotalElapsedTime());
+
+            Integer totalTime = taskMeasure.getTotalElapsedTime();
+            totalTimeList.add(totalTime/60);
 
             LocalDateTime date = taskMeasure.getCompleteTime();
             String completeDate = date.format(formatter);
