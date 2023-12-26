@@ -92,7 +92,7 @@
     for (let i = 0; i < estimatedTimeElements.length; i++) {
         // 시작 날짜 출력 포맷
         let hiddenStartElement = startTimeElements[i];
-        let formattedStartTime = hiddenStartElement.value.replace(/T/, ' ').substring(0, 16);
+        let formattedStartTime = hiddenStartElement.value.replace(/T/, ' ').substring(0, 10);
 
         // 예상 처리 시간 출력 포맷
         let hiddenEstimatedElement = estimatedTimeElements[i];
@@ -108,7 +108,7 @@
         // 3. console.table 같은게 있다.
         // 4. 클라이언트(브라우저)에서 계산에 쓰는 값은 input hidden 으로 처리하는것이 좀 더 우아하다.
 
-        userStartTime[i].textContent = '시작 일시: ' + formattedStartTime;
+        userStartTime[i].textContent = '시작일: ' + formattedStartTime;
         userEstimatedTime[i].textContent = '예상 처리 시간: ' + formattedEstimatedTime;
         userTotalTime[i].textContent = '총 소요 시간: ' + formattedTotalTime;
     }
