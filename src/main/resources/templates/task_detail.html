@@ -23,40 +23,52 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 
         <script th:inline="javascript">
-            let estimatedTimeList = [[${estimatedTimeList}]];
-            let totalTimeList = [[${totalTimeList}]];
-            let completeTimeList = [[${completeTimeList}]];
+            document.addEventListener("DOMContentLoaded", () => {
+                chartLoad();
+            });
 
-            const ctx = document.getElementById('myChart');
+            function chartLoad() {
+                let estimatedTimeList = [[${estimatedTimeList}]];
+                let totalTimeList = [[${totalTimeList}]];
+                let completeTimeList = [[${completeTimeList}]];
 
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: completeTimeList,
-                    datasets: [
-                        {
-                            label: '예상 처리 시간 (분 단위)',
-                            data: estimatedTimeList,
-                            borderWidth: 1,
-                        },
-                        {
-                            label: '실제 처리 시간 (분 단위)',
-                            data: totalTimeList,
-                            borderWidth: 1,
-                        }
-                    ],
-                },
-                options: {
-                    scales: {
-                        x: {
-                            display: false // x 축 레이블 표시 여부 설정
-                        },
-                        y: {
-                            beginAtZero: true
+                const ctx = document.getElementById('myChart');
+
+                // Chart.js 버그
+                //  Issu link : https://github.com/chartjs/Chart.js/issues/10890#issuecomment-1482485438
+                //  해결방안 : options.maintainAspectRatio: false 로 설정 및 높이 강제 지정
+                $(ctx).css("height", window.innerWidth * 0.6);
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: completeTimeList,
+                        datasets: [
+                            {
+                                label: '예상 처리 시간 (분 단위)',
+                                data: estimatedTimeList,
+                                borderWidth: 1,
+                            },
+                            {
+                                label: '실제 처리 시간 (분 단위)',
+                                data: totalTimeList,
+                                borderWidth: 1,
+                            }
+                        ],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                display: false // x 축 레이블 표시 여부 설정
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         </script>
 
         <!-- 태스크 이력: taskMeasures 목록 -->
