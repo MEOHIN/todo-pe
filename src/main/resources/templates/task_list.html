@@ -159,14 +159,12 @@
     });
 
     // 완료 여부 확인
-    const complete_elements = document.getElementsByClassName("complete");
-    Array.from(complete_elements).forEach(function (element) {
-        element.addEventListener('click', function () {
-            if (confirm("정말로 완료하시겠습니까?")) {
-                location.href = this.dataset.uri;
-            }
+    const btnComplete = document.querySelector(".complete");
+    if (btnComplete) {
+        btnComplete.addEventListener('click', function (event) {
+            if (!confirm("정말로 완료하시겠습니까?")) event.preventDefault();
         });
-    });
+    }
 
     // 시간 출력 포맷
     var hiddenEstimatedTime = document.getElementsByClassName('hidden-estimated-time');
