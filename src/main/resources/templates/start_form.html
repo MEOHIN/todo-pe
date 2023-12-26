@@ -22,23 +22,18 @@
                            minlength="5" class="validate">
                     <span class="helper-text" data-error="00:00 형식으로 입력해주세요. 3시간 30분이라면 03:30으로 입력합니다."></span>
                 </div>
-                <button type="submit" class="start btn big-rounded-btn footer-button-container waves-effect waves-light1">시작
-                </button>
+                <button type="submit" class="start btn big-rounded-btn footer-button-container waves-effect waves-light1">시작</button>
             </div>
         </form>
     </main>
 </div>
 <script layout:fragment="script" type="text/javascript">
     // 시작 여부 확인
-    const delete_elements = document.getElementsByClassName("start");
-    Array.from(delete_elements).forEach(function (element) {
-        element.addEventListener('click', function () {
-            if (confirm("정말로 시작하시겠습니까?")) {
-                const form = document.querySelector('form');
-                form.submit();
-            }
-        });
+    const btnStart = document.querySelector(".start");
+    btnStart.addEventListener('click', function (event) {
+        if (!confirm("정말로 시작하시겠습니까?")) event.preventDefault();
     });
+
 
     // 시간 출력 포맷
     var estimatedTime = document.getElementById('estimatedAt');
