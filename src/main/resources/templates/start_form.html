@@ -16,7 +16,7 @@
                 <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
             </div>
             <div class="row">
-                <div class="input-field col s12 m12 l12">
+                <div class="input-field">
                     <label for="estimatedAt">예상 처리 시간</label>
                     <input type="text" name="inputEstimatedAt" id="estimatedAt" th:value="${task.estimatedAt}"
                            minlength="5" class="validate">
