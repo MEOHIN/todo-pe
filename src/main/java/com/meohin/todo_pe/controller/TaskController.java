@@ -406,7 +406,8 @@ public class TaskController {
     @GetMapping(("/measures/delete/{taskMeasuresId}"))
     public String deleteTaskMeasures(Model model,
                                      @PathVariable("taskMeasuresId") Long taskMeasuresId,
-                                     Principal principal) {
+                                     Principal principal,
+                                     RedirectAttributes redirectAttributes) {
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) return "/error";
 
@@ -417,7 +418,15 @@ public class TaskController {
         // Task 이력을 삭제
         this.taskMeasuresService.deleteTaskMeasures(taskMeasures);
 
-        return "redirect:/task/list";
+        Task task = taskMeasures.getTask();
+        Long taskId = task.getId();
+
+        // 세션에 태스크 정보 저장
+        redirectAttributes.addFlashAttribute(taskId);
+        redirectAttributes.addFlashAttribute("editedTask", task);
+
+        // 상세 페이지로 이동
+        return String.format("redirect:/task/detail/%s", taskId);
     }
 
     /**
