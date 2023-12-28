@@ -108,6 +108,13 @@ header {
     background-color: var(--cardColor);
 }
 
+/* 푸터 컬러 */
+.footer-copyright {
+    width: 100%;
+    background-color: white !important;
+    color: black !important;
+}
+
 /* 진행중인 카드 오버레이 */
 .overlay::before {
     content: '';
