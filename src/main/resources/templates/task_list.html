@@ -57,6 +57,7 @@
                                 <div th:text="${task.elapsedTime}" class="pause-timer stopwatch"></div>
                                 <input type="hidden" class="elapsed-time" th:value="${task.elapsedTime}">
                             </form>
+                            <input type="hidden" class="task-status" th:value="${task.status}">
                         </div>
                     </div>
                 </a>
@@ -76,6 +77,23 @@
         // 할일등록버튼 클릭 이벤트
         $("#btn-add-task").click(function () {
             window.location.href = "/task/create"
+        })
+
+        // 기존에 진행중인 Task가 없는 경우에만 시작하도록 제한한다.
+        $(".start, .continue").click(function (event) {
+            // 모든 카드 요소에서 task-status 값 조회
+            var allTaskStatus = $('.card .task-status').map(function () {
+                return $(this).val();
+            }).get();
+
+            // 만약 task-status 값 중에 "ING"가 있다면
+            if ($.inArray('ING', allTaskStatus) !== -1) {
+                // 경고창 출력
+                alert('Task를 시작하려면 진행중인 Task를 완료 또는 일시정지해야 합니다.')
+
+                // 클릭 이벤트 무효화
+                event.preventDefault();
+            }
         })
 
         // 스톱워치
