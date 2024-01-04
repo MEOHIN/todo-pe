@@ -35,6 +35,12 @@ main {
     min-height: 100vh;
 }
 
+.footer-copyright {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
 .brand-title {
     display: flex;
     justify-content:center;
