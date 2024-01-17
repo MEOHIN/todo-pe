@@ -92,6 +92,14 @@
             }
         })
 
+        // 완료 여부 확인
+        const btnComplete = document.querySelector(".complete");
+        if (btnComplete) {
+            btnComplete.addEventListener('click', function (event) {
+                if (!confirm("정말로 완료하시겠습니까?")) event.preventDefault();
+            });
+        }
+
         // 스톱워치
         $('.card').each(function () {
             var card = $(this);
@@ -169,14 +177,6 @@
             }
         });
     });
-
-    // 완료 여부 확인
-    const btnComplete = document.querySelector(".complete");
-    if (btnComplete) {
-        btnComplete.addEventListener('click', function (event) {
-            if (!confirm("정말로 완료하시겠습니까?")) event.preventDefault();
-        });
-    }
 
     // 시간 출력 포맷
     var hiddenEstimatedTime = document.getElementsByClassName('hidden-estimated-time');
