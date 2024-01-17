@@ -71,8 +71,25 @@
 <script layout:fragment="script" type="text/javascript">
     $(document).ready(function () { // JQuery 준비 이벤트 핸들러: 문서가 완전히 로드되고 준비된 후에 코드가 실행되도록 한다.
         // 할일등록버튼 클릭 이벤트
-        $("#btn-add-task").click(function () {
-            window.location.href = "/task/create"
+        // 기존에 진행중인 Task가 없는 경우에만 추가하도록 제한한다.
+        $('#btn-add-task').click(function (event) {
+            // 모든 카드 요소에서 task-status 값 조회
+
+
+            var allTaskStatus = $('.card .task-status').map(function () {
+                return $(this).val();
+            }).get();
+
+            // 만약 task-status 값 중에 "ING"가 있다면
+            if ($.inArray('ING', allTaskStatus) !== -1) {
+                // 경고창 출력
+                alert('Task를 추가하려면 진행중인 Task를 일시정지 또는 완료해야 합니다.')
+
+                // 클릭 이벤트 무효화
+                event.preventDefault();
+            } else {
+                window.location.href = "/task/create"
+            }
         })
 
         // 기존에 진행중인 Task가 없는 경우에만 시작하도록 제한한다.
