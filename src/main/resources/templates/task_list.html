@@ -178,9 +178,9 @@
 
                 // 텍스트 설정
                 if (status === 'ING') {
-                    timerContainer.text("진행중: \n" + timerText);
+                    timerContainer.html('<p style=\"text-align: center;">진행중</p>' + timerText);
                 } else {
-                    timerContainer.text("일시정지: \n" + timerText);
+                    timerContainer.html('<p style=\"text-align: center;">일시정지</p>' + timerText);
                 }
             }
 
