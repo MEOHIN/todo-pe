@@ -40,7 +40,7 @@
     </main>
 </div>
 <script layout:fragment="script" type="text/javascript">
-    <!--  시간 출력 포맷  -->
+    // 시간 출력 포맷
     if (document.getElementById('modify_estimatedAt')) {
         var estimatedTime = document.getElementById('modify_estimatedAt');
         var estimatedAtMinutes = parseInt(estimatedTime.value);
@@ -60,7 +60,7 @@
         }
     }
 
-    <!-- 바이트 기반으로 입력 글자 수 제한 -->
+    // 바이트 기반으로 입력 글자 수 제한
     function calculateBytes(str) {
         let byteSize = 0;
         for (let i = 0; i < str.length; i++) {
