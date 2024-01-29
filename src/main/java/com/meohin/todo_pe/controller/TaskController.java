@@ -436,7 +436,9 @@ public class TaskController {
      * @return  task 목록 템플릿
      */
     @GetMapping("/search")
-    public String searchTask(Model model, @RequestParam String keyword, Principal principal) {
+    public String searchTask(Model model,
+                             @RequestParam String keyword,
+                             Principal principal) {
         SiteUser user = this.userService.getUser(principal.getName());
         List<TaskWithMeasures> tasks = taskService.getTasksWithTaskMeasuresByUserId(user);
         String keywordWithoutBlank = keyword.trim();
