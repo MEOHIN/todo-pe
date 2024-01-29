@@ -23,7 +23,7 @@ public class UserController {
         if (principal != null) {
             return "redirect:/task/list";
         }
-        return "/login/login";
+        return "login/login";
     }
 
     @GetMapping("/signup")
