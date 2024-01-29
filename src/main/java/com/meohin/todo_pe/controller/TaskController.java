@@ -4,6 +4,7 @@ import com.meohin.todo_pe.TaskStatus;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskMeasures;
+import com.meohin.todo_pe.entity.TaskWithMeasures;
 import com.meohin.todo_pe.service.TaskMeasuresService;
 import com.meohin.todo_pe.service.TaskService;
 import com.meohin.todo_pe.service.UserService;
@@ -437,14 +438,18 @@ public class TaskController {
     @GetMapping("/search")
     public String searchTask(Model model, @RequestParam String keyword, Principal principal) {
         SiteUser user = this.userService.getUser(principal.getName());
-        List<Task> tasks = this.taskService.getTaskList(user);
-        List<Task> keywordTasks = this.taskService.getTaskByKeyword(keyword, user);
-        if (tasks.size()==0) {
-            model.addAttribute("searchResult", "등록된 할 일이 없습니다.");
-        } else if (keywordTasks.size()==0) {
-            model.addAttribute("searchResult", "검색결과가 없습니다.");
+        List<TaskWithMeasures> tasks = taskService.getTasksWithTaskMeasuresByUserId(user);
+        String keywordWithoutBlank = keyword.trim();
+        List<TaskWithMeasures> keywordTasks = taskService.getTasksWithMeasuresBySubjectAndUserId(keywordWithoutBlank, user);
+        if (keywordWithoutBlank.length() == 0) {
+            model.addAttribute("tasksWithMeasures", tasks);
+        } else if (tasks.size() == 0) {
+            model.addAttribute("searchResultMessage", "등록된 할 일이 없습니다.");
+        } else if (keywordTasks.size() == 0) {
+            model.addAttribute("searchResultMessage", "검색결과가 없습니다.");
+        } else {
+            model.addAttribute("tasksWithMeasures", keywordTasks);
         }
-        model.addAttribute("taskList", keywordTasks);
         return "task_list";
     }
 
