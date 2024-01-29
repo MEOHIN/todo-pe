@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface TaskWithMeasuresRepository extends JpaRepository<Task, Long> {
 
+    // task와 그 task에 딸린 taskMeasures 데이터를 최신 순으로 정렬
     @Query(value = """
         SELECT
             t1.id as taskId,
