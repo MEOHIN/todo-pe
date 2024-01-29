@@ -55,6 +55,10 @@ public class TaskService {
         return taskWithMeasuresRepository.getTaskListWithMeasures(user.getId());
     }
 
+    public List<TaskWithMeasures> getTasksWithMeasuresBySubjectAndUserId(String subject, SiteUser user) {
+        return taskWithMeasuresRepository.getTasksWithMeasuresBySubject(subject, user.getId());
+    }
+
     /**
      * 입력받은 Task 데이터를 저장한다.
      * @param subject       Task 제목
