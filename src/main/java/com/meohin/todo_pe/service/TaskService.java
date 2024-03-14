@@ -1,6 +1,6 @@
 package com.meohin.todo_pe.service;
 
-import com.meohin.todo_pe.TaskStatus;
+import com.meohin.todo_pe.entity.TaskStatus;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.entity.Task;
 import com.meohin.todo_pe.entity.TaskWithMeasures;

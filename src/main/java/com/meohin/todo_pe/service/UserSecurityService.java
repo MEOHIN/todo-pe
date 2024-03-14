@@ -1,6 +1,6 @@
 package com.meohin.todo_pe.service;
 
-import com.meohin.todo_pe.UserRole;
+import com.meohin.todo_pe.entity.UserRole;
 import com.meohin.todo_pe.entity.SiteUser;
 import com.meohin.todo_pe.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

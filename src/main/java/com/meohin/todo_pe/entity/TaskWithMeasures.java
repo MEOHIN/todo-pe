@@ -1,7 +1,5 @@
 package com.meohin.todo_pe.entity;
 
-import com.meohin.todo_pe.TaskStatus;
-
 import java.time.LocalDateTime;
 
 public interface TaskWithMeasures {

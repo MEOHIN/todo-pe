@@ -1,5 +1,6 @@
 package com.meohin.todo_pe;
 
+import com.meohin.todo_pe.entity.TaskStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
