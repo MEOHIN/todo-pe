@@ -12,14 +12,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeHttpRequests(
-                        (authorizeHttpRequests) -> authorizeHttpRequests.requestMatchers(
-                                new AntPathRequestMatcher("/**")).permitAll())
-                .formLogin((formLogin) -> formLogin.loginPage("/login").defaultSuccessUrl("/"))
-                .logout((logout) -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/login").invalidateHttpSession(true));
+        httpSecurity.authorizeHttpRequests((authorizeHttpRequests) -> {
+            authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/login")).permitAll();
+            authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/style.css")).permitAll();
+            authorizeHttpRequests.anyRequest().authenticated();
+        });
+
+        // 로그인 및 로그아웃
+        httpSecurity.formLogin((formLogin) -> formLogin.loginPage("/login"));
+        httpSecurity.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")));
+
         return httpSecurity.build();
     }
 }
