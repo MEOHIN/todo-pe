@@ -12,7 +12,7 @@ import com.meohin.todo_pe.validationObject.EstimatedTimeVO;
 import com.meohin.todo_pe.validationObject.TaskVO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +32,7 @@ import java.util.Locale;
 /**
  * Task 컨틀롤러 클래스다.
  */
+@Slf4j
 // TaskController 객체가 생성될 때 TaskRepository가 주입되도록 한다.
 @RequiredArgsConstructor
 @Controller
@@ -341,6 +342,13 @@ public class TaskController {
                                      @RequestParam String inputCompleteDate,
                                      @RequestParam String inputCompleteTime,
                                      Principal principal) {
+        // 개발자 로그
+        log.trace("inputCompleteDate:{}, inputCompleteTime{}", inputCompleteDate, inputCompleteTime);
+        log.debug("inputCompleteDate:{}, inputCompleteTime{}", inputCompleteDate, inputCompleteTime);
+        log.info("inputCompleteDate:{}, inputCompleteTime{}", inputCompleteDate, inputCompleteTime);
+        log.warn("inputCompleteDate:{}, inputCompleteTime{}", inputCompleteDate, inputCompleteTime);
+        log.error("inputCompleteDate:{}, inputCompleteTime{}", inputCompleteDate, inputCompleteTime);
+
         // TaskMeasures 서비스를 사용해서 TaskMeasures ID에 해당하는 TaskMeasures 객체를 검색
         TaskMeasures taskMeasures = this.taskMeasuresService.getTaskMeasuresById(taskMeasuresId);
         if (taskMeasures == null) return "/error";
