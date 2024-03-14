@@ -36,7 +36,6 @@ import java.util.Locale;
 // TaskController 객체가 생성될 때 TaskRepository가 주입되도록 한다.
 @RequiredArgsConstructor
 @Controller
-@PreAuthorize("isAuthenticated()")
 // 프리픽스를 지정한다.
 @RequestMapping("/task")
 public class TaskController {
