@@ -1,7 +1,6 @@
 package com.meohin.todo_pe.entity;
 
-import com.meohin.todo_pe.TaskStatus;
-import com.meohin.todo_pe.TaskStatusConverter;
+import com.meohin.todo_pe.entity.converter.TaskStatusConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
