@@ -1,4 +1,4 @@
-package com.meohin.todo_pe;
+package com.meohin.todo_pe.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.meohin.todo_pe;
+package com.meohin.todo_pe.config;
 
 import com.meohin.todo_pe.service.UserSecurityService;
 import lombok.RequiredArgsConstructor;
