@@ -37,8 +37,8 @@ public class SecurityConfig {
         //      - 사용자의 자격 증명은 AuthenticationManager를 통해 검증
         //      - 인증이 성공하면, SecurityContext에 사용자의 인증 정보가 저장되고, 사용자는 원래 요청했던 리소스나 기본 페이지로 리다이렉션.
         httpSecurity.authorizeHttpRequests((authorizeHttpRequests) -> {
-            authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/login")).permitAll();
-            authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/style.css")).permitAll();
+            authorizeHttpRequests.requestMatchers("/login").permitAll();
+            authorizeHttpRequests.requestMatchers("/style.css").permitAll();
             authorizeHttpRequests.anyRequest().authenticated();
         });
 
@@ -51,7 +51,10 @@ public class SecurityConfig {
         // 로그인 실패 설정 옵션1은 로그인 성공 시 사용자를 어디로 리다이렉션할지 명시적으로 지정하지 않음.
         // 따라서 옵션1 코드는 로그인 성공 후의 리다이렉션은 사용자가 처음 요청한 페이지에 따라 달라짐.
         // 반면, defaultSuccessUrl("/")를 사용하는 코드는 로그인 성공 시 항상 지정된 URL로 리다이렉션하도록 설정
-        httpSecurity.formLogin((formLogin) -> formLogin.loginPage("/login").defaultSuccessUrl("/"));
+        // https://docs.spring.io/spring-security/site/docs/6.0.3/api/
+        // https://docs.spring.io/spring-security/site/docs/6.0.3/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html#logout(org.springframework.security.config.Customizer)
+        // 항상 API 문설를 확인하도록 하자.
+        httpSecurity.formLogin((formLogin) -> formLogin.loginPage("/login"));
         httpSecurity.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")));
 
         return httpSecurity.build();
