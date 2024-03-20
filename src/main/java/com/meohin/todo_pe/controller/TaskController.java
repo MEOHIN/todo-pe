@@ -146,6 +146,12 @@ public class TaskController {
         String userSubject = taskVO.getInputSubject();  // 사용자 제목 입력값
         byteLength = userSubject.getBytes(StandardCharsets.UTF_8).length;
         isWithinByteLimit = byteLength <= 60;
+        // 로그인페이지에서 입력미스 등의 이유로 로그인 실패시, 스프링시큐리티의 디퐅트 페이지인 자격증명실패 페이지로 이동한다.
+        // 스프링시큐리티 설정에서 로그인 리다이렉트 설정에 다음과 같은 코드를 추가하면 이를 해결할 수 있다.
+        //      옵션1) .defaultSuccessUrl("/")
+        //      옵션2) .failureUrl("/login?error=true")
+        // 이 상황과 맞물려서 로그인 오류에 대한 스프링시큐리티 설정이 없으면 어떤 경우 문제가 될까?
+        //      예시 상황: 의도치않게 서버가 다운됐는데, 아래와 같이 로그인페이지 이외의 페이지에서 입력 오류 있다면 스프링시큐리티의 디퐅트 페이지인 자격증명실패 페이지로 이동하지 않을까?
         if (!isWithinByteLimit) { return "task_form";}
 
         // 내용 길이 검증
