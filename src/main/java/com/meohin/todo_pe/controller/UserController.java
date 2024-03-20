@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 
@@ -87,5 +88,36 @@ public class UserController {
             return "/login/signup_form";
         }
         return "redirect:/task/list";
+    }
+
+    // Without Spring security, 사용자 세션에 인증 여부를 저장하고, 검증할 때, 세션에 담긴 인증 정보를 통화 확인
+    // 저장시 logged=true 또는 회원 아이디 정보를 저장, 인증할 때는 이 정보가 세션에 있는지 여부를 검사해서 확인. 있으면 인증된 사용자, 없으면 인증되지 않은 사용자.
+    // 인증 넘어서면 -> 인가 회원 레벨에 따라 접근가능한 URL이 달라질 수 있음.
+    // 인가는 규칙, 레벨이 있고, 허용할 기능 ADMIN, MANAGER, USER, GUEST
+    // Security 대표적으로 DB에 이룰을 저장하고, SErucitry 연동.
+    // 회원 가입당시 , 인가 (접근 제어 , access-control) 된 권한레벨을 동시 지정. default GUEST 하고,
+    // 관리자가 직접 권한을 부여하는 것.
+    @PostMapping("/loginCheck")
+    public String loginCheck(@RequestBody String userId, @RequestBody String pw) {
+        //TODO: process POST request
+
+        // 직접 DB에 접속해서 쿼리
+        // 정보가 있으면 승인 없으면 미승인
+
+        // 승인이면 = 세션에 로그인 정보를 담아.
+        // 세션 접속할 때마다 메모리상에 접속자의 세션 ID로 기록되어 있어.
+        // 해당 세션에 정보를 담아.
+        // Key - value
+        // logged = true
+
+        // 판단
+        // 필요한 곳에서 세션이 정상인 확인하는 작업
+        // 현재 접속자의 세션 ID를 가져오고, 이 변수에 logged가 true 승인
+        // 매번 코드를 넣어야 한다.
+        // AOP 를 쓴다.
+        // pointcut 이게 적용할 곳. before request
+        // 요청 전단계에 함수나 메서드의 규칙 정할 수 있다. **Controller 클래스의 메서드에 아래 코드를 적용한다.
+        // 검증하는 코드를 집어 넣으면 된다.
+        return "";
     }
 }
