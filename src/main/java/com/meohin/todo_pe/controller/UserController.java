@@ -21,9 +21,38 @@ public class UserController {
     @GetMapping("/login")
     public String login(Principal principal) {
         if (principal != null) {
+            // 서버가 클라이언트한테 응답을 보낸다. HTML로 보내는게 아니라. redirect 하라는 http status를 보내는 것임.
+            // 브라우저는 HTML이 아니니까 렌더링안하고, http status 가 304 redirect 이기 떄문에 , 바로 해당 URL로 이동시킴.
+            // 브라우저는 /task/list URL로 이동하게됨. 이 의미는 /task/list 라는 리소스를 서버에 요청하는 것임.
+            // 즉, /task/list 컨트롤러에 가게됨. (실제로는 Spring의 모든 단계를 거치고, Spring Security  등을 거쳐 Controller 까지 닿는 것임)
+            // 자세한 내용은 Spring MVC architecture diagram 참고.
+            // 위 아키텍쳐에서 Spring Security가 어디에 끼어있고, 관여하는지 알면 좋음. Spring security architecture diagram
             return "redirect:/task/list";
         }
+
+        // Template File을 렌더링 해서 리턴하라.
+        // Template Engine 이 동작한다.
+        //  엔진의 종류가 여러개인데, 이중에 타임리프인걸 얘가 어떻게 알아차리지?
+        // 타임 리프인지 어떻게 알아볼까?
+        //      spring-boot-starter-thymeleaf 의존성을 추가하면 자동으로 설정이 구성된다.
+        //          viewResolver를 thymeleaf 로 대체하는 환경설정이 들어 있다.
+        //      만약 starter 가 아닌 그냥 thymeleaf 의존성을 추가하는 경우라면 (spring boot 가 아닌 spring 인경우)
+        //          개발자가 직접 viewResolver를 thymeleaf로 구성해야 한다.
+        //      만약 두개 이상의 템플릿 엔진이 의존성에 추가된 경우라면, 둘다 사용할 수 있지만,
+        //          어떤 상황에 어떤 엔진을 사용할지 명시적으로 개발자가 설정해야 한다.
+        //          application.properties 에 템플릿 엔진별로 해석할 템플릿 파일의 경로를 분리해서 설정하는 식이다.
+        // 아래 경로의 template 파일을 읽고, 변수 정보 등을 참조해서 html 문서를 서버에서 생성하게 되고, 이 결과를
+        // 클라이언트에 회신해준다.
+        // 브라우저는 회신받은 데이터가 HTML 이므로, 렌더링해서 보여주게 된다. http 프로토콜 (통신규약) = http header + http body(http body에는 html 문서가 담겨있음.)
+        // https://datatracker.ietf.org/doc/html/rfc2616 HTTP/1.1 프로토콜 구조에 맞춰서 헤더 + body 가 브라우저에 전송
+        // 브라우저가 헤더를 읽고, 해석하는 방식을 결정하고, 처리. html 문서는 text/html 형태로 렌더링하라는 정보가 헤더에 있음.
+        // 헤더는 브라우저가 서버로부터 받은 리소스를 어떻게 해석해야하는지 정보가 담겨있고, 실제 리소스 정보는 body에 담겨옴.
         return "login/login";
+
+        /* 터미널 프로그램인 MobaXterm을 사용하여 서버에 접속햇을 때 '템플릿 이름을 반환하는 방법의 문제'로 발생한 오류는 다음 링크의 해결법처럼
+        슬래시가 없어야 한다. "/login/login" 가 아닌 "login/login"가 옳다
+        * https://stackoverflow.com/questions/48963242/cannot-access-templates-running-spring-boot-with-jar
+        * */
     }
 
     @GetMapping("/signup")
