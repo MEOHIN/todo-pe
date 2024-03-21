@@ -21,6 +21,15 @@ public class MySQLAuthenticationProvider implements AuthenticationProvider {
     private final UserSecurityService userSecurityService;
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * Spring Security에 의해서 사용자가 전송한 id와 pw가 자동 매핑되는데, 기본값으로 설정되어야 하는 폼 이름이 있음.
+     *      username, password 임. 
+     * 따라서 login.html 에서 post로 보낼 input의 이름을 위와 동일하게 해주어야, Spring Security가 자동으로 Authentication의 인스턴스로 매핑해서 아래 메서드에 주입한다.
+     * 
+     * Security 환경설정을 통해 이 이름을 바꿀 수도 있다.
+     *      하지만 시간이 지나서 기본값이 username과 password 였다는걸 까마득히 잊거나, 잘 모르는 개발자가 코드를 보면, 인지하기 어려우므로,명시적으로 환경설정에 추가해주는게 좋을 수 있다.
+     *      또는 문서화 시키거나. (온 보딩, 팀에 합류하는데 필요한 어떤 학습. 프로젝트의 구조, 소스코드의 구조 등등.)
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
