@@ -60,7 +60,7 @@ public class TaskController {
      */
     @RequestMapping("/list")
     public String list(Model model, Principal principal) {
-        SiteUser user = this.userService.getUser(principal.getName());
+        SiteUser user = this.userService.getUser(principal.getName());  // principal.getName()에는 login.html 의 form의 username 값이 들어있음.
 
         List<TaskWithMeasures> taskList = taskService.getTasksWithTaskMeasuresByUserId(user);
         model.addAttribute("tasksWithMeasures", taskList);
