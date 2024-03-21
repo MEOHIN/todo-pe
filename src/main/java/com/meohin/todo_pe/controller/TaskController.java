@@ -47,6 +47,14 @@ public class TaskController {
 
     /**
      * 모든 task를 조회하고, 조회된 목록을 Model 객체에 추가한다.
+     *      여기서 Model객체란? Spring MVC의 Model과 다른 의미다.
+     *          즉, HandlerMethodArgumentResolver가 Model에 파라미터를 담아서 주는게 아님.
+     *          Spring MVC가 빈(empty) Model instance를 만들어서 보냄.
+     *              이렇듯 이미 만들어서 보내기 때문에, 파라미터로 받아 사용하면 됨. New로 Model을 생성하는건 권장하지 않음.
+     *
+     *          파라미터 이름과 일치하는 getter, setter가 있는 클래스와 자동 매핑 가능.
+     *              ex) Params param.
+     *              @RequestParam과 동시 사용가능.
      * @param model Model 객체
      * @return Task 목록
      */
